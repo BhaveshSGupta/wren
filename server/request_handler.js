@@ -6,6 +6,12 @@ var headers = {
   "Content-Type": "application/json"
 };
 
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'little_bird',
+  database : 'little_bird'
+});
+
 exports.sendResponse = sendResponse = function(response, obj, status){
   status = status || 200;
   response.writeHead(status, headers);
