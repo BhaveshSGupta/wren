@@ -57,13 +57,11 @@ exports.eventHandler = function(req, res) {
           break;
         case '/seed-tweets':
           twit.search('bitcoin OR #bitcoin', function(data) {
-            console.log('data display: ', data);
-            
             for(var i = 0; i < data.statuses.length; i++) {
               var user = data.statuses[i].user.screen_name;
               var text = data.statuses[i].text;
               // convert timezone to San Francisco time
-              var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format();
+              var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD HH:MM:SS');
               connection.query("INSERT INTO Tweets (username, text, timestamp) VALUES (?, ?, ?)", 
                 [user, text, timestamp], 
                 function(err, rows, fields) {
