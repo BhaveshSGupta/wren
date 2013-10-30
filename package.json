@@ -14,5 +14,6 @@
     "mysql": "~2.0.0-alpha9",
     "twitter": "~0.2.4",
     "moment-timezone": "0.0.3",
+    "stanford-simple-nlp": "0.0.7"
   }
 }
