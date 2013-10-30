@@ -32,52 +32,43 @@ server.listen(port, ip);
 
 var scrapeTweets = function() {
   twit.search('bitcoin', {count: 100}, function(data) {
-    if(data){
+    if(data.statuses){
       for(var i = 0; i < data.statuses.length; i++) {
-        var username = data.statuses[i].user.screen_name;
-        var text = data.statuses[i].text;
-        // convert timezone to San Francisco time
-        var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD HH:MM:SS');
-        
-        // check if tweet already exists
-        connection.query("SELECT 1 FROM Tweets WHERE username=? AND timestamp=?", [username, timestamp],
-          function(err, rows, fields) {
-            if(err) {
-              console.log(err);
-              return;
-            }
-            // insert into database if doesn't already exist
-            if(rows.length === 0) {
-              connection.query("INSERT INTO Tweets (username, text, timestamp) VALUES (?, ?, ?)", 
-                [username, text, timestamp, username, timestamp], 
-                function(err, rows, fields) {
-                  if (err) {
-                    console.log(err);
+        // closure function to correctly pass 'i' into the callbacks
+        var closureFunc = function(i){
+          var username = data.statuses[i].user.screen_name;
+          var text = data.statuses[i].text;
+          // convert timezone to San Francisco time
+          var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD HH:MM:SS');
+
+          // check if tweet already exists
+          connection.query("SELECT 1 FROM Tweets WHERE username=? AND timestamp=?", [username, timestamp],
+            function(err, rows, fields) {
+              if(err) {
+                console.log(err);
+                return;
+              }
+
+              // insert into database if doesn't already exist
+              if(rows.length === 0) {
+                connection.query("INSERT INTO Tweets (username, text, timestamp) VALUES (?, ?, ?)", 
+                  [username, text, timestamp, username, timestamp], 
+                  function(err, rows, fields) {
+                    if (err) {
+                      console.log(err);
+                    }
                   }
-                }
-              );
+                );
+              }
             }
-          }
-        ); 
+          ); 
+        };
+        closureFunc(i);
       }
     }
     // get hashtag here
-    // need to convert timestamp to the proper timezone  
   });
 };
 
 // Using setInterval() for scraping since cronJob cannot schedule by the second
 setInterval(scrapeTweets, 6000);
-
-// var options = {
-//   annotators: ['tokenize', 'ssplit', 'pos', 'lemma', 'ner', 'parse', 'dcoref']
-// };
-
-// var stanfordSimpleNLP = new StanfordSimpleNLP(function(err) {
-//   stanfordSimpleNLP.process('This is so good.', function(err, result) {
-//     if(err) {
-//       console.log('err:', err);
-//     }
-//     console.log('success: ', result.document.sentences.sentence);
-//   });
-// });
