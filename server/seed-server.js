@@ -9,6 +9,7 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'little_bird',
   database : 'little_bird',
+  charset  : 'utf-8',
   multipleStatements: true
 });
 
@@ -29,19 +30,34 @@ server.listen(port, ip);
 
 var scrapeTweets = function() {
   twit.search('bitcoin', {count: 100}, function(data) {
-    for(var i = 0; i < data.statuses.length; i++) {
-      var username = data.statuses[i].user.screen_name;
-      var text = data.statuses[i].text;
-      // convert timezone to San Francisco time
-      var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD HH:MM:SS');
-      connection.query("INSERT INTO Tweets (username, text, timestamp) VALUES (?, ?, ?)", 
-        [username, text, timestamp], 
-        function(err, rows, fields) {
-          if (err) {
-            console.log(err);
+    if(data){
+      for(var i = 0; i < data.statuses.length; i++) {
+        var username = data.statuses[i].user.screen_name;
+        var text = data.statuses[i].text;
+        // convert timezone to San Francisco time
+        var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD HH:MM:SS');
+        
+        // check if tweet already exists
+        connection.query("SELECT 1 FROM Tweets WHERE username=? AND timestamp=?", [username, timestamp],
+          function(err, rows, fields) {
+            if(err) {
+              console.log(err);
+              return;
+            }
+            // insert into database if doesn't already exist
+            if(rows.length === 0) {
+              connection.query("INSERT INTO Tweets (username, text, timestamp) VALUES (?, ?, ?)", 
+                [username, text, timestamp, username, timestamp], 
+                function(err, rows, fields) {
+                  if (err) {
+                    console.log(err);
+                  }
+                }
+              );
+            }
           }
-        // connection.end();
-      });
+        ); 
+      }
     }
     // get hashtag here
     // need to convert timestamp to the proper timezone  
