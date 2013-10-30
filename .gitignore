@@ -1,6 +1,7 @@
 # API Info        #
 ###################
 api.config
+node_modules/
 
 # Compiled source #
 ###################

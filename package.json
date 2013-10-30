@@ -6,13 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Collen.the.Jones",
   "license": "BSD-2-Clause",
   "dependencies": {
     "mtgox": "~1.0.1",
-    "bitstamp": "0.0.5",
-    "btc-e": "0.0.11",
-    "bitcoincharts": "0.0.7",
     "csv": "~0.3.6",
     "mysql": "~2.0.0-alpha9"
   }
