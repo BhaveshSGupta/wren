@@ -56,9 +56,10 @@ exports.eventHandler = function(req, res) {
           res.end("GET method received");
           break;
         case '/seed-tweets':
-          twit.get('/statuses/show/27593302936.json', {include_entities:true}, function(data) {
+          var data = twit.search('bitcoin OR #bitcoin', function(data) {
             console.log(util.inspect(data));
           });
+          
           res.writeHead(200, headers);
           res.end("time to seed some tweets!");
           break;
