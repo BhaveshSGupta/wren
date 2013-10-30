@@ -1,5 +1,4 @@
 var http = require("http");
-var cronJob = require('cron').CronJob;
 var twitter = require('twitter');
 var moment = require('moment-timezone');
 var mysql = require('mysql');
@@ -49,10 +48,5 @@ var scrapeTweets = function() {
   });
 };
 
-var job = new cronJob('06 * * * * *', function(){
-    scrapeTweets();
-  }, function () {
-    console.log('Cache updated');
-  },
-  true /* Start the job right now */
-);
+// Using setInterval() for scraping since cronJob cannot schedule by the second
+setInterval(scrapeTweets, 6000);
