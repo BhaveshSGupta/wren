@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var url = require('url');
 
 var headers = {
   "access-control-allow-origin": "*",
@@ -32,12 +33,26 @@ var collectData = function(request, callback){
 
 exports.eventHandler = function(req, res) {
   console.log("Serving request type " + req.method + " for url " + req.url);
-  
+  var pathName = url.parse(req.url).pathname;
+
   switch(req.method) {
     case 'GET':
-      res.writeHead(200, headers);
-      res.end("GET method received");
+      switch(pathName) {
+        case '/':
+          res.writeHead(200, headers);
+          res.end("GET method received");
+          break;
+        case '/seed':
+          res.writeHead(200, headers);
+          res.end("time to import some CSVs");
+          break;
+        default:
+          res.writeHead(404, headers);
+          res.end("File not found.");
+          break;  
+      }
       break;
+
     case 'POST':
       res.writeHead(200, headers);
       res.end("POST method received");
@@ -52,6 +67,6 @@ exports.eventHandler = function(req, res) {
       break;
   }
 
-
+  
   
 };
