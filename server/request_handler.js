@@ -1,3 +1,5 @@
+var mysql = require('mysql');
+
 var headers = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -30,6 +32,26 @@ var collectData = function(request, callback){
 
 exports.eventHandler = function(req, res) {
   console.log("Serving request type " + req.method + " for url " + req.url);
-  res.writeHead(200, headers);
-  res.end("You got this!");
+  
+  switch(req.method) {
+    case 'GET':
+      res.writeHead(200, headers);
+      res.end("GET method received");
+      break;
+    case 'POST':
+      res.writeHead(200, headers);
+      res.end("POST method received");
+      break;
+    case 'OPTIONS':
+      res.writeHead(200, headers);
+      res.end("OPTIONS method received");
+      break;
+    default:
+      res.writeHead(501, headers);
+      res.end('unrecognized request method');
+      break;
+  }
+
+
+  
 };
