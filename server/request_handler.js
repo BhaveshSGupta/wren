@@ -9,7 +9,6 @@ var headers = {
   "Content-Type": "application/json"
 };
 
-
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'little_bird',
