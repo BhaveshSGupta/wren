@@ -9,6 +9,7 @@ var headers = {
   "Content-Type": "application/json"
 };
 
+
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'little_bird',
@@ -42,10 +43,6 @@ exports.eventHandler = function(req, res) {
           res.writeHead(200, headers);
           res.end("GET method received");
           break;
-        case '/seed':
-          res.writeHead(200, headers);
-          res.end("time to import some CSVs");
-          break;
         default:
           res.writeHead(404, headers);
           res.end("File not found.");
@@ -66,7 +63,4 @@ exports.eventHandler = function(req, res) {
       res.end('unrecognized request method');
       break;
   }
-
-  
-  
 };
