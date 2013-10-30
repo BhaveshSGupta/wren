@@ -2,6 +2,8 @@ var http = require("http");
 var twitter = require('twitter');
 var moment = require('moment-timezone');
 var mysql = require('mysql');
+var JAVA = require('java');
+var StanfordSimpleNLP = require('stanford-simple-nlp').StanfordSimpleNLP;
 var api = require('../api.config');
 var requestHandler = require("./request_handler.js");
 
@@ -66,3 +68,16 @@ var scrapeTweets = function() {
 
 // Using setInterval() for scraping since cronJob cannot schedule by the second
 setInterval(scrapeTweets, 6000);
+
+// var options = {
+//   annotators: ['tokenize', 'ssplit', 'pos', 'lemma', 'ner', 'parse', 'dcoref']
+// };
+
+// var stanfordSimpleNLP = new StanfordSimpleNLP(function(err) {
+//   stanfordSimpleNLP.process('This is so good.', function(err, result) {
+//     if(err) {
+//       console.log('err:', err);
+//     }
+//     console.log('success: ', result.document.sentences.sentence);
+//   });
+// });
