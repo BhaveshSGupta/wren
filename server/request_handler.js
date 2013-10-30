@@ -1,6 +1,10 @@
 var mysql = require('mysql');
 var url = require('url');
+var util = require('util');
+var twitter = require('twitter');
+var api = require('../api.config');
 
+// Define CORS headers
 var headers = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -9,10 +13,19 @@ var headers = {
   "Content-Type": "application/json"
 };
 
+// Establish connction to MySQL server
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'little_bird',
   database : 'little_bird'
+});
+
+// Connect to Twitter API
+var twit = new twitter({
+  consumer_key: api.twitter.key,
+  consumer_secret: api.twitter.secret,
+  access_token_key: api.twitter.access_token,
+  access_token_secret: api.twitter.access_token_secret
 });
 
 exports.sendResponse = sendResponse = function(response, obj, status){
@@ -41,6 +54,13 @@ exports.eventHandler = function(req, res) {
         case '/':
           res.writeHead(200, headers);
           res.end("GET method received");
+          break;
+        case '/seed-tweets':
+          twit.get('/statuses/show/27593302936.json', {include_entities:true}, function(data) {
+            console.log(util.inspect(data));
+          });
+          res.writeHead(200, headers);
+          res.end("time to seed some tweets!");
           break;
         default:
           res.writeHead(404, headers);
