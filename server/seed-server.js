@@ -5,6 +5,8 @@ var mysql = require('mysql');
 var mtgox = require('mtgox');
 var Topsy = require('node-topsy');
 var api = require('../api.config');
+var sys = require('sys');
+var exec = require('child_process').exec;
 var requestHandler = require("./request_handler.js");
 
 // establish database connection
@@ -47,13 +49,14 @@ var scrapeTweets = function() {
       for(var i = 0; i < data.statuses.length; i++) {
         // closure function to correctly pass 'i' into the callbacks
         var closureFunc = function(i){
+          var tweet_id = data.statuses[i].id.toString();
           var username = data.statuses[i].user.screen_name;
           var text = data.statuses[i].text;
           // convert timezone to San Francisco time
           var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD hh:mm:ss');
 
           // check if tweet already exists
-          connection.query("SELECT 1 FROM Tweets WHERE username=? AND timestamp=?", [username, timestamp],
+          connection.query("SELECT 1 FROM Tweets WHERE tweet_id=?", [tweet_id],
             function(err, rows, fields) {
               if(err) {
                 console.log(err);
@@ -62,8 +65,8 @@ var scrapeTweets = function() {
 
               // insert into database if doesn't already exist
               if(rows.length === 0) {
-                connection.query("INSERT INTO Tweets (username, text, timestamp) VALUES (?, ?, ?)", 
-                  [username, text, timestamp, username, timestamp], 
+                connection.query("INSERT INTO Tweets (username, text, timestamp, tweet_id) VALUES (?, ?, ?, ?)", 
+                  [username, text, timestamp, tweet_id, username, timestamp], 
                   function(err, rows, fields) {
                     if (err) {
                       console.log(err);
@@ -120,6 +123,56 @@ var scrapeMtGox = function(){
 // topsy.getSearch({"q": "bitcoins", limit: 20000}, function(error, result) {
 //     console.log(result);
 // });
+
+function puts(error, stdout, stderr) {
+  var output = stderr.split('\n');
+  var sentiment;
+  for(var i = 0; i < output.length; i++){
+    switch(output[i]){
+      case "  Predicted sentiment: Very positive":
+        sentiment = 4;
+        break;
+      case "  Predicted sentiment: Positive":
+        sentiment = 3;
+        break;
+      case "  Predicted sentiment: Neutral":
+        sentiment = 2;
+        break;
+      case "  Predicted sentiment: Negative":
+        sentiment = 1;
+      case "  Predicted sentiment: Very negative":
+        sentiment = 0;
+        break;
+      default:
+        break;
+    }
+  }
+  console.log('sentiment:', sentiment);
+}
+
+exec('java -cp "deeply_moving/*" -mx5g edu.stanford.nlp.sentiment.SentimentPipeline -file deeply_moving/vpos.txt', puts);
+
+var storeSentiment = function(tweet_id){
+  // 1. save message to a file
+  connection.query("SELECT * FROM tweets_copy",
+    function(err, rows, fields) {
+      if(err) {
+        console.log(err);
+      }
+      // only check if sentiment is NULL
+      if(rows[0].sentiment === null){
+        // create file containing message text
+
+      }
+    }
+  );
+  // 2. run Deeply Moving on the text file
+  // 3. parse sentiment
+  // 4. store sentiment in Tweet table
+  // 5. delete text file
+};
+
+storeSentiment();
 
 // Using setInterval() for scraping since cronJob cannot schedule by the second
 setInterval(scrapeTweets, 6000);  // Twitter API Rate Limit is 180 requests per 15 min
