@@ -1,7 +1,11 @@
+# Module Info     #
+###################
+node_modules/
+node_modules/mtgox/package.json
+
 # API Info        #
 ###################
 api.config
-node_modules/
 
 # Compiled source #
 ###################
