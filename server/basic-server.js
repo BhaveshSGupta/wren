@@ -2,8 +2,7 @@ var http = require("http");
 var fs = require("fs");
 var Topsy = require('node-topsy');
 var requestHandler = require("./request_handler.js");
-var scrapers = require("./helpers/scrapers.js");
-var sentiment = require("./helpers/sentiment.js");
+var scrapers = require("./scrapers.js");
 
 var port = 8080;
 var ip = "127.0.0.1";
