@@ -2,6 +2,8 @@ var twitter = require('twitter');
 var moment = require('moment-timezone');
 var mysql = require('mysql');
 var mtgox = require('mtgox');
+var analyze = require('sentimental').analyze;
+var sentiment = require('./sentiment.js');
 var api = require('../../api.config');
 
 // establish database connection
@@ -34,39 +36,44 @@ gox = new MtGox({
 exports.scrapeTweets = function() {
   twit.search('bitcoin OR bitcoins OR #mtgox OR #bitstamp OR #btce', {lang: 'en', count: 100}, function(data) {
     if(data.statuses){
+      var closureFunc = function(i){
+        var tweet_id = data.statuses[i].id.toString();
+        var username = data.statuses[i].user.screen_name;
+        var text = data.statuses[i].text;
+        // remove non-unicode characters (probably better to whitelist what I will accept rather than create a blacklist)
+        text.replace( /([^\x00-\xFF]|\s)*$/g, '' );
+        // convert timezone to San Francisco time
+        var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD hh:mm:ss');
+        
+
+        // check that tweet does not already exist
+        connection.query("SELECT 1 FROM Tweets WHERE tweet_id=?", [tweet_id],
+          function(err, rows, fields) {
+            if(err) {
+              console.log(err);
+              return;
+            }
+
+            // insert into database if doesn't already exist
+            if(rows.length === 0) {
+              // need to throttle or will choke the system
+              // var tweet_sentiment = sentiment.calcSentiment(tweet_id, text);
+              var tweet_sentiment = analyze(text).score;
+              // console.log('text: ', text, 'sentiment: ', analyze(text).score);
+              connection.query("INSERT INTO Tweets (username, text, timestamp, sentiment, tweet_id) VALUES (?, ?, ?, ?, ?)", 
+                [username, text, timestamp, tweet_sentiment, tweet_id], 
+                function(err, rows, fields) {
+                  if (err) {
+                    console.log(err);
+                  }
+                }
+              );
+            }
+          }
+        ); 
+      };
       for(var i = 0; i < data.statuses.length; i++) {
         // closure function to correctly pass 'i' into the callbacks
-        var closureFunc = function(i){
-          var tweet_id = data.statuses[i].id.toString();
-          var username = data.statuses[i].user.screen_name;
-          var text = data.statuses[i].text;
-          // remove non-unicode characters (probably better to whitelist what I will accept rather than create a blacklist)
-          text.replace( /([^\x00-\xFF]|\s)*$/g, '' );
-          // convert timezone to San Francisco time
-          var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD hh:mm:ss');
-
-          // check if tweet already exists
-          connection.query("SELECT 1 FROM Tweets WHERE tweet_id=?", [tweet_id],
-            function(err, rows, fields) {
-              if(err) {
-                console.log(err);
-                return;
-              }
-
-              // insert into database if doesn't already exist
-              if(rows.length === 0) {
-                connection.query("INSERT INTO Tweets (username, text, timestamp, tweet_id) VALUES (?, ?, ?, ?)", 
-                  [username, text, timestamp, tweet_id, username, timestamp], 
-                  function(err, rows, fields) {
-                    if (err) {
-                      console.log(err);
-                    }
-                  }
-                );
-              }
-            }
-          ); 
-        };
         closureFunc(i);
       }
     }
