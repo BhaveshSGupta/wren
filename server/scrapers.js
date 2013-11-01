@@ -1,15 +1,8 @@
-var http = require("http");
-var fs = require("fs");
 var twitter = require('twitter');
 var moment = require('moment-timezone');
 var mysql = require('mysql');
 var mtgox = require('mtgox');
-var Topsy = require('node-topsy');
 var api = require('../api.config');
-var sys = require('sys');
-var exec = require('child_process').exec;
-// var execSync = require("exec-sync");
-var requestHandler = require("./request_handler.js");
 
 // establish database connection
 var connection = mysql.createConnection({
@@ -37,15 +30,8 @@ gox = new MtGox({
     secret: api.mtgox.secret
 });
 
-
-var port = 8080;
-var ip = "127.0.0.1";
-
-var server = http.createServer(requestHandler.eventHandler);
-console.log("Listening on http://" + ip + ":" + port);
-server.listen(port, ip);
-
-var scrapeTweets = function() {
+// TODO: Refactor the scraper to use the same function call for different services
+exports.scrapeTweets = function() {
   twit.search('bitcoin OR bitcoins OR #mtgox OR #bitstamp OR #btce', {lang: 'en', count: 100}, function(data) {
     if(data.statuses){
       for(var i = 0; i < data.statuses.length; i++) {
@@ -88,8 +74,13 @@ var scrapeTweets = function() {
   });
 };
 
+// var topsy = new Topsy('YFDRGIFTRJN23G4LG1X2MNEWSKDAL2CU');
+// topsy.getSearch({"q": "bitcoins", limit: 20000}, function(error, result) {
+//     console.log(result);
+// });
+
 // get MtGox order depth
-var scrapeMtGox = function(){
+exports.scrapeMtGox = function(){
   gox.market('BTCUSD', function(err, depth) {
     if(depth) {
       var site = 1; // mtgox value in table
@@ -122,12 +113,3 @@ var scrapeMtGox = function(){
     }
   });
 }
-
-// var topsy = new Topsy('YFDRGIFTRJN23G4LG1X2MNEWSKDAL2CU');
-// topsy.getSearch({"q": "bitcoins", limit: 20000}, function(error, result) {
-//     console.log(result);
-// });
-
-// Using setInterval() for scraping since cronJob cannot schedule by the second
-setInterval(scrapeTweets, 6000);  // Twitter API Rate Limit is 180 requests per 15 min
-setInterval(scrapeMtGox, 30500);  // MtGox API Rate Limit is once per 30s

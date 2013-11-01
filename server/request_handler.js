@@ -1,5 +1,7 @@
 var url = require('url');
-var util = require('util');
+var mysql = require('mysql');
+var fs = require('fs');
+var path = require('path');
 
 
 // Define CORS headers
@@ -30,17 +32,30 @@ var collectData = function(request, callback){
 exports.eventHandler = function(req, res) {
   console.log("Serving request type " + req.method + " for url " + req.url);
   var pathName = url.parse(req.url).pathname;
+  var lookup = '../client/index.html';
+
+  // specify contentType based on file extension
+  var extname = path.extname(lookup);
+  var contentType;
+  switch(extname){
+    case '.js':
+      contentType = "text/javascript";
+      break;
+    case '.css':
+      contentType = "text/css";
+      break;
+    default:
+      contentType = "text/html";
+      break;
+  }
 
   switch(req.method) {
     case 'GET':
       switch(pathName) {
         case '/':
+          // send stat data to client
           res.writeHead(200, headers);
           res.end("GET method received");
-          break;
-        case '/seed-tweets':
-          res.writeHead(200, headers);
-          res.end("time to seed some tweets!");
           break;
         default:
           res.writeHead(404, headers);
