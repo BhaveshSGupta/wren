@@ -65,8 +65,32 @@ var runDeeplyMoving = function(filepath, callback){
   exec('java -cp "deeply_moving/*" -mx5g edu.stanford.nlp.sentiment.SentimentPipeline -file ' + filepath, callback);
 };
 
+/*********************************************
+ * EXPLANATION TO FUTURE SELF & OTHERS....
+ *
+ * Using Stanford's Deeply Moving library 
+ * which has almost no documentation at the
+ * time of this writing. 
+ * Steps:
+ *   1)  Query all tweets with no sentiment
+ *   2)   Save each tweet message to a file
+ *       (remove http:// link because
+ *        biases sentiment towards neutral)
+ *   3) Perform sentiment analysis in 
+ *        batches of 10. Scraping sentiment
+ *        from the console output
+ *        which is called asynchronously.
+ *        Chunking in groups of 10, with
+ *        a 15 second setTimeout to give my 
+ *        computer enough time to process
+ *        the sentiment, otherwise it
+ *        attemps to process all the files at
+ *        once and crashes my computer.
+ *   4)  Update sentiment in the DB &
+ *        delete file. 
+ ********************************************/
+
 var storeSentiment = function(tweet_id){
-  // 1. save messages to one file
   connection.query("SELECT * FROM tweets WHERE sentiment IS NULL",
     function(err, rows, fields) {
       if(err) {
@@ -79,7 +103,8 @@ var storeSentiment = function(tweet_id){
         runDeeplyMoving(filepath, function(err, stdout, stderr) {
           var sentiment = getSentiment(err, stdout, stderr);
           // insert sentiment into tweets_copy
-          connection.query("UPDATE tweets SET sentiment=? WHERE id=?", [sentiment, rows[i].id], 
+          connection.query("UPDATE tweets SET sentiment=? WHERE id=?", 
+            [sentiment, rows[i].id], 
             function(err, rows, fields) {
               if(err) {
                 console.log(err);
@@ -115,9 +140,6 @@ var storeSentiment = function(tweet_id){
 
     }
   );
-  
-  // 3. store sentiment in Tweet table
-  // 4. delete text file
 };
 
 storeSentiment();

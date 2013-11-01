@@ -2,7 +2,8 @@
 <html>
   <head>
     <title>little.bird</title>
-    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="../bower_components/jquery/jquery.min.js"></script>
+    <script src="../bower_components/moment/min/moment.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
@@ -10,22 +11,6 @@
       <h1>Little Bird</h1>
       <table>
         <thead>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </thead>
           <tr class='time'>
             <td>Time</td>
             <td></td>
@@ -41,6 +26,7 @@
             <td></td>
             <td></td>
           </tr>
+        </thead>
           <tr class='sentiment'>
             <td>Avg Sent</td>
             <td></td>
@@ -78,8 +64,14 @@
   </body>
 
   <script>
+    var first = new Date() - (1800000 * 12);
+
     $('tr.time td').each(function(index, value) {
-      $(this).html(new Date());
+      console.log('index', index);
+      if(index){
+        $(this).html(moment(first).format('hh:mm'));
+        first += 1800000;
+      }
     });
   </script>
 </html>
