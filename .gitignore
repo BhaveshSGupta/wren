@@ -6,6 +6,7 @@ node_modules/mtgox/package.json
 # Sentiment Analysis #
 ######################
 deeply_moving/
+db/data/sentiment/
 
 # API Info        #
 ###################

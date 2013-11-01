@@ -8,6 +8,7 @@ var Topsy = require('node-topsy');
 var api = require('../api.config');
 var sys = require('sys');
 var exec = require('child_process').exec;
+// var execSync = require("exec-sync");
 var requestHandler = require("./request_handler.js");
 
 // establish database connection
@@ -128,58 +129,74 @@ var scrapeMtGox = function(){
 //     console.log(result);
 // });
 
-function puts(error, stdout, stderr) {
+function getSentiment(error, stdout, stderr) {
   var output = stderr.split('\n');
-  var sentiment;
+  var sentimentArray = [];
   for(var i = 0; i < output.length; i++){
     switch(output[i]){
       case "  Predicted sentiment: Very positive":
-        sentiment = 4;
+        sentimentArray.push(4);
         break;
       case "  Predicted sentiment: Positive":
-        sentiment = 3;
+        sentimentArray.push(3);
         break;
       case "  Predicted sentiment: Neutral":
-        sentiment = 2;
+        sentimentArray.push(2);
         break;
       case "  Predicted sentiment: Negative":
-        sentiment = 1;
+        sentimentArray.push(1);
+        break;
       case "  Predicted sentiment: Very negative":
-        sentiment = 0;
+        sentimentArray.push(0);
         break;
       default:
         break;
     }
   }
-  console.log('sentiment:', sentiment);
+ 
+  var totSentiment = 0;
+  for(var i = 0; i < sentimentArray.length; i++){
+    totSentiment += sentimentArray[i];
+  }
+  return Math.round(totSentiment/sentimentArray.length);
 }
 
-exec('java -cp "deeply_moving/*" -mx5g edu.stanford.nlp.sentiment.SentimentPipeline -file deeply_moving/vpos.txt', puts);
+var runDeeplyMoving = function(filepath, callback){
+  exec('java -cp "deeply_moving/*" -mx5g edu.stanford.nlp.sentiment.SentimentPipeline -file ' + filepath, callback);
+};
 
 var storeSentiment = function(tweet_id){
-  // 1. save message to a file
+  // 1. save messages to one file
   connection.query("SELECT * FROM tweets_copy",
     function(err, rows, fields) {
       if(err) {
         console.log(err);
       }
-      // only check if sentiment is NULL
-      if(rows[0].sentiment === null){
-        // create file containing message text
-        fs.writeFile("db/data/sentiment/" + rows[0].tweet_id + rows[0].timestamp+".snt", rows[0].text, function(err){
-          if(err){
-            console.log(err);
-            return;
-          } 
-          console.log("File saved!");
+      var closureFunc = function(i, filepath) {
+        var text = rows[i].text.replace(/(\bhtt)\S+\b/g,'');  // strip out sites for analysis (they return neutral)
+        fs.writeFileSync(filepath, text + '\n');
+        runDeeplyMoving(filepath, function(err, stdout, stderr) {
+          var sentiment = getSentiment(err, stdout, stderr);
+          console.log('text: ', text, '[ sentiment: ', sentiment, ']');
         });
-      }
+      };
+      // while(i < rows.length) {
+        var end = Math.min(i + 10, rows.length);
+        for(var i = 0 ; i < 10; i++){
+          var filepath = "db/data/sentiment/" + rows[i].tweet_id + ".snt";
+          closureFunc(i, filepath);
+        }
+        i++;
+      // }
+      
+      // 2. run Deeply Moving on the text file and parse sentiment
+      //fs.unlinkSync(filepath);
+
     }
   );
-  // 2. run Deeply Moving on the text file
-  // 3. parse sentiment
-  // 4. store sentiment in Tweet table
-  // 5. delete text file
+  
+  // 3. store sentiment in Tweet table
+  // 4. delete text file
 };
 
 storeSentiment();
