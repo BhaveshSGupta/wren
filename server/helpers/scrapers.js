@@ -41,7 +41,7 @@ exports.scrapeTweets = function() {
         var username = data.statuses[i].user.screen_name;
         var text = data.statuses[i].text;
         // remove non-unicode characters (probably better to whitelist what I will accept rather than create a blacklist)
-        text.replace( /([^\x00-\xFF]|\s)*$/g, '' );
+        text = text.replace( /([^\x00-\xFF]|\s)*$/g, '' );
         // convert timezone to San Francisco time
         var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD hh:mm:ss');
         

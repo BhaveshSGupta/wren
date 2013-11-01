@@ -35,7 +35,7 @@ exports.recalcSentiment = function(){
       for(var i = 0; i < rows.length; i++){
         closureFunc(i);
       }
-      console.log('DONE CALCULATING HISTORICAL SENTIMENT!!!');
+      console.log('DONE CALCULATING SENTIMENT FOR ALL TWEETS!!!');
     });
 };
 
