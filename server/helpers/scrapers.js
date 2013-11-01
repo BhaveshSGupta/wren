@@ -2,7 +2,7 @@ var twitter = require('twitter');
 var moment = require('moment-timezone');
 var mysql = require('mysql');
 var mtgox = require('mtgox');
-var api = require('../api.config');
+var api = require('../../api.config');
 
 // establish database connection
 var connection = mysql.createConnection({

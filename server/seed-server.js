@@ -4,7 +4,7 @@ var Topsy = require('node-topsy');
 var api = require('../api.config');
 
 var requestHandler = require("./request_handler.js");
-var sentiment = require("./sentiment.js");
+var sentiment = require("./helpers/sentiment.js");
 
 var port = 8081;
 var ip = "127.0.0.1";
