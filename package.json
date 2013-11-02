@@ -15,7 +15,6 @@
     "twitter": "~0.2.4",
     "moment-timezone": "0.0.3",
     "stanford-simple-nlp": "0.0.7",
-    "java": "~0.2.7",
     "node-topsy": "~1.1.0"
   }
 }

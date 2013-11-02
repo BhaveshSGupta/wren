@@ -1,6 +1,5 @@
 var http = require("http");
 var fs = require("fs");
-var Topsy = require('node-topsy');
 var requestHandler = require("./request_handler.js");
 var scrapers = require("./helpers/scrapers.js");
 

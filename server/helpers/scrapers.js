@@ -1,4 +1,7 @@
+var http = require('http');
 var twitter = require('twitter');
+var fs = require('fs');
+var topsy = require('../../node_modules/node-topsy/lib/Topsy.js');
 var moment = require('moment-timezone');
 var mysql = require('mysql');
 var mtgox = require('mtgox');
@@ -80,7 +83,20 @@ exports.scrapeTweets = function() {
   });
 };
 
-// var topsy = new Topsy('YFDRGIFTRJN23G4LG1X2MNEWSKDAL2CU');
+
+// http.get('http://stream.topsy.com/v2/content/streaming.json?apikey=YFDRGIFTRJN23G4LG1X2MNEWSKDAL2CU&q=bitcoin%20OR%20bitcoins%20OR%20#bitcoin%20OR%20#mtgox%20OR%20#bitstamp%20OR%20#btce&mintime=1382936400&maxtime=1383409260', function(res){
+//   console.log("got response:" + res.statusCode);
+//   var data = "";
+//   res.on('data', function(chunk) {
+//     data += chunk;
+//   }).on('end', function() {
+//     fs.writeFileSync('scraped_data.dat', data);
+//   });
+// }).on('error', function(e) {
+//   console.log("Got error: " + e.message);
+// });
+
+// var topsy = new topsy(api.topsy.key);
 // topsy.getSearch({"q": "bitcoins", limit: 20000}, function(error, result) {
 //     console.log(result);
 // });
