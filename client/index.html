@@ -8,7 +8,7 @@
   </head>
   <body>
     <div id="container">
-      <h1>wren</h1>
+      <h1>wren <button class="refresh">Refresh Data</button></h1>
       <table>
         <thead>
           <tr class='time'>
@@ -77,16 +77,23 @@
       </table>
     </div>
   </body>
-
   <script>
-    var first = new Date() - (1800000 * 12);
+    $(document).ready(function() {
+      var startingTime = new Date() - (1800000 * 12);
 
-    $('tr.time td').each(function(index, value) {
-      console.log('index', index);
-      if(index){
-        $(this).html(moment(first).format('hh:mm'));
-        first += 1800000;
-      }
+      $('tr.time td').each(function(index, value) {
+        if(index){
+          $(this).html(moment(startingTime).format('hh:mm'));
+          startingTime += 1800000;
+        }
+      });
+
+      // clicking refresh button sends GET request to '/data'
+      $('button.refresh').click(function() {
+        $.get('http://127.0.0.1:8080/data', moment(startingTime).format('YYYY-MM-DD HH:mm:ss'),function(data){
+          console.log(data);
+        });
+      });
     });
   </script>
 </html>

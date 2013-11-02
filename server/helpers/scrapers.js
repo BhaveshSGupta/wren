@@ -43,8 +43,7 @@ exports.scrapeTweets = function() {
         // remove non-unicode characters (probably better to whitelist what I will accept rather than create a blacklist)
         text = text.replace( /([^\x00-\xFF]|\s)*$/g, '' );
         // convert timezone to San Francisco time
-        var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD hh:mm:ss');
-        
+        var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD HH:mm:ss');     
 
         // check that tweet does not already exist
         connection.query("SELECT 1 FROM Tweets WHERE tweet_id=?", [tweet_id],

@@ -3,7 +3,6 @@ var mysql = require('mysql');
 var fs = require('fs');
 var path = require('path');
 
-
 // Define CORS headers
 var headers = {
   "access-control-allow-origin": "*",
@@ -13,6 +12,15 @@ var headers = {
   "Content-Type": "application/json"
 };
 
+// establish database connection
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'little_bird',
+  database : 'little_bird',
+  charset  : 'utf-8',
+  multipleStatements: true
+});
+
 exports.sendResponse = sendResponse = function(response, obj, status){
   status = status || 200;
   response.writeHead(status, headers);
@@ -21,6 +29,9 @@ exports.sendResponse = sendResponse = function(response, obj, status){
 
 var collectData = function(request, callback){
   var data = "";
+  request.on('error', function(err){
+    console.log("ERROR: " + err.message);
+  });
   request.on('data', function(chunk){
     data += chunk;
   });
@@ -56,6 +67,14 @@ exports.eventHandler = function(req, res) {
           // send stat data to client
           res.writeHead(200, headers);
           res.end("GET method received");
+          break;
+        case '/data':
+          // get Tweet data
+          var timestamp = decodeURIComponent(url.parse(req.url).query, true);
+          console.log(timestamp);
+          // connection.query("SELECT * FROM tweets WHERE timestamp >= TO_TIMESTAMP(")
+          // res.writeHead(200, headers);
+          // res.end("GET method received at /data");
           break;
         default:
           res.writeHead(404, headers);
