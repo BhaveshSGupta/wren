@@ -4,12 +4,15 @@
     <title>wren</title>
     <script src="../bower_components/jquery/jquery.min.js"></script>
     <script src="../bower_components/moment/min/moment.min.js"></script>
+    <script src="../bower_components/Chart.js/Chart.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
     <div id="container">
       <h1>wren <button class="refresh">Refresh Data</button></h1>
-      <table>
+      <canvas id="myChart" width="400" height="400"></canvas>
+
+      <!-- <table>
         <thead>
           <tr class='time'>
             <td>Time</td>
@@ -74,7 +77,7 @@
           </tr>
         <tbody>
         </tbody>
-      </table>
+      </table> -->
     </div>
   </body>
   <script>
@@ -95,6 +98,34 @@
           console.log(data);
         });
       });
+
+      // fake data
+      var data = {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+        datasets: [
+          {
+            fillColor: "rgba(220, 220, 220, 0.5)",
+            strokeColor: "rgba(220, 220, 220, 1)",
+            pointColor: "rgba(220, 220, 220, 1)",
+            pointStrokeColor : "#fff",
+            data : [65,59,90,81,56,55,40]
+          },
+          {
+            fillColor : "rgba(151,187,205,0.5)",
+            strokeColor : "rgba(151,187,205,1)",
+            pointColor : "rgba(151,187,205,1)",
+            pointStrokeColor : "#fff",
+            data : [28,48,40,19,96,27,100]
+          }
+        ]
+      };
+
+      // get chart context
+      //Get the context of the canvas element we want to select
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var myNewChart = new Chart(ctx).Line(data, {scaleFontColor: '#ddd'});
+
+
     });
   </script>
 </html>
