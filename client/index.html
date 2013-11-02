@@ -80,11 +80,12 @@
   <script>
     $(document).ready(function() {
       var startingTime = new Date() - (1800000 * 12);
+      var timeDelta = startingTime;
 
       $('tr.time td').each(function(index, value) {
         if(index){
-          $(this).html(moment(startingTime).format('hh:mm'));
-          startingTime += 1800000;
+          $(this).html(moment(timeDelta).format('HH:mm'));
+          timeDelta += 1800000;
         }
       });
 

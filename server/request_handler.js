@@ -70,9 +70,24 @@ exports.eventHandler = function(req, res) {
           break;
         case '/data':
           // get Tweet data
-          var timestamp = decodeURIComponent(url.parse(req.url).query, true);
-          console.log(timestamp);
-          // connection.query("SELECT * FROM tweets WHERE timestamp >= TO_TIMESTAMP(")
+          var beginning_timedelta = decodeURIComponent(url.parse(req.url).query, true);
+          var next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
+          var timeDeltas = []; // {sentiment: , total: }
+          
+          console.log('begin', beginning_timedelta, 'next', next_timedelta);
+
+          connection.query("SELECT * FROM tweets WHERE timestamp >= ? AND timestamp < ?", [beginning_timedelta, next_timedelta], 
+            function(err, rows, fields) {
+              console.log('err', err);
+              console.log('rows', rows);
+              console.log('fields', fields);
+              timeDeltas.push({0: { sentiment: 0, total: rows }});
+              console.log(timeDeltas);
+            }
+          );  
+          beginning_timedelta = next_timedelta;
+          next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
+          
           // res.writeHead(200, headers);
           // res.end("GET method received at /data");
           break;
