@@ -89,7 +89,7 @@ exports.scrapeMtGox = function(){
       var site = 1; // mtgox value in table
       //var timestamp = moment(Math.floor(depth.timestamp / 1000)).tz("America/Los_Angeles").format('YYYY-MM-DD HH:MM:SS'); // convert timestamp to database format
       var timestamp = new Date(depth.timestamp/1000);
-      timestamp = moment(timestamp).format('YYYY-MM-DD hh:mm:ss');
+      timestamp = moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
       var volume = depth.volume;
       var value = depth.average;
       // need to convert timestamp

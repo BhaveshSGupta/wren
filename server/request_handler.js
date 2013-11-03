@@ -72,21 +72,26 @@ exports.eventHandler = function(req, res) {
           // get Tweet data
           var beginning_timedelta = decodeURIComponent(url.parse(req.url).query, true);
           var next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
-          var timeDeltas = []; // {sentiment: , total: }
-          
+          var timeDeltas = {}; // {sentiment: , total: }
+          var counter = 0;
           console.log('begin', beginning_timedelta, 'next', next_timedelta);
-
-          connection.query("SELECT * FROM tweets WHERE timestamp >= ? AND timestamp < ?", [beginning_timedelta, next_timedelta], 
-            function(err, rows, fields) {
-              console.log('err', err);
-              console.log('rows', rows);
-              console.log('fields', fields);
-              timeDeltas.push({0: { sentiment: 0, total: rows }});
-              console.log(timeDeltas);
-            }
-          );  
-          beginning_timedelta = next_timedelta;
-          next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
+          
+          for(var i = 0; i < 12; i++){
+            connection.query("SELECT AVG(value) FROM MarketMovement WHERE timestamp >= ? AND timestamp < ?", [beginning_timedelta, next_timedelta], 
+              function(err, rows, fields) {
+                counter++;
+                var avg = rows[0]['AVG(value)'];
+                timeDeltas[i] = avg;
+                console.log('rows:', rows, 'avg: ', avg);
+                if(counter === 11){
+                  res.writeHead(200, headers);
+                  res.end(JSON.stringify(timeDeltas));  
+                }
+              }
+            );
+            beginning_timedelta = next_timedelta;
+            next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
+          }
           
           // res.writeHead(200, headers);
           // res.end("GET method received at /data");
