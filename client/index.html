@@ -83,30 +83,29 @@
   <script>
     $(document).ready(function() {
       var startingTime = new Date() - (1800000 * 12);
-      var timeDeltas = [];
-      // for(var i = 0; i < 12; i++) {
-      //   timeDeltas.push(moment(startingTime).format('HH:mm'));
-      //   startingTime += 1800000;
-      // }
+      var timeDelta = startingTime;
 
-      // $('tr.time td').each(function(index, value) {
-      //   if(index){
-      //     $(this).html(moment(timeDelta).format('HH:mm'));
-      //     timeDelta += 1800000;
-      //   }
-      // });
+      $('tr.time td').each(function(index, value) {
+        if(index){
+          $(this).html(moment(timeDelta).format('HH:mm'));
+          timeDelta += 1800000;
+        }
+      });
 
       // clicking refresh button sends GET request to '/data'
       $('button.refresh').click(function() {
         $.get('http://127.0.0.1:8080/data', moment(startingTime).format('YYYY-MM-DD HH:mm:ss'),function(recvd){
-          //data.datasets[0].data.push(recvd);
-          // myNewChart = new Chart(ctx).Line(data, {scaleFontColor: '#ddd'});
+          for(var i = 0; i < 12; i++){
+            data.datasets[0].data[i] = recvd[i];
+          }
+          console.log('received data:', data.datasets[0].data);
+          myNewChart = new Chart(ctx).Line(data, {scaleFontColor: '#ddd'});
         });
       });
 
       // fake data
       var data = {
-        labels: timeDeltas,
+        labels: [1,2,3,4,5,6,7,8,9,10,11,12],
         datasets: [
           {
             fillColor: "rgba(220, 220, 220, 0.5)",
