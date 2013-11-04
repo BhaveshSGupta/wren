@@ -74,16 +74,16 @@ exports.eventHandler = function(req, res) {
           var next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
           var timeDeltas = {}; // {sentiment: , total: }
           var counter = 0;
-          console.log('begin', beginning_timedelta, 'next', next_timedelta);
           
           var closureFunc = function(i, begin, next){
-             connection.query("SELECT AVG(value) FROM MarketMovement WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
+            connection.query("SELECT AVG(value) FROM MarketMovement WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
               function(err, rows, fields) {
                 counter++;
                 var avg = rows[0]['AVG(value)'];
                 timeDeltas[i] = avg;
                 console.log('begin:', begin, 'next: ', next, 'avg: ', avg);
-                if(counter === 11){
+                if(counter === 12){
+                  console.log('DONE!');
                   res.writeHead(200, headers);
                   res.end(JSON.stringify(timeDeltas));  
                 }
@@ -96,9 +96,6 @@ exports.eventHandler = function(req, res) {
             beginning_timedelta = next_timedelta;
             next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
           }
-          
-          // res.writeHead(200, headers);
-          // res.end("GET method received at /data");
           break;
         default:
           res.writeHead(404, headers);
