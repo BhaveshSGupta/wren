@@ -46,19 +46,19 @@ exports.eventHandler = function(req, res) {
   var lookup = '../client/index.html';
 
   // specify contentType based on file extension
-  var extname = path.extname(lookup);
-  var contentType;
-  switch(extname){
-    case '.js':
-      contentType = "text/javascript";
-      break;
-    case '.css':
-      contentType = "text/css";
-      break;
-    default:
-      contentType = "text/html";
-      break;
-  }
+  // var extname = path.extname(lookup);
+  // var contentType;
+  // switch(extname){
+  //   case '.js':
+  //     contentType = "text/javascript";
+  //     break;
+  //   case '.css':
+  //     contentType = "text/css";
+  //     break;
+  //   default:
+  //     contentType = "text/html";
+  //     break;
+  // }
 
   switch(req.method) {
     case 'GET':
@@ -76,19 +76,23 @@ exports.eventHandler = function(req, res) {
           var counter = 0;
           console.log('begin', beginning_timedelta, 'next', next_timedelta);
           
-          for(var i = 0; i < 12; i++){
-            connection.query("SELECT AVG(value) FROM MarketMovement WHERE timestamp >= ? AND timestamp < ?", [beginning_timedelta, next_timedelta], 
+          var closureFunc = function(i, begin, next){
+             connection.query("SELECT AVG(value) FROM MarketMovement WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
               function(err, rows, fields) {
                 counter++;
                 var avg = rows[0]['AVG(value)'];
                 timeDeltas[i] = avg;
-                console.log('rows:', rows, 'avg: ', avg);
+                console.log('begin:', begin, 'next: ', next, 'avg: ', avg);
                 if(counter === 11){
                   res.writeHead(200, headers);
                   res.end(JSON.stringify(timeDeltas));  
                 }
               }
             );
+          };
+
+          for(var i = 0; i < 12; i++){
+            closureFunc(i, beginning_timedelta, next_timedelta);
             beginning_timedelta = next_timedelta;
             next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
           }

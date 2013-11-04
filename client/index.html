@@ -84,23 +84,23 @@
     $(document).ready(function() {
       var startingTime = new Date() - (1800000 * 12);
       var timeDeltas = [];
-      for(var i = 0; i < 12; i++) {
-        timeDeltas.push(moment(startingTime).format('HH:mm'));
-        startingTime += 1800000;
-      }
+      // for(var i = 0; i < 12; i++) {
+      //   timeDeltas.push(moment(startingTime).format('HH:mm'));
+      //   startingTime += 1800000;
+      // }
 
-      $('tr.time td').each(function(index, value) {
-        if(index){
-          $(this).html(moment(timeDelta).format('HH:mm'));
-          timeDelta += 1800000;
-        }
-      });
+      // $('tr.time td').each(function(index, value) {
+      //   if(index){
+      //     $(this).html(moment(timeDelta).format('HH:mm'));
+      //     timeDelta += 1800000;
+      //   }
+      // });
 
       // clicking refresh button sends GET request to '/data'
       $('button.refresh').click(function() {
         $.get('http://127.0.0.1:8080/data', moment(startingTime).format('YYYY-MM-DD HH:mm:ss'),function(recvd){
           //data.datasets[0].data.push(recvd);
-          myNewChart = new Chart(ctx).Line(data, {scaleFontColor: '#ddd'});
+          // myNewChart = new Chart(ctx).Line(data, {scaleFontColor: '#ddd'});
         });
       });
 

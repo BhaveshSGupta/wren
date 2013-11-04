@@ -34,11 +34,11 @@ gox = new MtGox({
   secret: api.mtgox.secret
 });
 
+
 // TODO: Refactor the scraper to use the same function call for different services
 exports.scrapeTweets = function () {
   twit.search('bitcoin OR bitcoins OR #mtgox OR #bitstamp OR #btce', {lang: 'en', count: 100}, function (data) {
     if (data.statuses) {
-      var i;
       var closureFunc = function (i) {
         var tweet_id = data.statuses[i].id.toString();
         var username = data.statuses[i].user.screen_name;
@@ -73,7 +73,7 @@ exports.scrapeTweets = function () {
             }
           });
       };
-      for (i = 0; i < data.statuses.length; i++) {
+      for (var i = 0; i < data.statuses.length; i++) {
         // closure function to correctly pass 'i' into the callbacks
         closureFunc(i);
       }
@@ -92,7 +92,6 @@ exports.scrapeMtGox = function () {
       timestamp = moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
       var volume = depth.volume;
       var value = depth.average;
-      // need to convert timestamp
       connection.query("SELECT 1 FROM MarketMovement WHERE timestamp=?", [timestamp],
         function (err, rows, fields) {
           if (err) {

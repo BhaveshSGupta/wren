@@ -20,7 +20,6 @@ exports.recalcSentiment = function () {
         console.log(err);
         return;
       }
-      var i;
       var closureFunc = function (i) {
         var scrubbedText = rows[i].text.replace(/(\bhtt)\S+\b/g, '');  // strip out sites for analysis (they return neutral)
         var tweet_sentiment = analyze(scrubbedText).score;
@@ -33,7 +32,7 @@ exports.recalcSentiment = function () {
             }
           });
       };
-      for (i = 0; i < rows.length; i++) {
+      for (var i = 0; i < rows.length; i++) {
         closureFunc(i);
       }
       console.log('DONE CALCULATING SENTIMENT FOR ALL TWEETS!!!');
@@ -69,8 +68,7 @@ exports.recalcSentiment = function () {
 function getSentiment(error, stdout, stderr) {
   var output = stderr.split('\n');
   var sentimentArray = [];
-  var i;
-  for (i = 0; i < output.length; i++) {
+  for (var i = 0; i < output.length; i++) {
     switch (output[i]) {
     case "  Predicted sentiment: Very positive":
       sentimentArray.push(4);
