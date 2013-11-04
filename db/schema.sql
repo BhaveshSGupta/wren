@@ -30,16 +30,6 @@ CREATE TABLE `Exchanges` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Exchanges`
---
-
-LOCK TABLES `Exchanges` WRITE;
-/*!40000 ALTER TABLE `Exchanges` DISABLE KEYS */;
-INSERT INTO `Exchanges` VALUES (1,'mtgox');
-/*!40000 ALTER TABLE `Exchanges` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Hashtags`
 --
 
@@ -52,15 +42,6 @@ CREATE TABLE `Hashtags` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Hashtags`
---
-
-LOCK TABLES `Hashtags` WRITE;
-/*!40000 ALTER TABLE `Hashtags` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Hashtags` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Wallets`
@@ -79,15 +60,6 @@ CREATE TABLE `Wallets` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Wallets`
---
-
-LOCK TABLES `Wallets` WRITE;
-/*!40000 ALTER TABLE `Wallets` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Wallets` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `marketmovement`
 --
 
@@ -97,23 +69,15 @@ DROP TABLE IF EXISTS `marketmovement`;
 CREATE TABLE `marketmovement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `site` int(11) NOT NULL,
-  `timestamp` datetime NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `volume` decimal(12,2) NOT NULL,
   `value` decimal(12,2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `site_idx` (`site`),
+  KEY `timestamp` (`timestamp`),
   CONSTRAINT `site` FOREIGN KEY (`site`) REFERENCES `Exchanges` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6490363 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `marketmovement`
---
-
-LOCK TABLES `marketmovement` WRITE;
-/*!40000 ALTER TABLE `marketmovement` DISABLE KEYS */;
-/*!40000 ALTER TABLE `marketmovement` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `performance`
@@ -134,15 +98,6 @@ CREATE TABLE `performance` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `performance`
---
-
-LOCK TABLES `performance` WRITE;
-/*!40000 ALTER TABLE `performance` DISABLE KEYS */;
-/*!40000 ALTER TABLE `performance` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tweets`
 --
 
@@ -152,24 +107,18 @@ DROP TABLE IF EXISTS `tweets`;
 CREATE TABLE `tweets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
-  `message` varchar(150) NOT NULL,
-  `timestamp` datetime NOT NULL,
-  `hashtag` int(11) NOT NULL,
-  `sentiment` decimal(4,2) NOT NULL,
+  `text` varchar(255) DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `hashtag` int(11) DEFAULT NULL,
+  `sentiment` int(11) DEFAULT NULL,
+  `tweet_id` varchar(100) DEFAULT NULL,
+  `new_timestamp` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `hashtag_idx` (`hashtag`),
+  KEY `timestamp` (`timestamp`),
   CONSTRAINT `hashtag` FOREIGN KEY (`hashtag`) REFERENCES `Hashtags` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47120 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tweets`
---
-
-LOCK TABLES `tweets` WRITE;
-/*!40000 ALTER TABLE `tweets` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tweets` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -180,4 +129,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-29 20:19:57
+-- Dump completed on 2013-11-04 13:27:12
