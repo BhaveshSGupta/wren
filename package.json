@@ -10,11 +10,10 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "mtgox": "~1.0.1",
-    "csv": "~0.3.6",
     "mysql": "~2.0.0-alpha9",
     "twitter": "~0.2.4",
     "moment-timezone": "0.0.3",
-    "stanford-simple-nlp": "0.0.7",
-    "moment": "~2.4.0"
+    "moment": "~2.4.0",
+    "Sentimental": "0.0.4"
   }
 }
