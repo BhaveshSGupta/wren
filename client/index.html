@@ -74,7 +74,8 @@
             exchangeData.datasets[0].data = [];
             for(var i = 0; i < 12; i++){
               if(recvd[i] !== null) {
-                exchangeData.datasets[0].data[i] = recvd[i];
+                exchangeData.datasets[0].data[i] = recvd.mtgox.value[i];
+                tweetData.datasets[0].data[i] = recvd.tweets.total[i];
               }
             }
             var exchanges = new Chart(exchangeCtx).Line(exchangeData, {scaleFontColor: '#ddd', scaleLabel: "<%= '$' + value %>"});

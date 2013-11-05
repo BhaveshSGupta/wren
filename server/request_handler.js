@@ -2,6 +2,7 @@ var url = require('url');
 var mysql = require('mysql');
 var fs = require('fs');
 var path = require('path');
+var moment = require('moment');
 
 // Define CORS headers
 var headers = {
@@ -72,16 +73,32 @@ exports.eventHandler = function(req, res) {
           // get Tweet data
           var beginning_timedelta = decodeURIComponent(url.parse(req.url).query, true);
           var next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
-          var timeDeltas = {};
-          var counter = 0;
+          var timeDeltas = {mtgox: {volume: {}, value: {}}, tweets: { total: {}, sentiment: {}}};
+          var exchangeCounter = 0;
+          var tweetCounter = 0;
           
           var closureFunc = function(i, begin, next){
             connection.query("SELECT AVG(value) FROM MarketMovement WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
               function(err, rows, fields) {
-                counter++;
+                exchangeCounter++;
                 var avg = rows[0]['AVG(value)'];
-                timeDeltas[i] = avg;
-                if(counter === 12){
+                // do not send null data points
+                if(avg !== null){
+                  timeDeltas.mtgox.value[i] = avg;
+                }
+
+                if(exchangeCounter === 12 && tweetCounter === 12){
+                  res.writeHead(200, headers);
+                  res.end(JSON.stringify(timeDeltas));  
+                }
+              }
+            );
+            connection.query("SELECT COUNT(*) FROM Tweets WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
+              function(err, rows, fields) {
+                tweetCounter++;
+                var tot = rows[0]['COUNT(*)'];
+                timeDeltas.tweets.total[i] = tot;
+                if(exchangeCounter === 12 && tweetCounter === 12){
                   res.writeHead(200, headers);
                   res.end(JSON.stringify(timeDeltas));  
                 }
