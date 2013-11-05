@@ -10,9 +10,15 @@
   <body>
     <div id="container">
       <div class="logo">wren</div>
+      <div class="chart">
+        <header>MtGox</header>
+        <canvas id="mtGox" width="400" height="400"></canvas>
+      </div>
+      <div class="chart">
+        <header>Twitter Sentiment</header>
+        <canvas id="tweets" width="400" height="400"></canvas>
+      </div>
       <button class="refresh">Refresh Data</button>
-      <canvas id="mtGox" width="400" height="400"></canvas>
-      <canvas id="tweets" width="400" height="400"></canvas>
     </div>
     <script>
       $(document).ready(function() {
@@ -75,7 +81,7 @@
             for(var i = 0; i < 12; i++){
               if(recvd[i] !== null) {
                 exchangeData.datasets[0].data[i] = recvd.mtgox.value[i];
-                tweetData.datasets[0].data[i] = recvd.tweets.total[i];
+                tweetData.datasets[0].data[i] = recvd.tweets.sentiment[i];
               }
             }
             var exchanges = new Chart(exchangeCtx).Line(exchangeData, {scaleFontColor: '#ddd', scaleLabel: "<%= '$' + value %>"});

@@ -15,6 +15,10 @@ table, td {
   border-collapse: collapse;
 }
 
+.chart {
+  float: left;
+}
+
 .logo {
   color: #eee;
   font-family: 'Handwriting Draft';

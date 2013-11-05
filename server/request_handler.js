@@ -93,11 +93,11 @@ exports.eventHandler = function(req, res) {
                 }
               }
             );
-            connection.query("SELECT COUNT(*) FROM Tweets WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
+            connection.query("SELECT SUM(sentiment) FROM Tweets WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
               function(err, rows, fields) {
                 tweetCounter++;
-                var tot = rows[0]['COUNT(*)'];
-                timeDeltas.tweets.total[i] = tot;
+                var sentiment = rows[0]['SUM(sentiment)'];
+                timeDeltas.tweets.sentiment[i] = sentiment;
                 if(exchangeCounter === 12 && tweetCounter === 12){
                   res.writeHead(200, headers);
                   res.end(JSON.stringify(timeDeltas));  
