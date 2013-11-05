@@ -9,128 +9,84 @@
   </head>
   <body>
     <div id="container">
-      <h1>wren <button class="refresh">Refresh Data</button></h1>
+      <div class="logo">wren</div>
+      <button class="refresh">Refresh Data</button>
       <canvas id="mtGox" width="400" height="400"></canvas>
-
-      <!-- <table>
-        <thead>
-          <tr class='time'>
-            <td>Time</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </thead>
-          <tr class='mtgox'>
-            <td>MtGox</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr class='sentiment'>
-            <td>Sentiment</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr class='total'>
-            <td>Total</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        <tbody>
-        </tbody>
-      </table> -->
+      <canvas id="tweets" width="400" height="400"></canvas>
     </div>
-  </body>
-  <script>
-    $(document).ready(function() {
-      var startingTime = new Date() - (1800000 * 12);
-      var timeDeltas = [];
+    <script>
+      $(document).ready(function() {
+        var startingTime = new Date() - (1800000 * 12);
+        var timeDeltas = [];
 
-      // fake data
-      var data = {
-        labels: [],
-        datasets: [
-          // {
-          //   fillColor: "rgba(220, 220, 220, 0.5)",
-          //   strokeColor: "rgba(220, 220, 220, 1)",
-          //   pointColor: "rgba(220, 220, 220, 1)",
-          //   pointStrokeColor : "#fff",
-          //   data : []
-          // }/*,
-          {
-            fillColor : "rgba(151,187,205,0.5)",
-            strokeColor : "rgba(151,187,205,1)",
-            pointColor : "rgba(151,187,205,1)",
-            pointStrokeColor : "#fff",
-            data : [28,48,40,19,96,27,100]
-          }
-        ]
-      };
-
-      for (var i = 0; i < 12; i++) {
-        timeDeltas[i] = startingTime;
-        data.labels.push(moment(timeDeltas[i]).format('HH:mm'));
-        startingTime += 1800000;
-      }
-
-      // clicking refresh button sends GET request to '/data'
-      $('button.refresh').click(function() {
-        $.get('http://127.0.0.1:8080/data', moment(timeDeltas[0]).format('YYYY-MM-DD HH:mm:ss'),function(recvd){
-          // reset pre-existing data
-          data.datasets[0].data = [];
-          for(var i = 0; i < 12; i++){
-            if(recvd[i] !== null) {
-              data.datasets[0].data[i] = recvd[i];
+        // fake data
+        var exchangeData = {
+          labels: [],
+          datasets: [
+            // {
+            //   fillColor: "rgba(220, 220, 220, 0.5)",
+            //   strokeColor: "rgba(220, 220, 220, 1)",
+            //   pointColor: "rgba(220, 220, 220, 1)",
+            //   pointStrokeColor : "#fff",
+            //   data : []
+            // }/*,
+            {
+              fillColor : "rgba(151,187,205,0.5)",
+              strokeColor : "rgba(151,187,205,1)",
+              pointColor : "rgba(151,187,205,1)",
+              pointStrokeColor : "#fff",
+              data : [28,48,40,19,96,27,100]
             }
-          }
-          console.log('datasets: ', data.datasets[0].data);
-          var exchanges = new Chart(ctx).Line(data, {scaleFontColor: '#ddd', scaleLabel: "<%= '$' + value %>"});
-        });
-      });
+          ]
+        };
 
-      
-      // get chart context
-      //Get the context of the canvas element we want to select
-      var ctx = document.getElementById("mtGox").getContext("2d");
-    });
-  </script>
+        var tweetData = {
+          labels: [],
+          datasets: [
+            {
+              fillColor: "rgba(220, 220, 220, 0.5)",
+              strokeColor: "rgba(220, 220, 220, 1)",
+              pointColor: "rgba(220, 220, 220, 1)",
+              pointStrokeColor : "#fff",
+              data : []
+            }
+            // {
+            //   fillColor : "rgba(151,187,205,0.5)",
+            //   strokeColor : "rgba(151,187,205,1)",
+            //   pointColor : "rgba(151,187,205,1)",
+            //   pointStrokeColor : "#fff",
+            //   data : [28,48,40,19,96,27,100]
+            // }
+          ]
+        };
+
+        for (var i = 0; i < 12; i++) {
+          timeDeltas[i] = startingTime;
+          exchangeData.labels.push(moment(timeDeltas[i]).format('HH:mm'));
+          tweetData.labels.push(moment(timeDeltas[i]).format('HH:mm'));
+          startingTime += 1800000;
+        }
+
+        // clicking refresh button sends GET request to '/data'
+        $('button.refresh').click(function() {
+          $.get('http://127.0.0.1:8080/data', moment(timeDeltas[0]).format('YYYY-MM-DD HH:mm:ss'),function(recvd){
+            // reset pre-existing data
+            exchangeData.datasets[0].data = [];
+            for(var i = 0; i < 12; i++){
+              if(recvd[i] !== null) {
+                exchangeData.datasets[0].data[i] = recvd[i];
+              }
+            }
+            var exchanges = new Chart(exchangeCtx).Line(exchangeData, {scaleFontColor: '#ddd', scaleLabel: "<%= '$' + value %>"});
+            // display tweet sentiment chart
+            var tweets = new Chart(tweetCtx).Line(tweetData, {scaleFontColor: '#ddd'});
+          });
+        });
+
+        //Get the context of the canvas element we want to select
+        var exchangeCtx = document.getElementById("mtGox").getContext("2d");
+        var tweetCtx = document.getElementById("tweets").getContext("2d");
+      });
+    </script>
+  </body>
 </html>

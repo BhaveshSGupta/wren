@@ -72,7 +72,7 @@ exports.eventHandler = function(req, res) {
           // get Tweet data
           var beginning_timedelta = decodeURIComponent(url.parse(req.url).query, true);
           var next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
-          var timeDeltas = {}; // {sentiment: , total: }
+          var timeDeltas = {};
           var counter = 0;
           
           var closureFunc = function(i, begin, next){
@@ -81,9 +81,7 @@ exports.eventHandler = function(req, res) {
                 counter++;
                 var avg = rows[0]['AVG(value)'];
                 timeDeltas[i] = avg;
-                console.log('begin:', begin, 'next: ', next, 'avg: ', avg);
                 if(counter === 12){
-                  console.log('DONE!');
                   res.writeHead(200, headers);
                   res.end(JSON.stringify(timeDeltas));  
                 }
