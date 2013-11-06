@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 var fs = require("fs");
 var sys = require('sys');
-var analyze = require('sentimental').analyze;
+var analyze = require('Sentimental').analyze;
 var exec = require('child_process').exec;  // no longer needed
 
 
