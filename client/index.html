@@ -74,7 +74,7 @@
             startingTime += 1800000;
           }
 
-          $.get('http://127.0.0.1:8080/data', moment(timeDeltas[0]).format('YYYY-MM-DD HH:mm:ss'),function(recvd){
+          $.get('http://127.0.0.1:5000/data', moment(timeDeltas[0]).format('YYYY-MM-DD HH:mm:ss'),function(recvd){
             // Reset pre-existing data
             exchangeData.datasets[0].data = [];
             tweetData.datasets[0].data = [];
