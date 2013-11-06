@@ -12,6 +12,7 @@ db/data/sentiment/
 # API Info        #
 ###################
 api.config
+*.env
 
 # Compiled source #
 ###################
