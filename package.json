@@ -14,9 +14,9 @@
     "twitter": "~0.2.4",
     "moment-timezone": "0.0.3",
     "moment": "~2.4.0",
-    "Sentimental": "https://github.com/thinkroth/Sentimental/tarball/master",
     "bitstamp-request": "~0.1.2",
-    "bower": "~1.2.7"
+    "bower": "~1.2.7",
+    "Sentimental": "0.0.4"
   },
   "engines": {
     "node": "0.10.x",
