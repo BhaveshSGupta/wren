@@ -3,15 +3,14 @@ var fs = require("fs");
 var sys = require('sys');
 var analyze = require('sentimental').analyze;
 var exec = require('child_process').exec;  // no longer needed
-var api = require('../../api.config');
 
 
 // establish database connection
 var connection = mysql.createConnection({
   host     : 'littlebird.c0eactkzzr6c.us-west-2.rds.amazonaws.com',
   port     : '3306',
-  user     : api.rds.user,
-  password : api.rds.pwd,
+  user     : process.env.AMAZON_RDS_USER,
+  password : process.env.AMAZON_RDS_PWD,
   database : 'wren',
   charset  : 'utf-8',
   multipleStatements: true

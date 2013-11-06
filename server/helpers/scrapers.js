@@ -7,14 +7,13 @@ var mtgox = require('mtgox');
 var Bitstamp = require('bitstamp-request');
 var analyze = require('sentimental').analyze;
 var sentiment = require('./sentiment.js');
-var api = require('../../api.config');
 
 // establish database connection
 var connection = mysql.createConnection({
   host     : 'littlebird.c0eactkzzr6c.us-west-2.rds.amazonaws.com',
   port     : '3306',
-  user     : api.rds.user,
-  password : api.rds.pwd,
+  user     : process.env.AMAZON_RDS_USER,
+  password : process.env.AMAZON_RDS_PWD,
   database : 'wren',
   charset  : 'utf-8',
   multipleStatements: true
@@ -22,22 +21,22 @@ var connection = mysql.createConnection({
 
 // Connect to Twitter API
 var twit = new twitter({
-  consumer_key: api.twitter.key,
-  consumer_secret: api.twitter.secret,
-  access_token_key: api.twitter.access_token,
-  access_token_secret: api.twitter.access_token_secret
+  consumer_key: process.env.TWITTER_KEY,
+  consumer_secret: process.env.TWITTER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
 // Key+secret is required to access the private API
 var gox = new mtgox({
-  key: api.mtgox.key,
-  secret: api.mtgox.secret
+  key: process.env.MTGOX_KEY,
+  secret: process.env.MTGOX_SECRET
 });
 
 
 // Connect to Bitstamp
 // var privateBitstamp = new Bitstamp(api.bitstamp.key, api.bitstamp.secret, api.bitstamp.clientID);
-var privateBitstamp = new Bitstamp(api.bitstamp.clientID, api.bitstamp.key, api.bitstamp.secret);
+var privateBitstamp = new Bitstamp(process.env.BITSTAMP_CLIENTID, process.env.BITSTAMP_KEY, process.env.BITSTAMP_SECRET);
 
 // TODO: Refactor the scraper to use the same function call for different services
 exports.scrapeTweets = function () {
