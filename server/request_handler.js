@@ -71,7 +71,7 @@ exports.eventHandler = function(req, res) {
         case '/':
           // send stat data to client
           res.writeHead(200, headers);
-          res.end("GET method received");
+          res.end("Could not create logplex drain. Please try again later.");
           break;
         case '/data':
           // get Tweet data
@@ -102,7 +102,6 @@ exports.eventHandler = function(req, res) {
               function(err, rows, fields) {
                 tweetCounter++;
                 var sentiment = rows[0]['SUM(sentiment)'];
-                console.log('sentiment: ', rows);
                 timeDeltas.tweets.sentiment[i] = sentiment;
                 if(exchangeCounter === 12 && tweetCounter === 12){
                   res.writeHead(200, headers);

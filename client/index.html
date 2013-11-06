@@ -78,6 +78,7 @@
           $.get('http://127.0.0.1:8080/data', moment(timeDeltas[0]).format('YYYY-MM-DD HH:mm:ss'),function(recvd){
             // reset pre-existing data
             exchangeData.datasets[0].data = [];
+            tweetData.datasets[0].data = [];
             for(var i = 0; i < 12; i++){
               if(recvd[i] !== null) {
                 exchangeData.datasets[0].data[i] = recvd.mtgox.value[i];
