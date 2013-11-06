@@ -14,6 +14,7 @@
     "twitter": "~0.2.4",
     "moment-timezone": "0.0.3",
     "moment": "~2.4.0",
-    "Sentimental": "0.0.4"
+    "Sentimental": "0.0.4",
+    "bitstamp-request": "~0.1.2"
   }
 }
