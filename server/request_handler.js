@@ -3,6 +3,8 @@ var mysql = require('mysql');
 var fs = require('fs');
 var path = require('path');
 var moment = require('moment');
+var api = require('../api.config');
+
 
 // Define CORS headers
 var headers = {
@@ -15,9 +17,11 @@ var headers = {
 
 // establish database connection
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'little_bird',
-  database : 'little_bird',
+  host     : 'littlebird.c0eactkzzr6c.us-west-2.rds.amazonaws.com',
+  port     : '3306',
+  user     : api.rds.user,
+  password : api.rds.pwd,
+  database : 'wren',
   charset  : 'utf-8',
   multipleStatements: true
 });
@@ -78,10 +82,11 @@ exports.eventHandler = function(req, res) {
           var tweetCounter = 0;
           
           var closureFunc = function(i, begin, next){
-            connection.query("SELECT AVG(value) FROM MarketMovement WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
+            connection.query("SELECT AVG(value) FROM marketmovement WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
               function(err, rows, fields) {
                 exchangeCounter++;
                 var avg = rows[0]['AVG(value)'];
+                
                 // do not send null data points
                 if(avg !== null){
                   timeDeltas.mtgox.value[i] = avg;
@@ -93,10 +98,11 @@ exports.eventHandler = function(req, res) {
                 }
               }
             );
-            connection.query("SELECT SUM(sentiment) FROM Tweets WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
+            connection.query("SELECT SUM(sentiment) FROM tweets WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
               function(err, rows, fields) {
                 tweetCounter++;
                 var sentiment = rows[0]['SUM(sentiment)'];
+                console.log('sentiment: ', rows);
                 timeDeltas.tweets.sentiment[i] = sentiment;
                 if(exchangeCounter === 12 && tweetCounter === 12){
                   res.writeHead(200, headers);

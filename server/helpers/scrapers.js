@@ -10,9 +10,11 @@ var api = require('../../api.config');
 
 // establish database connection
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'little_bird',
-  database : 'little_bird',
+  host     : 'littlebird.c0eactkzzr6c.us-west-2.rds.amazonaws.com',
+  port     : '3306',
+  user     : api.rds.user,
+  password : api.rds.pwd,
+  database : 'wren',
   charset  : 'utf-8',
   multipleStatements: true
 });
@@ -49,7 +51,7 @@ exports.scrapeTweets = function () {
         var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD HH:mm:ss');
 
         // check that tweet does not already exist
-        connection.query("SELECT 1 FROM Tweets WHERE tweet_id=?", [tweet_id],
+        connection.query("SELECT 1 FROM tweets WHERE tweet_id=?", [tweet_id],
           function (err, rows, fields) {
             if (err) {
               console.log(err);
@@ -62,7 +64,7 @@ exports.scrapeTweets = function () {
               // var tweet_sentiment = sentiment.calcSentiment(tweet_id, text);
               var tweet_sentiment = analyze(text).score;
               // console.log('text: ', text, 'sentiment: ', analyze(text).score);
-              connection.query("INSERT INTO Tweets (username, text, timestamp, sentiment, tweet_id) VALUES (?, ?, ?, ?, ?)",
+              connection.query("INSERT INTO tweets (username, text, timestamp, sentiment, tweet_id) VALUES (?, ?, ?, ?, ?)",
                 [username, text, timestamp, tweet_sentiment, tweet_id],
                 function (err, rows, fields) {
                   if (err) {
@@ -92,7 +94,7 @@ exports.scrapeMtGox = function () {
       timestamp = moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
       var volume = depth.volume;
       var value = depth.average;
-      connection.query("SELECT 1 FROM MarketMovement WHERE timestamp=?", [timestamp],
+      connection.query("SELECT 1 FROM marketmovement WHERE timestamp=?", [timestamp],
         function (err, rows, fields) {
           if (err) {
             console.log(err);
@@ -101,7 +103,7 @@ exports.scrapeMtGox = function () {
 
           // insert into database if doesn't already exist
           if (rows.length === 0) {
-            connection.query("INSERT INTO MarketMovement (site, timestamp, volume, value) VALUES (?, ?, ?, ?)",
+            connection.query("INSERT INTO marketmovement (site, timestamp, volume, value) VALUES (?, ?, ?, ?)",
               [site, timestamp, volume, value],
               function (err, rows, fields) {
                 if (err) {

@@ -2,13 +2,17 @@ var mysql = require('mysql');
 var fs = require("fs");
 var sys = require('sys');
 var analyze = require('sentimental').analyze;
-var exec = require('child_process').exec;
+var exec = require('child_process').exec;  // no longer needed
+var api = require('../../api.config');
+
 
 // establish database connection
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'little_bird',
-  database : 'little_bird',
+  host     : 'littlebird.c0eactkzzr6c.us-west-2.rds.amazonaws.com',
+  port     : '3306',
+  user     : api.rds.user,
+  password : api.rds.pwd,
+  database : 'wren',
   charset  : 'utf-8',
   multipleStatements: true
 });
