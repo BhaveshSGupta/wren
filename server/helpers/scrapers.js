@@ -5,7 +5,7 @@ var moment = require('moment-timezone');
 var mysql = require('mysql');
 var mtgox = require('mtgox');
 var Bitstamp = require('bitstamp-request');
-var analyze = require('sentimental').analyze;
+var analyze = require('Sentimental').analyze;
 var sentiment = require('./sentiment.js');
 
 // establish database connection
