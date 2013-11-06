@@ -3,7 +3,7 @@ var fs = require("fs");
 var requestHandler = require("./request_handler.js");
 var scrapers = require("./helpers/scrapers.js");
 
-var port = 8080;
+var port = process.env.PORT || 5000;
 var ip = "127.0.0.1";
 
 var server = http.createServer(requestHandler.eventHandler);
