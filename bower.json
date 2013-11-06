@@ -16,6 +16,8 @@
   "dependencies": {
     "jquery": "~2.0.3",
     "moment": "~2.4.0",
-    "Chart.js": "git://github.com/nnnick/Chart.js.git"
+    "Chart.js": "git://github.com/nnnick/Chart.js.git",
+    "backbone": "~1.1.0",
+    "underscore": "~1.5.2"
   }
 }
