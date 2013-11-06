@@ -4,6 +4,7 @@ var fs = require('fs');
 var moment = require('moment-timezone');
 var mysql = require('mysql');
 var mtgox = require('mtgox');
+var Bitstamp = require('bitstamp-request');
 var analyze = require('sentimental').analyze;
 var sentiment = require('./sentiment.js');
 var api = require('../../api.config');
@@ -27,15 +28,16 @@ var twit = new twitter({
   access_token_secret: api.twitter.access_token_secret
 });
 
-// connect to MtGox service
-var MtGox = require('mtgox');
-var gox = new MtGox();
 // Key+secret is required to access the private API
-gox = new MtGox({
+var gox = new mtgox({
   key: api.mtgox.key,
   secret: api.mtgox.secret
 });
 
+
+// Connect to Bitstamp
+// var privateBitstamp = new Bitstamp(api.bitstamp.key, api.bitstamp.secret, api.bitstamp.clientID);
+var privateBitstamp = new Bitstamp(api.bitstamp.clientID, api.bitstamp.key, api.bitstamp.secret);
 
 // TODO: Refactor the scraper to use the same function call for different services
 exports.scrapeTweets = function () {
@@ -94,7 +96,40 @@ exports.scrapeMtGox = function () {
       timestamp = moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
       var volume = depth.volume;
       var value = depth.average;
-      connection.query("SELECT 1 FROM marketmovement WHERE timestamp=?", [timestamp],
+      connection.query("SELECT 1 FROM marketmovement WHERE site=1 AND timestamp=?", [timestamp],
+        function (err, rows, fields) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+
+          // insert into database if doesn't already exist
+          if (rows.length === 0) {
+            connection.query("INSERT INTO marketmovement (site, timestamp, volume, value) VALUES (?, ?, ?, ?)",
+              [site, timestamp, volume, value],
+              function (err, rows, fields) {
+                if (err) {
+                  console.log(err);
+                }
+              });
+          }
+        });
+    }
+  });
+};
+
+// Scrape Bitstamp
+exports.scrapeBitstamp = function () {
+  privateBitstamp.get('https://www.bitstamp.net/api/ticker/', function(err, response){
+    // console.log(JSON.parse(response.req.res.body).timestamp);
+    if(response) {
+      var site = 2; // bitstamp value in table
+      var response = JSON.parse(response.req.res.body);
+      var timestamp = new Date(response.timestamp * 1000);
+      timestamp = moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
+      var volume = response.volume;
+      var value = response.last;
+      connection.query("SELECT 1 FROM marketmovement WHERE site=2 AND timestamp=?", [timestamp],
         function (err, rows, fields) {
           if (err) {
             console.log(err);

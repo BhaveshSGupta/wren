@@ -6,6 +6,11 @@ var AppView = Backbone.View.extend({
     this.render();
   },
 
+  events: {
+    // "click button.refresh": "refreshData"
+  },
+
+  // TODO: Split out Charts from main template
   template: _.template(
     '<div id="container"> \
       <div class="logo">wren</div> \
@@ -20,8 +25,11 @@ var AppView = Backbone.View.extend({
       <button class="refresh">Refresh Data</button> \
     </div>'),
 
+  refreshData: function() {
+   // TODO: Insert refresh data code here
+  },
+
   render: function () {
-    console.log(this.$el);
     this.$el.html(this.template);
   }
 });

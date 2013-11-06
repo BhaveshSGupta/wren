@@ -48,6 +48,17 @@
           ]
         };
 
+        // Initialize Backbone App here
+        // set up model objects
+        var app = new App({});
+
+        // build a view for the top level of the whole app
+        var appView = new AppView({model: app});
+
+        // Get the context of the canvas element we want to select
+        var exchangeCtx = document.getElementById("mtGox").getContext("2d");
+        var tweetCtx = document.getElementById("tweets").getContext("2d");
+
         // Clicking refresh button sends GET request to '/data'
         $('button.refresh').click(function() {
           var startingTime = new Date() - (1800000 * 12);
@@ -79,17 +90,6 @@
             var tweets = new Chart(tweetCtx).Line(tweetData, {scaleFontColor: '#ddd'});
           });
         });
-
-        // Initialize Backbone App here
-        // set up model objects
-        var app = new App({});
-
-        // build a view for the top level of the whole app
-        var appView = new AppView({model: app});
-
-        // Get the context of the canvas element we want to select
-        var exchangeCtx = document.getElementById("mtGox").getContext("2d");
-        var tweetCtx = document.getElementById("tweets").getContext("2d");
       });
     </script>
   </body>
