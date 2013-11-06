@@ -5,21 +5,19 @@
     <script src="../bower_components/jquery/jquery.min.js"></script>
     <script src="../bower_components/moment/min/moment.min.js"></script>
     <script src="../bower_components/Chart.js/Chart.min.js"></script>
+    <script src="../bower_components/underscore/underscore-min.js"></script>
+    <script src="../bower_components/backbone/backbone-min.js"></script>
+
+    <!-- Backbone files -->
+    <script src="app/models/App.js"></script>
+
+    <script src="app/views/AppView.js"></script>
+    
+
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <div id="container">
-      <div class="logo">wren</div>
-      <div class="chart">
-        <header>MtGox</header>
-        <canvas id="mtGox" width="400" height="400"></canvas>
-      </div>
-      <div class="chart">
-        <header>Twitter Sentiment</header>
-        <canvas id="tweets" width="400" height="400"></canvas>
-      </div>
-      <button class="refresh">Refresh Data</button>
-    </div>
+    
     <script>
       $(document).ready(function() {
 
@@ -82,11 +80,16 @@
           });
         });
 
+        // Initialize Backbone App here
+        // set up model objects
+        var app = new App({});
+
+        // build a view for the top level of the whole app
+        var appView = new AppView({model: app});
+
         // Get the context of the canvas element we want to select
         var exchangeCtx = document.getElementById("mtGox").getContext("2d");
         var tweetCtx = document.getElementById("tweets").getContext("2d");
-
-        // Initialize Backbone App here
       });
     </script>
   </body>
