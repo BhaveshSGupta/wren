@@ -144,7 +144,7 @@ exports.eventHandler = function(req, res) {
           break;
         default:
           res.writeHead(404, headers);
-          res.end("File not found.");
+          res.end();
           break;  
       }
       break;

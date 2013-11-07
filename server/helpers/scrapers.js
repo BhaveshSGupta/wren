@@ -60,10 +60,7 @@ exports.scrapeTweets = function () {
 
             // insert into database if doesn't already exist
             if (rows.length === 0) {
-              // need to throttle or will choke the system
-              // var tweet_sentiment = sentiment.calcSentiment(tweet_id, text);
               var tweet_sentiment = analyze(text).score;
-              // console.log('text: ', text, 'sentiment: ', analyze(text).score);
               connection.query("INSERT INTO tweets (username, text, timestamp, sentiment, tweet_id) VALUES (?, ?, ?, ?, ?)",
                 [username, text, timestamp, tweet_sentiment, tweet_id],
                 function (err, rows, fields) {
@@ -80,7 +77,6 @@ exports.scrapeTweets = function () {
         closureFunc(i);
       }
     }
-    // get hashtag here
   });
 };
 
@@ -89,7 +85,6 @@ exports.scrapeMtGox = function () {
   gox.market('BTCUSD', function (err, depth) {
     if (depth) {
       var site = 1; // mtgox value in table
-      //var timestamp = moment(Math.floor(depth.timestamp / 1000)).tz("America/Los_Angeles").format('YYYY-MM-DD HH:MM:SS'); // convert timestamp to database format
       var timestamp = new Date(depth.timestamp / 1000);
       timestamp = moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
       var volume = depth.volume;
