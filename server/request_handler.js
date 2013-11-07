@@ -51,6 +51,8 @@ exports.eventHandler = function(req, res) {
 
   if (pathName === "/") {
     lookup = '../client/index.html';
+  } else if (pathName.slice(0,6) === '/bower'){
+    lookup = '../' + pathName;
   } else {
     lookup = '../client/' + pathName;
   }
@@ -71,14 +73,14 @@ exports.eventHandler = function(req, res) {
       break;
   }
 
+  // console.log('pathName: ', pathName);
+  // console.log('path: ', path.resolve(__dirname, lookup));
+
   switch(req.method) {
     case 'GET':
       switch(pathName) {
         case '/':
           // serve up index file
-          console.log('dirname: ', __dirname);
-          console.log('lookup: ', lookup);
-
           fs.exists(path.resolve(__dirname, lookup), function(exists) {
             if(exists) {
               fs.readFile(path.resolve(__dirname, lookup), function(err, data) {
@@ -119,7 +121,6 @@ exports.eventHandler = function(req, res) {
                   res.writeHead(200, headers);
                   res.end(JSON.stringify(timeDeltas));  
                 }
-                connection.end();
               }
             );
             connection.query("SELECT SUM(sentiment) FROM tweets WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
@@ -131,7 +132,6 @@ exports.eventHandler = function(req, res) {
                   res.writeHead(200, headers);
                   res.end(JSON.stringify(timeDeltas));  
                 }
-                connection.end();
               }
             );
           };
@@ -143,8 +143,23 @@ exports.eventHandler = function(req, res) {
           }
           break;
         default:
-          res.writeHead(404, headers);
-          res.end();
+          // serve up files
+          fs.exists(path.resolve(__dirname, lookup), function(exists) {
+            if(exists) {
+              fs.readFile(path.resolve(__dirname, lookup), function(err, data) {
+                if (err) {
+                  res.writeHead(500);
+                  res.end();
+                } else {
+                  res.writeHead(200, {"Content-Type": contentType });
+                  res.end(data);
+                }
+              });
+            } else {
+              res.writeHead(404, headers);
+              res.end();
+            }
+          });
           break;  
       }
       break;

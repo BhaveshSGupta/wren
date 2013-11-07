@@ -77,8 +77,7 @@ exports.scrapeTweets = function () {
         closureFunc(i);
       }
     }
-    // clear memory leak
-    data = null;
+    
   });
 };
 
@@ -110,14 +109,12 @@ exports.scrapeMtGox = function () {
           }
         });
     }
-    depth = null;
   });
 };
 
 // Scrape Bitstamp
 exports.scrapeBitstamp = function () {
   privateBitstamp.get('https://www.bitstamp.net/api/ticker/', function(err, response){
-    // console.log(JSON.parse(response.req.res.body).timestamp);
     if(response) {
       var site = 2; // bitstamp value in table
       var response = JSON.parse(response.req.res.body);
@@ -144,6 +141,5 @@ exports.scrapeBitstamp = function () {
           }
         });
     }
-    response = null;
   });
 };
