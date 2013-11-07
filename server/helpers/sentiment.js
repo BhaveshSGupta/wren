@@ -169,7 +169,6 @@ exports.storeSentiment = function (tweet_id) {
       };
 
       processChunk(0);
-
     }
   );
 };

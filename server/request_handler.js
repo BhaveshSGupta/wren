@@ -49,28 +49,52 @@ exports.eventHandler = function(req, res) {
   var pathName = url.parse(req.url).pathname;
   var lookup = '../client/index.html';
 
-  // specify contentType based on file extension
-  // var extname = path.extname(lookup);
-  // var contentType;
-  // switch(extname){
-  //   case '.js':
-  //     contentType = "text/javascript";
-  //     break;
-  //   case '.css':
-  //     contentType = "text/css";
-  //     break;
-  //   default:
-  //     contentType = "text/html";
-  //     break;
-  // }
+  if (pathName === "/") {
+    lookup = '../client/index.html';
+  } else {
+    lookup = '../client/' + pathName;
+  }
+
+  // Specify contentType based on file extension
+  var extname = path.extname(lookup);
+  var contentType;
+
+  switch(extname){
+    case '.js':
+      contentType = "text/javascript";
+      break;
+    case '.css':
+      contentType = "text/css";
+      break;
+    default:
+      contentType = "text/html";
+      break;
+  }
 
   switch(req.method) {
     case 'GET':
       switch(pathName) {
         case '/':
-          // send stat data to client
-          res.writeHead(200, headers);
-          res.end("Could not create logplex drain. Please try again later.");
+          // serve up index file
+          console.log('dirname: ', __dirname);
+          console.log('lookup: ', lookup);
+
+          fs.exists(path.resolve(__dirname, lookup), function(exists) {
+            if(exists) {
+              fs.readFile(path.resolve(__dirname, lookup), function(err, data) {
+                if (err) {
+                  res.writeHead(500);
+                  res.end();
+                } else {
+                  res.writeHead(200, {"Content-Type": contentType });
+                  res.end(data);
+                }
+              });
+            } else {
+              res.writeHead(404, headers);
+              res.end();
+            }
+          });
           break;
         case '/data':
           // get Tweet data
@@ -95,6 +119,7 @@ exports.eventHandler = function(req, res) {
                   res.writeHead(200, headers);
                   res.end(JSON.stringify(timeDeltas));  
                 }
+                connection.end();
               }
             );
             connection.query("SELECT SUM(sentiment) FROM tweets WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
@@ -106,6 +131,7 @@ exports.eventHandler = function(req, res) {
                   res.writeHead(200, headers);
                   res.end(JSON.stringify(timeDeltas));  
                 }
+                connection.end();
               }
             );
           };

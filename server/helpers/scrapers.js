@@ -33,7 +33,6 @@ var gox = new mtgox({
   secret: process.env.MTGOX_SECRET
 });
 
-
 // Connect to Bitstamp
 // var privateBitstamp = new Bitstamp(api.bitstamp.key, api.bitstamp.secret, api.bitstamp.clientID);
 var privateBitstamp = new Bitstamp(process.env.BITSTAMP_CLIENTID, process.env.BITSTAMP_KEY, process.env.BITSTAMP_SECRET);
