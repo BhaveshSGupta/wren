@@ -87,7 +87,7 @@ exports.scrapeMtGox = function () {
     if (depth) {
       var site = 1; // mtgox value in table
       var timestamp = new Date(depth.timestamp / 1000);
-      timestamp = moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
+      timestamp = moment(timestamp).tz("America/Los_Angeles").format('YYYY-MM-DD HH:mm:ss');
       var volume = depth.volume;
       var value = depth.average;
       connection.query("SELECT 1 FROM marketmovement WHERE site=1 AND timestamp=?", [timestamp],
@@ -119,7 +119,7 @@ exports.scrapeBitstamp = function () {
       var site = 2; // bitstamp value in table
       var response = JSON.parse(response.req.res.body);
       var timestamp = new Date(response.timestamp * 1000);
-      timestamp = moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
+      timestamp = moment(timestamp).tz("America/Los_Angeles").format('YYYY-MM-DD HH:mm:ss');
       var volume = response.volume;
       var value = response.last;
       connection.query("SELECT 1 FROM marketmovement WHERE site=2 AND timestamp=?", [timestamp],
