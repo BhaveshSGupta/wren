@@ -77,6 +77,8 @@ exports.scrapeTweets = function () {
         closureFunc(i);
       }
     }
+    // clear memory leak
+    data = null;
   });
 };
 
@@ -108,6 +110,7 @@ exports.scrapeMtGox = function () {
           }
         });
     }
+    depth = null;
   });
 };
 
@@ -141,5 +144,6 @@ exports.scrapeBitstamp = function () {
           }
         });
     }
+    response = null;
   });
 };
