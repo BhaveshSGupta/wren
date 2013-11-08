@@ -12,15 +12,11 @@ var AppView = Backbone.View.extend({
 
   // TODO: Split out Charts from main template
   template: _.template(
-    '<div id="container"> \
+    '<div id="main"> \
       <div class="logo">wren</div> \
       <div class="chart"> \
-        <header>MtGox</header> \
-        <canvas id="mtGox" width="400" height="400"></canvas> \
-      </div> \
-      <div class="chart"> \
-        <header>Twitter Sentiment</header> \
-        <canvas id="tweets" width="400" height="400"></canvas> \
+        <header>MtGox vs Twitter</header> \
+        <div id="container" style="width: 800px; height: 400px;"></div> \
       </div> \
       <button class="refresh">Refresh Data</button> \
     </div>'),
@@ -30,6 +26,6 @@ var AppView = Backbone.View.extend({
   },
 
   render: function () {
-    this.$el.html(this.template);
+    this.$el.append(this.template);
   }
 });
