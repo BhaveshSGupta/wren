@@ -21,6 +21,9 @@ var connection = mysql.createConnection({
   user     : process.env.AMAZON_RDS_USER,
   password : process.env.AMAZON_RDS_PWD,
   database : 'wren',
+  // host     : 'localhost',
+  // user       : 'root',
+  // database   : 'little_bird',
   charset  : 'utf-8',
   multipleStatements: true
 });

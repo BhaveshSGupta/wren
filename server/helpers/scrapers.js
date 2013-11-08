@@ -15,6 +15,9 @@ var connection = mysql.createConnection({
   user     : process.env.AMAZON_RDS_USER,
   password : process.env.AMAZON_RDS_PWD,
   database : 'wren',
+  // host        : 'localhost',
+  // user        : 'root',
+  // database    : 'little_bird',
   charset  : 'utf-8',
   multipleStatements: true
 });
@@ -47,8 +50,9 @@ exports.scrapeTweets = function () {
         var text = data.statuses[i].text;
         // remove non-unicode characters (probably better to whitelist what I will accept rather than create a blacklist)
         text = text.replace(/([^\x00-\xFF]|\s)*$/g, '');
-
-        var timestamp = data.statuses[i].created_at;
+        
+        var timestamp = moment(data.statuses[i].created_at).format('YYYY-MM-DD HH:mm:ss');
+        timestamp = Math.floor(Date.parse(timestamp)/1000);
 
         // check that tweet does not already exist
         connection.query("SELECT 1 FROM tweets WHERE tweet_id=?", [tweet_id],
@@ -86,7 +90,7 @@ exports.scrapeMtGox = function () {
   gox.market('BTCUSD', function (err, depth) {
     if (depth) {
       var site = 1; // mtgox value in table
-      var timestamp = depth.timestamp; // divide by 1000?
+      var timestamp = Math.floor(depth.timestamp / 1000000);
       var volume = depth.volume;
       var value = depth.bid;
       connection.query("SELECT 1 FROM marketmovement WHERE site=1 AND timestamp=?", [timestamp],
@@ -98,12 +102,14 @@ exports.scrapeMtGox = function () {
 
           // insert into database if doesn't already exist
           if (rows.length === 0) {
-            connection.query("INSERT INTO marketmovement (site, timestamp, volume, value) VALUES (?, ?, ?, ?)",
-              [site, timestamp, volume, value],
+            connection.query("INSERT INTO marketmovement (site, volume, value, timestamp) VALUES (?, ?, ?, ?)",
+              [site, volume, value, timestamp],
               function (err, rows, fields) {
                 if (err) {
                   console.log(err);
+                  return;
                 }
+
               });
           }
         });
@@ -123,7 +129,7 @@ exports.scrapeBitstamp = function () {
         console.log(e);
         return;
       }
-      var timestamp = response.timestamp; // * 1000?
+      var timestamp = response.timestamp; 
       var volume = response.volume;
       var value = response.bid;
       connection.query("SELECT 1 FROM marketmovement WHERE site=2 AND timestamp=?", [timestamp],
@@ -135,11 +141,12 @@ exports.scrapeBitstamp = function () {
 
           // insert into database if doesn't already exist
           if (rows.length === 0) {
-            connection.query("INSERT INTO marketmovement (site, timestamp, volume, value) VALUES (?, ?, ?, ?)",
-              [site, timestamp, volume, value],
+            connection.query("INSERT INTO marketmovement (site, volume, value, timestamp) VALUES (?, ?, ?, ?)",
+              [site, volume, value, timestamp],
               function (err, rows, fields) {
                 if (err) {
                   console.log(err);
+                  return;
                 }
               });
           }
