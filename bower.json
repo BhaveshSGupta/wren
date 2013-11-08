@@ -19,6 +19,7 @@
     "Chart.js": "git://github.com/nnnick/Chart.js.git",
     "backbone": "~1.1.0",
     "underscore": "~1.5.2",
-    "highcharts": "~3.0.7"
+    "highcharts": "~3.0.7",
+    "highstock": "~3.0.1"
   }
 }
