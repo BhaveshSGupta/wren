@@ -101,15 +101,15 @@ exports.eventHandler = function(req, res) {
           });
           break;
         case '/data':
-          // get Tweet data
           var beginning_timedelta = decodeURIComponent(url.parse(req.url).query, true);
+          console.log(beginning_timedelta);
           var next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
           var timeDeltas = {mtgox: {volume: {}, bid: {}}, tweets: { total: {}, sentiment: {}}};
           var exchangeCounter = 0;
           var tweetCounter = 0;
           
           var closureFunc = function(i, begin, next){
-            connection.query("SELECT AVG(value) FROM marketmovement WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
+            connection.query("SELECT AVG(value) FROM marketmovement WHERE (site=1 AND timestamp BETWEEN ? AND ?)", [begin, next], 
               function(err, rows, fields) {
                 exchangeCounter++;
                 var avg = rows[0]['AVG(value)'];

@@ -47,8 +47,8 @@ exports.scrapeTweets = function () {
         var text = data.statuses[i].text;
         // remove non-unicode characters (probably better to whitelist what I will accept rather than create a blacklist)
         text = text.replace(/([^\x00-\xFF]|\s)*$/g, '');
-        // convert timezone to San Francisco time
-        var timestamp = moment(data.statuses[i].created_at).tz("America/Los_Angeles").format('YYYY-MM-DD HH:mm:ss');
+
+        var timestamp = data.statuses[i].created_at;
 
         // check that tweet does not already exist
         connection.query("SELECT 1 FROM tweets WHERE tweet_id=?", [tweet_id],
@@ -86,8 +86,7 @@ exports.scrapeMtGox = function () {
   gox.market('BTCUSD', function (err, depth) {
     if (depth) {
       var site = 1; // mtgox value in table
-      var timestamp = new Date(depth.timestamp / 1000);
-      timestamp = moment(timestamp).tz("America/Los_Angeles").format('YYYY-MM-DD HH:mm:ss');
+      var timestamp = depth.timestamp; // divide by 1000?
       var volume = depth.volume;
       var value = depth.bid;
       connection.query("SELECT 1 FROM marketmovement WHERE site=1 AND timestamp=?", [timestamp],
@@ -124,8 +123,7 @@ exports.scrapeBitstamp = function () {
         console.log(e);
         return;
       }
-      var timestamp = new Date(response.timestamp * 1000);
-      timestamp = moment(timestamp).tz("America/Los_Angeles").format('YYYY-MM-DD HH:mm:ss');
+      var timestamp = response.timestamp; // * 1000?
       var volume = response.volume;
       var value = response.bid;
       connection.query("SELECT 1 FROM marketmovement WHERE site=2 AND timestamp=?", [timestamp],

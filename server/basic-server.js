@@ -17,8 +17,8 @@ server.listen(port);
 // replace setInterval with cron because think setInterval causing a memory leak with closures
 var job = new cronJob('01 * * * * *', function(){
     scrapers.scrapeTweets();
-    scrapers.scrapeMtGox();
-    scrapers.scrapeBitstamp();
+    // scrapers.scrapeMtGox();
+    // scrapers.scrapeBitstamp();
   }, function () {
     console.log('Scraping complete.');
   },
