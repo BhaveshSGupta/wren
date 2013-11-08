@@ -114,10 +114,7 @@ exports.eventHandler = function(req, res) {
                 exchangeCounter++;
                 var avg = rows[0]['AVG(value)'];
                 
-                // do not send null data points
-                if(avg !== null){
-                  timeDeltas.mtgox.value[i] = avg;
-                }
+                timeDeltas.mtgox.value[i] = avg;
 
                 if(exchangeCounter === 12 && tweetCounter === 12){
                   res.writeHead(200, headers);

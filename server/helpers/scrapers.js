@@ -117,7 +117,13 @@ exports.scrapeBitstamp = function () {
   privateBitstamp.get('https://www.bitstamp.net/api/ticker/', function(err, response){
     if(response) {
       var site = 2; // bitstamp value in table
-      var response = JSON.parse(response.req.res.body);
+      try {
+        var response = JSON.parse(response.req.res.body);
+      } catch(e) {
+        console.log(response.req.res.body);
+        console.log(e);
+        return;
+      }
       var timestamp = new Date(response.timestamp * 1000);
       timestamp = moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
       var volume = response.volume;
