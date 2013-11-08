@@ -104,7 +104,7 @@ exports.eventHandler = function(req, res) {
           // get Tweet data
           var beginning_timedelta = decodeURIComponent(url.parse(req.url).query, true);
           var next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
-          var timeDeltas = {mtgox: {volume: {}, value: {}}, tweets: { total: {}, sentiment: {}}};
+          var timeDeltas = {mtgox: {volume: {}, bid: {}}, tweets: { total: {}, sentiment: {}}};
           var exchangeCounter = 0;
           var tweetCounter = 0;
           
@@ -114,9 +114,9 @@ exports.eventHandler = function(req, res) {
                 exchangeCounter++;
                 var avg = rows[0]['AVG(value)'];
                 
-                timeDeltas.mtgox.value[i] = avg;
+                timeDeltas.mtgox.bid[i] = avg;
 
-                if(exchangeCounter === 12 && tweetCounter === 12){
+                if(exchangeCounter === 24 && tweetCounter === 24){
                   res.writeHead(200, headers);
                   res.end(JSON.stringify(timeDeltas));  
                 }
@@ -127,7 +127,7 @@ exports.eventHandler = function(req, res) {
                 tweetCounter++;
                 var sentiment = rows[0]['SUM(sentiment)'];
                 timeDeltas.tweets.sentiment[i] = sentiment;
-                if(exchangeCounter === 12 && tweetCounter === 12){
+                if(exchangeCounter === 24 && tweetCounter === 24){
                   res.writeHead(200, headers);
                   res.end(JSON.stringify(timeDeltas));  
                 }
@@ -135,7 +135,7 @@ exports.eventHandler = function(req, res) {
             );
           };
 
-          for(var i = 0; i < 12; i++){
+          for(var i = 0; i < 24; i++){
             closureFunc(i, beginning_timedelta, next_timedelta);
             beginning_timedelta = next_timedelta;
             next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');

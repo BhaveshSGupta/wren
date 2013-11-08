@@ -1,12 +1,12 @@
 @font-face
 {
 font-family: 'Handwriting Draft';
-src: url('fonts/handwriting_draft/handwriting-draft_free-version.ttf');
+src: url('../fonts/handwriting_draft/handwriting-draft_free-version.ttf');
 }
 
 body {
-  background: #333;
-  color: white;
+  background: #ddd;
+  color: #333;
   font-family: 'Helvetica', sans-serif;
 }
 
@@ -20,7 +20,7 @@ table, td {
 }
 
 .logo {
-  color: #eee;
+  color: #222;
   font-family: 'Handwriting Draft';
   font-size: 5em;
   font-weight: normal;
