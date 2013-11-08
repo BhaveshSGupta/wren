@@ -104,45 +104,24 @@ exports.eventHandler = function(req, res) {
           });
           break;
         case '/data':
-          var beginning_timedelta = decodeURIComponent(url.parse(req.url).query, true);
-          console.log(beginning_timedelta);
-          var next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
-          var timeDeltas = {mtgox: {volume: {}, bid: {}}, tweets: { total: {}, sentiment: {}}};
-          var exchangeCounter = 0;
-          var tweetCounter = 0;
-          
-          var closureFunc = function(i, begin, next){
-            connection.query("SELECT AVG(value) FROM marketmovement WHERE (site=1 AND timestamp BETWEEN ? AND ?)", [begin, next], 
-              function(err, rows, fields) {
-                exchangeCounter++;
-                var avg = rows[0]['AVG(value)'];
-                
-                timeDeltas.mtgox.bid[i] = avg;
+          var params = JSON.parse(decodeURIComponent(url.parse(req.url).query, true));
+          var now = Math.floor(new Date() / 1000);
+          var interval = params.interval;
+          var startPoint = params.begin;
+          var nextPoint = startPoint + interval;
+          var steps = Math.round((now - startPoint) / interval);
+          console.log('begin: ', startPoint, 'interval: ', interval, 'now: ', now, 'steps: ', steps);
+          var returnData = {};
+          var counter = 0;
 
-                if(exchangeCounter === 24 && tweetCounter === 24){
-                  res.writeHead(200, headers);
-                  res.end(JSON.stringify(timeDeltas));  
-                }
-              }
-            );
-            connection.query("SELECT SUM(sentiment) FROM tweets WHERE (timestamp BETWEEN ? AND ?)", [begin, next], 
-              function(err, rows, fields) {
-                tweetCounter++;
-                var sentiment = rows[0]['SUM(sentiment)'];
-                timeDeltas.tweets.sentiment[i] = sentiment;
-                if(exchangeCounter === 24 && tweetCounter === 24){
-                  res.writeHead(200, headers);
-                  res.end(JSON.stringify(timeDeltas));  
-                }
-              }
-            );
-          };
 
-          for(var i = 0; i < 24; i++){
-            closureFunc(i, beginning_timedelta, next_timedelta);
-            beginning_timedelta = next_timedelta;
-            next_timedelta = moment(moment(beginning_timedelta) + 1800000).format('YYYY-MM-DD HH:mm:ss');
-          }
+          connection.query("SELECT timestamp, AVG(value), sum(volume) FROM marketmovement WHERE site=1 GROUP BY round(timestamp / 60)", 
+            function(err, rows, fields) {
+              console.log('rows: ', rows);
+              res.writeHead(200, headers);
+              res.end(JSON.stringify(rows));
+            }
+          );
           break;
         default:
           // serve up files

@@ -10,24 +10,21 @@ $(document).ready(function() {
   $('button.refresh').click(function() {
 
     // TODO: Pull Lowest Chart Time Increment and Earliest Time from Chart Buttons
-    var lowestChartTimeIncrement = 1000*60*10; // 10 minutes in milliseconds
-    var startingTime = Date.now() - 2592000000; // 30 days ago in milliseconds
-
+    var lowestInterval = 600; // 10 minutes in seconds
+    var startingTime = Math.floor((Date.now()/1000)-2595599); // 30 days ago in seconds
+    console.log(startingTime);
     // $.get('http://little-wren.herokuapp.com/data', moment(timeDeltas[0]).format('YYYY-MM-DD HH:mm:ss'),function(data){
-    $.get('http://127.0.0.1:5000/data', moment(startingTime).format('YYYY-MM-DD HH:mm:ss'),function(recv){
+    $.get('http://127.0.0.1:5000/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(recv){
       // add data to chart
-      var data = {mtgox: {bid: []}, twitter: {sentiment: []}}
-      for(var i = 0; i < 24; i++){
-        data.mtgox.bid.push(recv.mtgox.bid[i]);
-        data.twitter.sentiment.push(recv.tweets.sentiment[i]);
+      var data = [];
+
+      for(var i = 0; i < recv.length; i++) {
+        data.push([recv[i]['timestamp']*1000, recv[i]['AVG(value)']]);
       }
 
-      console.log('mtgox:', data.mtgox.bid);
-      console.log('twitter:', data.twitter.sentiment);
-
+      console.log(data[0]);
       // Create the chart
       $('#container').highcharts('StockChart', {
-        
         
         credits: {
           enabled: false
@@ -77,7 +74,7 @@ $(document).ready(function() {
 
         series : [{
           name : 'MtGox Bid Price',
-          data : data.mtgox.bid,
+          data : data,
           type : 'areaspline',
           threshold : null,
           tooltip : {
