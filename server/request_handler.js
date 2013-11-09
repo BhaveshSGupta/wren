@@ -34,19 +34,6 @@ exports.sendResponse = sendResponse = function(response, obj, status){
   response.end(JSON.stringify(obj));
 };
 
-var collectData = function(request, callback){
-  var data = "";
-  request.on('error', function(err){
-    console.log("ERROR: " + err.message);
-  });
-  request.on('data', function(chunk){
-    data += chunk;
-  });
-  request.on('end', function(){
-    callback(data);
-  });
-};
-
 exports.eventHandler = function(req, res) {
   console.log("Serving request type " + req.method + " for url " + req.url);
   var pathName = url.parse(req.url).pathname;

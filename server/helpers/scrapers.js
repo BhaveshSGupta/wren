@@ -1,4 +1,4 @@
-var http = require('http');
+var https = require('https');
 var twitter = require('twitter');
 var fs = require('fs');
 var moment = require('moment-timezone');
@@ -93,6 +93,7 @@ exports.scrapeMtGox = function () {
       var timestamp = Math.floor(depth.timestamp / 1000000);
       var volume = depth.volume;
       var value = depth.bid;
+      var currency = 1; // USD
       connection.query("SELECT 1 FROM marketmovement WHERE site=1 AND timestamp=?", [timestamp],
         function (err, rows, fields) {
           if (err) {
@@ -102,8 +103,8 @@ exports.scrapeMtGox = function () {
 
           // insert into database if doesn't already exist
           if (rows.length === 0) {
-            connection.query("INSERT INTO marketmovement (site, volume, value, timestamp) VALUES (?, ?, ?, ?)",
-              [site, volume, value, timestamp],
+            connection.query("INSERT INTO marketmovement (site, volume, value, timestamp, currency) VALUES (?, ?, ?, ?, ?)",
+              [site, volume, value, timestamp, currency],
               function (err, rows, fields) {
                 if (err) {
                   console.log(err);
@@ -132,6 +133,7 @@ exports.scrapeBitstamp = function () {
       var timestamp = response.timestamp; 
       var volume = response.volume;
       var value = response.bid;
+      var currency = 1; // USD
       connection.query("SELECT 1 FROM marketmovement WHERE site=2 AND timestamp=?", [timestamp],
         function (err, rows, fields) {
           if (err) {
@@ -141,8 +143,8 @@ exports.scrapeBitstamp = function () {
 
           // insert into database if doesn't already exist
           if (rows.length === 0) {
-            connection.query("INSERT INTO marketmovement (site, volume, value, timestamp) VALUES (?, ?, ?, ?)",
-              [site, volume, value, timestamp],
+            connection.query("INSERT INTO marketmovement (site, volume, value, timestamp, currency) VALUES (?, ?, ?, ?, ?)",
+              [site, volume, value, timestamp, currency],
               function (err, rows, fields) {
                 if (err) {
                   console.log(err);
@@ -152,5 +154,49 @@ exports.scrapeBitstamp = function () {
           }
         });
     }
+  });
+};
+
+// TODO: Move this into a helper file
+var collectData = function(request, callback){
+  var data = "";
+  request.on('error', function(err){
+    console.log("ERROR: " + err.message);
+  });
+  request.on('data', function(chunk){
+    data += chunk;
+  });
+  request.on('end', function(){
+    callback(data);
+  });
+};
+
+// Scrape BTC China
+exports.scrapeBTCChina = function () {
+  https.get('https://data.btcchina.com/data/ticker', function(res) {
+    collectData(res, function(data) {
+      try {
+        data = (JSON.parse(data)).ticker;
+      } catch(e) {
+        console.log(e);
+      }
+      var site = 3; // BTCChina
+      var buy = data.buy;
+      var volume = parseFloat(data.vol, 10).toFixed(2);
+      var timestamp = Math.floor(new Date() / 1000);   // need to assign the timestamp myself
+      var currency = 2; // value of RMB
+      connection.query("INSERT INTO marketmovement (site, volume, value, timestamp, currency) VALUES (?, ?, ?, ?, ?)",
+        [site, volume, buy, timestamp, currency],
+        function (err, rows, fields) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          console.log('got here');
+        }
+      );
+    });
+  }).on('error', function(e) {
+    console.log("Got error: " + e.message);
   });
 };

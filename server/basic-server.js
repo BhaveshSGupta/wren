@@ -19,8 +19,10 @@ var job = new cronJob('01 * * * * *', function(){
     scrapers.scrapeTweets();
     scrapers.scrapeMtGox();
     scrapers.scrapeBitstamp();
+    scrapers.scrapeBTCChina();
   }, function () {
     console.log('Scraping complete.');
   },
   true /* Start the job right now */
 );
+
