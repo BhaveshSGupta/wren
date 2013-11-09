@@ -192,7 +192,6 @@ exports.scrapeBTCChina = function () {
             console.log(err);
             return;
           }
-          console.log('got here');
         }
       );
     });

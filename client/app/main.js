@@ -13,8 +13,8 @@ $(document).ready(function() {
     var lowestInterval = 600; // 10 minutes in seconds
     var startingTime = Math.floor((Date.now()/1000)-2595599); // 30 days ago in seconds
 
-    // $.get('http://little-wren.herokuapp.com/data', moment(timeDeltas[0]).format('YYYY-MM-DD HH:mm:ss'),function(data){
-    $.get('http://127.0.0.1:5000/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
+    // $.get('http://127.0.0.1:5000/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
+    $.get('http://little-wren.herokuapp.com/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
 
       // Create the chart
       $('#container').highcharts('StockChart', {
