@@ -15,7 +15,6 @@ var AppView = Backbone.View.extend({
     '<div id="main"> \
       <div class="logo">wren</div> \
       <div class="chart"> \
-        <header>MtGox vs Twitter</header> \
         <div id="container" style="height: 500px; width: 800px"></div> \
       </div> \
       <button class="refresh">Refresh Data</button> \

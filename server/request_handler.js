@@ -78,9 +78,6 @@ exports.eventHandler = function(req, res) {
       break;
   }
 
-  // console.log('pathName: ', pathName);
-  // console.log('path: ', path.resolve(__dirname, lookup));
-
   switch(req.method) {
     case 'GET':
       switch(pathName) {
@@ -111,15 +108,32 @@ exports.eventHandler = function(req, res) {
           var nextPoint = startPoint + interval;
           var steps = Math.round((now - startPoint) / interval);
           console.log('begin: ', startPoint, 'interval: ', interval, 'now: ', now, 'steps: ', steps);
-          var returnData = {};
+          var returnData = {mtgox: [], twitter: []};
           var counter = 0;
 
-
-          connection.query("SELECT timestamp, AVG(value), sum(volume) FROM marketmovement WHERE site=1 GROUP BY round(timestamp / 60)", 
+          // get mtgox data
+          connection.query("SELECT timestamp, AVG(value) FROM marketmovement WHERE site=1 GROUP BY round(timestamp / 60)", 
             function(err, rows, fields) {
-              console.log('rows: ', rows);
-              res.writeHead(200, headers);
-              res.end(JSON.stringify(rows));
+              counter++;
+              for(var key in rows){
+                returnData.mtgox.push([rows[key]['timestamp']*1000, rows[key]['AVG(value)']]);
+              }
+              if(counter === 2) {
+                res.writeHead(200, headers);
+                res.end(JSON.stringify(returnData));
+              }
+            }
+          );
+          connection.query("SELECT timestamp, sum(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 60)", 
+            function(err, rows, fields) {
+              counter++;
+              for(var key in rows){
+                returnData.twitter.push([rows[key]['timestamp']*1000, rows[key]['sum(sentiment)']]);
+              }
+              if(counter === 2) {
+                res.writeHead(200, headers);
+                res.end(JSON.stringify(returnData));
+              }
             }
           );
           break;
