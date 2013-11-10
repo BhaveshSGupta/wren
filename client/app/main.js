@@ -114,8 +114,8 @@ $(document).ready(function() {
             },
             stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
-          yAxis: 1
-        }/*{
+          yAxis: 0
+        },{
           name : 'Twitter Sentiment',
           data : returnData.twitter,
           type : 'areaspline',
@@ -133,7 +133,7 @@ $(document).ready(function() {
             stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
           yAxis: 1
-        }*/
+        }
         ],
         yAxis: [{}, // Primary Axis
           {   // Secondary Axis
@@ -159,6 +159,8 @@ $(document).ready(function() {
       isShown = series.visible;
     } else if(name === 'btcchina_buy'){
       series = chart.series[2];
+    } else if(name === 'twitter_sentiment') {
+      series = chart.series[3];
     } else {
       alert(name + ' not implemented yet!');
       return;

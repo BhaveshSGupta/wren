@@ -130,7 +130,7 @@ exports.eventHandler = function(req, res) {
         function(err, rows) {
           counter++;
           for(var key in rows){
-            returnData.btcchina.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
+            returnData.btcchina.push([rows[key].timestamp*1000, rows[key]['AVG(value)']/6.09]);
           }
           if(counter === 4) {
             res.writeHead(200, headers);

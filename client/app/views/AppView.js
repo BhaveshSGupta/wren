@@ -57,7 +57,7 @@ var AppView = Backbone.View.extend({
             </section> \
             <section> \
               <header>Twitter</header> \
-              <input name="twitter_sentiment" value="sentiment" type="checkbox">Sentiment</input><br /> \
+              <input name="twitter_sentiment" value="sentiment" type="checkbox" checked="checked">Sentiment</input><br /> \
               <input name="twitter_volume" value="volume" type="checkbox">Volume</input> \
             </section> \
           </aside> \
