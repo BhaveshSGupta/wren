@@ -139,11 +139,11 @@ exports.eventHandler = function(req, res) {
         }
       );
       // get twitter data
-      connection.query('SELECT timestamp, sum(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 60)',
+      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 60)',
         function(err, rows) {
           counter++;
           for(var key in rows){
-            returnData.twitter.push([rows[key].timestamp*1000, rows[key]['sum(sentiment)']]);
+            returnData.twitter.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
           }
           if(counter === 4) {
             res.writeHead(200, headers);

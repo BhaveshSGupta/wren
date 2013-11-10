@@ -62,7 +62,7 @@ $(document).ready(function() {
         },
 
         title : {
-          text : 'MtGox vs Twitter Sentiment'
+          text : 'BitCoin Exchanges'
         },
 
         series : [{
@@ -84,6 +84,42 @@ $(document).ready(function() {
           },
           yAxis: 0
         },{
+          name : 'BitStamp Bid Price',
+          data : returnData.bitstamp,
+          type : 'areaspline',
+          threshold : null,
+          tooltip : {
+            valueDecimals : 2
+          },
+          fillColor : {
+            linearGradient : {
+              x1: 0,
+              y1: 0,
+              x2: 0,
+              y2: 1
+            },
+            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
+          },
+          yAxis: 0
+        },{
+          name : 'BTC China Bid Price',
+          data : returnData.btcchina,
+          type : 'areaspline',
+          threshold : null,
+          tooltip : {
+            valueDecimals : 2
+          },
+          fillColor : {
+            linearGradient : {
+              x1: 0,
+              y1: 0,
+              x2: 0,
+              y2: 1
+            },
+            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
+          },
+          yAxis: 1
+        }/*,{
           name : 'Twitter Sentiment',
           data : returnData.twitter,
           type : 'areaspline',
@@ -101,9 +137,12 @@ $(document).ready(function() {
             stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
           yAxis: 1
-        }],
-        yAxis: [{align: 'left'},
-                {align: 'right'}]
+        }*/
+        ],
+        yAxis: [{}, // Primary Axis
+                {   // Secondary Axis
+                  opposite: true
+                }]
       });
     });
   };

@@ -15,6 +15,10 @@ table, td {
   width: 70%;
 }
 
+.live_data {
+  border-bottom: 1px solid #333;
+}
+
 .logo {
   color: #222;
   font-size: 4em;
@@ -25,10 +29,12 @@ table, td {
   margin: 0 auto;
 }
 
-.toggleData {
+.sidebar {
   border: 1px solid #333;
   float: right;
   height: 70%;
   width: 20%;
+}
 
+.toggleData {
 }
