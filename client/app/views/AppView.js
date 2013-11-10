@@ -19,15 +19,23 @@ var AppView = Backbone.View.extend({
         <header>Show / Hide Data: </header> \
         <section> \
           <header>MtGox</header> \
-        </section \
+          <input name="Buy" value="buy" type="checkbox">Buy</input><br />\
+          <input name="Volume" value="volume" type="checkbox">Volume</input> \
+        </section> \
         <section> \
           <header>BitStamp</header> \
+          <input name="Buy" value="buy" type="checkbox">Buy</input><br /> \
+          <input name="Volume" value="volume" type="checkbox">Volume</input> \
         </section> \
         <section> \
           <header>BTC China</header> \
+          <input name="Buy" value="buy" type="checkbox">Buy</input><br /> \
+          <input name="Volume" value="volume" type="checkbox">Volume</input> \
         </section> \
         <section> \
           <header>Twitter</header> \
+          <input name="Sentiment" value="sentiment" type="checkbox">Sentiment</input><br /> \
+          <input name="Volume" value="volume" type="checkbox">Volume</input> \
         </section> \
       </aside> \
     </section>'),
