@@ -100,11 +100,11 @@ exports.eventHandler = function(req, res) {
       var counter = 0;
 
       // get mtgox data
-      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=1 GROUP BY round(timestamp / 60)',
+      connection.query('SELECT timestamp, AVG(value), AVG(volume) FROM marketmovement WHERE site=1 GROUP BY round(timestamp / 60)',
         function(err, rows) {
           counter++;
           for(var key in rows){
-            returnData.mtgox.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
+            returnData.mtgox.push([rows[key].timestamp*1000, rows[key]['AVG(value)'], rows[key]['AVG(volume)']]);
           }
           if(counter === 4) {
             res.writeHead(200, headers);
@@ -139,7 +139,7 @@ exports.eventHandler = function(req, res) {
         }
       );
       // get twitter data
-      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 60)',
+      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 300)', // group by 5 minutes
         function(err, rows) {
           counter++;
           for(var key in rows){
@@ -151,7 +151,6 @@ exports.eventHandler = function(req, res) {
           }
         }
       );
-
       break;
     default:
       // serve up files

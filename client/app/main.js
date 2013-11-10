@@ -58,12 +58,12 @@ $(document).ready(function() {
 
           inputEnabled: false,
 
-          selected : 5
+          selected : 2
         },
 
-        title : {
+        /*title : {
           text : 'BitCoin Exchanges'
-        },
+        },*/
 
         series : [{
           name : 'MtGox Bid Price',
@@ -119,7 +119,7 @@ $(document).ready(function() {
             stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
           yAxis: 1
-        }/*,{
+        }/*{
           name : 'Twitter Sentiment',
           data : returnData.twitter,
           type : 'areaspline',
@@ -140,14 +140,39 @@ $(document).ready(function() {
         }*/
         ],
         yAxis: [{}, // Primary Axis
-                {   // Secondary Axis
-                  opposite: true
-                }]
+          {   // Secondary Axis
+            opposite: true
+          }]
       });
     });
   };
 
   loadData();
+
+  // Show / Hide Data
+  $('input').click(function() {
+    var name = $(this).attr('name');
+    var chart = $('.chart').highcharts();
+    var series = null;
+
+    if(name === 'mtgox_buy') {
+      series = chart.series[0];
+      
+    } else if(name === 'bitstamp_buy'){
+      series = chart.series[1];
+      isShown = series.visible;
+    } else if(name === 'btcchina_buy'){
+      series = chart.series[2];
+    } else {
+      alert(name + ' not implemented yet!');
+      return;
+    }
+
+    var isShown = series.visible;
+
+    series.setVisible(!isShown, true);
+
+  });
   
   // Apply the theme
   var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
