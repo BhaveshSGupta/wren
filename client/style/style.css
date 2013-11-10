@@ -2,6 +2,8 @@ body {
   background: #ddd;
   color: #333;
   font-family: 'Helvetica', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 table, td {
@@ -9,22 +11,122 @@ table, td {
   border-collapse: collapse;
 }
 
+navbar li {
+  display: inline-block;
+  list-style-type:none;
+  font-size: 0.5em;
+  margin: 0;
+  padding:0;
+  text-align: center;
+  width: 10%;
+}
+
+navbar li a {
+  color: #8c919b;
+  text-decoration: none;
+}
+
+navbar li a:hover {
+  color: #ddd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.bottom_bar {
+  background-color: #222;
+  bottom: 0;
+  clear: both;
+  height: 30%;
+  position: absolute;
+  width: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 1% 3%;
+  position: relative;
+  width: 90%;
+}
+
 .chart {
   float: left;
-  height: 55%;
-  width: 70%;
+  height: 65%;
+  width: 75%;
 }
 
 .live_data {
-  border-bottom: 1px solid #333;
+  float: right;
+  height: 100%;
+  letter-spacing: 0;
+  margin-top: 0.25%;
+  width: 19%;
+}
+
+.feeds {
+  height: 100%;
+  margin-left: 0.25%;
+}
+
+.feed {
+  background-color: #ddd;
+  border-radius: 2px;
+  float: left;
+  height: 95%;
+  margin-top: 0.4%;
+  margin-right: 0.25%;
+  width: 33.05%;
+}
+
+.feed header {
+  background-color: #bbb;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  border-bottom: 1px dotted #777;
+  font-size: 0.75em;
+  letter-spacing: 0.2em;
+  line-height: 150%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.live_data_value {
+  color: #eee;
+  float: left;
+  font-size: 2em;
+  font-weight: bold;
+  height: 100%;
+}
+
+.live_data_currency {
+  color: #ccc;
+  float: left;
+  font-size: 0.5em;
+  font-weight: normal;
+  height: 100%;
+  margin-left: 0.5%;
+  width: 22%;
+}
+
+.live_data_currency .currency {
+  float: left;
+  font-size: 2.3em;
+  font-weight: bold;
+  height: 45%;
+  line-height: 150%;
+  width: 100%;
+}
+
+.live_data_currency .per_unit {
+  float: left;
+  font-size: 1em;
+  height: 45%;
+  line-height: 20%;
+  width: 100%;
 }
 
 .logo {
-  color: #222;
-  font-size: 4em;
-  font-weight: normal;
+  color: MediumAquaMarine;
 }
-
 .main {
   margin: 0 auto;
 }
@@ -33,8 +135,20 @@ table, td {
   border: 1px solid #333;
   float: right;
   height: 70%;
-  width: 20%;
+  width: 15%;
 }
 
 .toggleData {
+}
+
+.topbar {
+  color: #8c919b;
+  background-color: #222;
+  font-size: 1.2em;
+  font-family: 'Oswald', Arial, Verdana, 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+  line-height: 250%;
+  padding: 0 7%;
+  text-transform: uppercase;
 }
