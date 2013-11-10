@@ -7,11 +7,11 @@ var moment = require('moment');
 
 // Define CORS headers
 var headers = {
-  "access-control-allow-origin": "*",
-  "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "access-control-allow-headers": "content-type, accept",
-  "access-control-max-age": 10, // Seconds
-  "Content-Type": "application/json"
+  'access-control-allow-origin': '*',
+  'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'access-control-allow-headers': 'content-type, accept',
+  'access-control-max-age': 10, // Seconds
+  'Content-Type': 'application/json'
 };
 
 // establish database connection
@@ -35,11 +35,11 @@ exports.sendResponse = sendResponse = function(response, obj, status){
 };
 
 exports.eventHandler = function(req, res) {
-  console.log("Serving request type " + req.method + " for url " + req.url);
+  console.log('Serving request type ' + req.method + ' for url ' + req.url);
   var pathName = url.parse(req.url).pathname;
   var lookup = '../client/index.html';
 
-  if (pathName === "/") {
+  if (pathName === '/') {
     lookup = '../client/index.html';
   } else if (pathName.slice(0,6) === '/bower'){
     lookup = '../' + pathName;
@@ -52,111 +52,140 @@ exports.eventHandler = function(req, res) {
   var contentType;
 
   switch(extname){
-    case '.js':
-      contentType = "text/javascript";
-      break;
-    case '.css':
-      contentType = "text/css";
-      break;
-    case '.ttf':
-      contentType = "font/ttf";
-    default:
-      contentType = "text/html";
-      break;
+  case '.js':
+    contentType = 'text/javascript';
+    break;
+  case '.css':
+    contentType = 'text/css';
+    break;
+  case '.ttf':
+    contentType = 'font/ttf';
+    break;
+  default:
+    contentType = 'text/html';
+    break;
   }
 
   switch(req.method) {
-    case 'GET':
-      switch(pathName) {
-        case '/':
-          // serve up index file
-          fs.exists(path.resolve(__dirname, lookup), function(exists) {
-            if(exists) {
-              fs.readFile(path.resolve(__dirname, lookup), function(err, data) {
-                if (err) {
-                  res.writeHead(500);
-                  res.end();
-                } else {
-                  res.writeHead(200, {"Content-Type": contentType });
-                  res.end(data);
-                }
-              });
-            } else {
-              res.writeHead(404, headers);
+  case 'GET':
+    switch(pathName) {
+    case '/':
+      // serve up index file
+      fs.exists(path.resolve(__dirname, lookup), function(exists) {
+        if(exists) {
+          fs.readFile(path.resolve(__dirname, lookup), function(err, data) {
+            if (err) {
+              res.writeHead(500);
               res.end();
+            } else {
+              res.writeHead(200, {'Content-Type': contentType });
+              res.end(data);
             }
           });
-          break;
-        case '/data':
-          var params = JSON.parse(decodeURIComponent(url.parse(req.url).query, true));
-          var now = Math.floor(new Date() / 1000);
-          var interval = params.interval;
-          var startPoint = params.begin;
-          var nextPoint = startPoint + interval;
-          var steps = Math.round((now - startPoint) / interval);
-          console.log('begin: ', startPoint, 'interval: ', interval, 'now: ', now, 'steps: ', steps);
-          var returnData = {mtgox: [], twitter: []};
-          var counter = 0;
-
-          // get mtgox data
-          connection.query("SELECT timestamp, AVG(value) FROM marketmovement WHERE site=1 GROUP BY round(timestamp / 60)", 
-            function(err, rows, fields) {
-              counter++;
-              for(var key in rows){
-                returnData.mtgox.push([rows[key]['timestamp']*1000, rows[key]['AVG(value)']]);
-              }
-              if(counter === 2) {
-                res.writeHead(200, headers);
-                res.end(JSON.stringify(returnData));
-              }
-            }
-          );
-          connection.query("SELECT timestamp, sum(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 60)", 
-            function(err, rows, fields) {
-              counter++;
-              for(var key in rows){
-                returnData.twitter.push([rows[key]['timestamp']*1000, rows[key]['sum(sentiment)']]);
-              }
-              if(counter === 2) {
-                res.writeHead(200, headers);
-                res.end(JSON.stringify(returnData));
-              }
-            }
-          );
-          break;
-        default:
-          // serve up files
-          fs.exists(path.resolve(__dirname, lookup), function(exists) {
-            if(exists) {
-              fs.readFile(path.resolve(__dirname, lookup), function(err, data) {
-                if (err) {
-                  res.writeHead(500);
-                  res.end();
-                } else {
-                  res.writeHead(200, {"Content-Type": contentType });
-                  res.end(data);
-                }
-              });
-            } else {
-              res.writeHead(404, headers);
-              res.end();
-            }
-          });
-          break;  
-      }
+        } else {
+          res.writeHead(404, headers);
+          res.end();
+        }
+      });
       break;
+    case '/data':
+      var params = JSON.parse(decodeURIComponent(url.parse(req.url).query, true));
+      var now = Math.floor(new Date() / 1000);
+      var interval = params.interval;
+      var startPoint = params.begin;
+      var nextPoint = startPoint + interval;
+      var steps = Math.round((now - startPoint) / interval);
+      console.log('begin: ', startPoint, 'interval: ', interval, 'now: ', now, 'steps: ', steps);
+      var returnData = {mtgox: [], bitstamp: [], btcchina: [], twitter: []};
+      var counter = 0;
 
-    case 'POST':
-      res.writeHead(200, headers);
-      res.end("POST method received");
-      break;
-    case 'OPTIONS':
-      res.writeHead(200, headers);
-      res.end("OPTIONS method received");
+      // get mtgox data
+      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=1 GROUP BY round(timestamp / 60)',
+        function(err, rows) {
+          counter++;
+          for(var key in rows){
+            returnData.mtgox.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
+          }
+          if(counter === 4) {
+            res.writeHead(200, headers);
+            res.end(JSON.stringify(returnData));
+          }
+        }
+      );
+      // get bitstamp data
+      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=2 GROUP BY round(timestamp / 60)',
+        function(err, rows) {
+          counter++;
+          for(var key in rows){
+            returnData.bitstamp.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
+          }
+          if(counter === 4) {
+            res.writeHead(200, headers);
+            res.end(JSON.stringify(returnData));
+          }
+        }
+      );
+      // get btc china data
+      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=3 GROUP BY round(timestamp / 60)',
+        function(err, rows) {
+          counter++;
+          for(var key in rows){
+            returnData.btcchina.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
+          }
+          if(counter === 4) {
+            res.writeHead(200, headers);
+            res.end(JSON.stringify(returnData));
+          }
+        }
+      );
+      // get twitter data
+      connection.query('SELECT timestamp, sum(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 60)',
+        function(err, rows) {
+          counter++;
+          for(var key in rows){
+            returnData.twitter.push([rows[key].timestamp*1000, rows[key]['sum(sentiment)']]);
+          }
+          if(counter === 4) {
+            res.writeHead(200, headers);
+            res.end(JSON.stringify(returnData));
+          }
+        }
+      );
+
       break;
     default:
-      res.writeHead(501, headers);
-      res.end('unrecognized request method');
+      // serve up files
+      fs.exists(path.resolve(__dirname, lookup), function(exists) {
+        if(exists) {
+          fs.readFile(path.resolve(__dirname, lookup), function(err, data) {
+            if (err) {
+              res.writeHead(500);
+              res.end();
+            } else {
+              res.writeHead(200, {'Content-Type': contentType });
+              res.end(data);
+            }
+          });
+        } else {
+          res.writeHead(404, headers);
+          res.end();
+        }
+      });
       break;
+    }
+    break;
+
+  case 'POST':
+    res.writeHead(200, headers);
+    res.end('POST method received');
+    break;
+  case 'OPTIONS':
+    res.writeHead(200, headers);
+    res.end('OPTIONS method received');
+    break;
+  default:
+    res.writeHead(501, headers);
+    res.end('Unrecognized request method');
+    break;
   }
 };

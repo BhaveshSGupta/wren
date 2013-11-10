@@ -12,17 +12,25 @@ var AppView = Backbone.View.extend({
 
   // TODO: Split out Charts from main template
   template: _.template(
-    '<div id="main"> \
-      <div class="logo">wren</div> \
-      <div class="chart"> \
-        <div id="container" style="height: 500px; width: 800px"></div> \
-      </div> \
-      <button class="refresh">Refresh Data</button> \
-    </div>'),
-
-  refreshData: function() {
-   // TODO: Insert refresh data code here
-  },
+    '<section class="main"> \
+      <header class="logo">wren</header> \
+      <section class="chart"></section> \
+      <aside class="toggleData"> \
+        <header>Show / Hide Data: </header> \
+        <section> \
+          <header>MtGox</header> \
+        </section \
+        <section> \
+          <header>BitStamp</header> \
+        </section> \
+        <section> \
+          <header>BTC China</header> \
+        </section> \
+        <section> \
+          <header>Twitter</header> \
+        </section> \
+      </aside> \
+    </section>'),
 
   render: function () {
     this.$el.append(this.template);

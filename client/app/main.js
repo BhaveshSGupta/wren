@@ -6,18 +6,16 @@ $(document).ready(function() {
   // build a view for the top level of the whole app
   var appView = new AppView({model: app});
 
-  // Clicking refresh button sends GET request to '/data'
-  $('button.refresh').click(function() {
-
+  var loadData = function() {
     // TODO: Pull Lowest Chart Time Increment and Earliest Time from Chart Buttons
     var lowestInterval = 600; // 10 minutes in seconds
     var startingTime = Math.floor((Date.now()/1000)-2595599); // 30 days ago in seconds
 
-    // $.get('http://127.0.0.1:5000/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
-    $.get('http://little-wren.herokuapp.com/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
+    $.get('http://127.0.0.1:5000/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
+    // $.get('http://little-wren.herokuapp.com/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
 
       // Create the chart
-      $('#container').highcharts('StockChart', {
+      $('.chart').highcharts('StockChart', {
         
         credits: {
           enabled: false
@@ -77,9 +75,9 @@ $(document).ready(function() {
           },
           fillColor : {
             linearGradient : {
-              x1: 0, 
-              y1: 0, 
-              x2: 0, 
+              x1: 0,
+              y1: 0,
+              x2: 0,
               y2: 1
             },
             stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
@@ -95,9 +93,9 @@ $(document).ready(function() {
           },
           fillColor : {
             linearGradient : {
-              x1: 0, 
-              y1: 0, 
-              x2: 0, 
+              x1: 0,
+              y1: 0,
+              x2: 0,
               y2: 1
             },
             stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
@@ -108,7 +106,9 @@ $(document).ready(function() {
                 {align: 'right'}]
       });
     });
-  });
+  };
+
+  loadData();
   
   // Apply the theme
   var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
