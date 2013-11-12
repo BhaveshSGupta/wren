@@ -2,13 +2,15 @@ $(document).ready(function() {
   // Initialize Backbone App here
   // set up model objects
   var app = new App({});
+  var server_url = 'http://127.0.0.1:5000';                // Development
+  // var server_url = 'http://little-wren.herokuapp.com';  // Production
 
   // build a view for the top level of the whole app
   var appView = new AppView({model: app});
 
   var loadData = function() {
     // TODO: Pull Lowest Chart Time Increment and Earliest Time from Chart Buttons
-    $.get('http://127.0.0.1:5000/data', function(returnData){
+    $.get(server_url + '/data', function(returnData){
     // $.get('http://little-wren.herokuapp.com/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
 
       // Create the chart
@@ -123,6 +125,11 @@ $(document).ready(function() {
                 var timestamp = Math.floor(this.x / 1000);
                 // send query to server for twitter data
                 console.log('timestamp: ', timestamp);
+                $.get(server_url + '/tweets', JSON.stringify(timestamp), function(data) {
+                  console.log(data);
+                  // add popup div
+                  
+                });
               }
             }
           },

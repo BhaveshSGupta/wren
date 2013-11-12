@@ -89,7 +89,20 @@ exports.eventHandler = function(req, res) {
       });
       break;
     case '/tweets':
-      
+      var timestamp = JSON.parse(decodeURIComponent(url.parse(req.url).query, true));
+      console.log('timestamp: ', timestamp);
+      // get mtgox data
+      connection.query('SELECT timestamp, username, text, sentiment FROM tweets WHERE (timestamp BETWEEN ? AND ?)',
+        [timestamp, timestamp + 300],
+        function(err, rows) {
+          if(err){
+            console.log(err);
+            return;
+          }
+          res.writeHead(200, headers);
+          res.end(JSON.stringify(rows));
+        }
+      );
       break;
     case '/data':
       var returnData = {mtgox: [],

@@ -135,6 +135,10 @@ navbar li a:hover {
   margin: 0 auto;
 }
 
+.popup {
+  
+}
+
 .sidebar {
   border: 1px solid #333;
   float: right;
