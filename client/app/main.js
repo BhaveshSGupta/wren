@@ -82,7 +82,7 @@ $(document).ready(function() {
         },{
           name : 'BitStamp Bid Price',
           data : returnData.bitstamp,
-          type : 'areaspline',
+          type : 'spline',
           threshold : null,
           tooltip : {
             valueDecimals : 2
@@ -100,7 +100,7 @@ $(document).ready(function() {
         },{
           name : 'BTC China Bid Price',
           data : returnData.btcchina,
-          type : 'areaspline',
+          type : 'spline',
           threshold : null,
           tooltip : {
             valueDecimals : 2
@@ -118,7 +118,7 @@ $(document).ready(function() {
         },{
           name : 'Twitter Sentiment (5min)',
           data : returnData.twitter.five_min,
-          type : 'areaspline',
+          type : 'spline',
           threshold : null,
           tooltip : {
             valueDecimals : 2
@@ -137,7 +137,7 @@ $(document).ready(function() {
           name : 'Twitter Sentiment (10min)',
           data : returnData.twitter.ten_min,
           visible: false,
-          type : 'areaspline',
+          type : 'spline',
           threshold : null,
           tooltip : {
             valueDecimals : 2
@@ -156,7 +156,7 @@ $(document).ready(function() {
           name : 'Twitter Sentiment (30min)',
           data : returnData.twitter.thirty_min,
           visible: false,
-          type : 'areaspline',
+          type : 'spline',
           threshold : null,
           tooltip : {
             valueDecimals : 2
@@ -175,7 +175,7 @@ $(document).ready(function() {
           name : 'Twitter Sentiment (1hr)',
           data : returnData.twitter.one_hour,
           visible: false,
-          type : 'areaspline',
+          type : 'spline',
           threshold : null,
           tooltip : {
             valueDecimals : 2
@@ -194,7 +194,7 @@ $(document).ready(function() {
           name : 'Twitter Sentiment (3hr)',
           data : returnData.twitter.three_hour,
           visible: false,
-          type : 'areaspline',
+          type : 'spline',
           threshold : null,
           tooltip : {
             valueDecimals : 2
@@ -213,7 +213,7 @@ $(document).ready(function() {
           name : 'Twitter Sentiment (6hr)',
           data : returnData.twitter.six_hour,
           visible: false,
-          type : 'areaspline',
+          type : 'spline',
           threshold : null,
           tooltip : {
             valueDecimals : 2
@@ -232,7 +232,7 @@ $(document).ready(function() {
           name : 'Twitter Sentiment (12hr)',
           data : returnData.twitter.twelve_hour,
           visible: false,
-          type : 'areaspline',
+          type : 'spline',
           threshold : null,
           tooltip : {
             valueDecimals : 2
@@ -251,7 +251,7 @@ $(document).ready(function() {
           name : 'Twitter Sentiment (1day)',
           data : returnData.twitter.one_day,
           visible: false,
-          type : 'areaspline',
+          type : 'spline',
           threshold : null,
           tooltip : {
             valueDecimals : 2
@@ -270,7 +270,7 @@ $(document).ready(function() {
           name : 'Twitter Sentiment (3day)',
           data : returnData.twitter.three_day,
           visible: false,
-          type : 'areaspline',
+          type : 'spline',
           threshold : null,
           tooltip : {
             valueDecimals : 2
