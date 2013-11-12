@@ -367,6 +367,11 @@ $(document).ready(function() {
 
   });
   
+  $('.chart').click(function() {
+    alert('booyah!');
+
+  });
+
   // Apply the theme
   var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
 });
