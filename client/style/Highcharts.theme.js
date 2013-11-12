@@ -9,14 +9,17 @@ Highcharts.theme = {
       backgroundColor: {
          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
          stops: [
+            /* [0, 'rgb(255, 255, 255)'],
+             [1, 'rgb(240, 240, 255)'] */
             [0, 'rgb(255, 255, 255)'],
-            [1, 'rgb(240, 240, 255)']
+            [1, 'rgb(221, 221, 221)']
+         
          ]
       },
-      borderWidth: 2,
+      borderWidth: 0,
       plotBackgroundColor: 'rgba(255, 255, 255, .9)',
-      plotShadow: true,
-      plotBorderWidth: 1
+      plotShadow: false,
+      plotBorderWidth: 0
    },
    title: {
       style: {

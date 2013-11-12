@@ -11,8 +11,8 @@ $(document).ready(function() {
     var lowestInterval = 600; // 10 minutes in seconds
     var startingTime = Math.floor((Date.now()/1000)-2595599); // 30 days ago in seconds
 
-    // $.get('http://127.0.0.1:5000/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
-    $.get('http://little-wren.herokuapp.com/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
+    $.get('http://127.0.0.1:5000/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
+    // $.get('http://little-wren.herokuapp.com/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
 
       // Create the chart
       $('.chart').highcharts('StockChart', {
@@ -135,9 +135,16 @@ $(document).ready(function() {
           yAxis: 1
         }
         ],
-        yAxis: [{}, // Primary Axis
+        yAxis: [{
+          title: {
+            text: 'USD'
+          }
+        }, // Primary Axis
           {   // Secondary Axis
-            opposite: true
+            opposite: true,
+            title: {
+              text: 'Sentiment'
+            }
           }]
       });
     });

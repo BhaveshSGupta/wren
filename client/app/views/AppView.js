@@ -41,24 +41,25 @@ var AppView = Backbone.View.extend({
           <aside class="toggleData"> \
             <header><h4>Show / Hide Data: </h4></header> \
             <section> \
-              <header>MtGox</header> \
-              <input name="mtgox_buy" value="buy" type="checkbox" checked="checked">Buy</input><br />\
-              <input name="mtgox_vol" value="volume" type="checkbox">Volume</input> \
+              <input name="mtgox_buy" value="buy" type="checkbox" checked>MtGox</input><br />\
             </section> \
             <section> \
-              <header>BitStamp</header> \
-              <input name="bitstamp_buy" value="buy" type="checkbox" checked="checked">Buy</input><br /> \
-              <input name="bitstamp_vol" value="volume" type="checkbox">Volume</input> \
+              <input name="bitstamp_buy" value="buy" type="checkbox" checked>BitStamp</input><br /> \
             </section> \
             <section> \
-              <header>BTC China</header> \
-              <input name="btcchina_buy" value="buy" type="checkbox" checked="checked">Buy</input><br /> \
-              <input name="btcchina_vol" value="volume" type="checkbox">Volume</input> \
+              <input name="btcchina_buy" value="buy" type="checkbox" checked>BTC China</input><br /> \
             </section> \
             <section> \
-              <header>Twitter</header> \
-              <input name="twitter_sentiment" value="sentiment" type="checkbox" checked="checked">Sentiment</input><br /> \
-              <input name="twitter_volume" value="volume" type="checkbox">Volume</input> \
+              <header>Twitter Sentiment</header> \
+              <input name="twitter_sentiment" value="5" type="radio" checked> 5 min</input><br /> \
+              <input name="twitter_sentiment" value="10" type="radio"> 10 min</input><br /> \
+              <input name="twitter_sentiment" value="30" type="radio"> 30 min</input><br /> \
+              <input name="twitter_sentiment" value="60" type="radio"> 1 hr</input><br /> \
+              <input name="twitter_sentiment" value="180" type="radio"> 3 hr</input><br /> \
+              <input name="twitter_sentiment" value="360" type="radio"> 6 hr</input><br /> \
+              <input name="twitter_sentiment" value="720" type="radio"> 12 hr</input><br /> \
+              <input name="twitter_sentiment" value="1440" type="radio"> 1 day</input><br /> \
+              <input name="twitter_sentiment" value="4320" type="radio"> 3 day</input><br /> \
             </section> \
           </aside> \
         </section> \

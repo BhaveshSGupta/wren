@@ -94,13 +94,14 @@ exports.scrapeMtGox = function () {
       var volume = depth.volume;
       var value = depth.bid;
       var currency = 1; // USD
+      console.log('mtgox timestamp: ', timestamp, 'vol: ', volume, 'value: ', value);
       connection.query("SELECT 1 FROM marketmovement WHERE site=1 AND timestamp=?", [timestamp],
         function (err, rows, fields) {
           if (err) {
             console.log(err);
             return;
           }
-
+          console.log('mtgox succeeded');
           // insert into database if doesn't already exist
           if (rows.length === 0) {
             connection.query("INSERT INTO marketmovement (site, volume, value, timestamp, currency) VALUES (?, ?, ?, ?, ?)",
@@ -134,13 +135,14 @@ exports.scrapeBitstamp = function () {
       var volume = response.volume;
       var value = response.bid;
       var currency = 1; // USD
+      console.log('bitstamp timestamp: ', timestamp, 'vol: ', volume, 'value: ', value);
       connection.query("SELECT 1 FROM marketmovement WHERE site=2 AND timestamp=?", [timestamp],
         function (err, rows, fields) {
           if (err) {
             console.log(err);
             return;
           }
-
+          console.log('bitstamp succeeded');
           // insert into database if doesn't already exist
           if (rows.length === 0) {
             connection.query("INSERT INTO marketmovement (site, volume, value, timestamp, currency) VALUES (?, ?, ?, ?, ?)",
