@@ -88,14 +88,10 @@ exports.eventHandler = function(req, res) {
         }
       });
       break;
+    case '/tweets':
+      
+      break;
     case '/data':
-      var params = JSON.parse(decodeURIComponent(url.parse(req.url).query, true));
-      var now = Math.floor(new Date() / 1000);
-      var interval = params.interval;
-      var startPoint = params.begin;
-      var nextPoint = startPoint + interval;
-      var steps = Math.round((now - startPoint) / interval);
-      console.log('begin: ', startPoint, 'interval: ', interval, 'now: ', now, 'steps: ', steps);
       var returnData = {mtgox: [],
                         bitstamp: [],
                         btcchina: [],

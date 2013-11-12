@@ -44,10 +44,10 @@ var AppView = Backbone.View.extend({
               <input name="mtgox_buy" value="buy" type="checkbox" checked>MtGox</input><br />\
             </section> \
             <section> \
-              <input name="bitstamp_buy" value="buy" type="checkbox">BitStamp</input><br /> \
+              <input name="bitstamp_buy" value="buy" type="checkbox" checked>BitStamp</input><br /> \
             </section> \
             <section> \
-              <input name="btcchina_buy" value="buy" type="checkbox">BTC China</input><br /> \
+              <input name="btcchina_buy" value="buy" type="checkbox" checked>BTC China</input><br /> \
             </section> \
             <section> \
               <header>Twitter Sentiment</header> \
