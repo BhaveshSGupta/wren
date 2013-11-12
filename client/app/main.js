@@ -20,7 +20,6 @@ $(document).ready(function() {
         credits: {
           enabled: false
         },
-
         rangeSelector : {
           buttons: [{
             type: 'minute',
@@ -82,6 +81,7 @@ $(document).ready(function() {
         },{
           name : 'BitStamp Bid Price',
           data : returnData.bitstamp,
+          visible: false,
           type : 'spline',
           threshold : null,
           tooltip : {
@@ -100,6 +100,7 @@ $(document).ready(function() {
         },{
           name : 'BTC China Bid Price',
           data : returnData.btcchina,
+          visible: false,
           type : 'spline',
           threshold : null,
           tooltip : {
@@ -118,6 +119,16 @@ $(document).ready(function() {
         },{
           name : 'Twitter Sentiment (5min)',
           data : returnData.twitter.five_min,
+          cursor: 'pointer',
+          point: {
+            events: {
+              click: function() {
+                var timestamp = Math.floor(this.x / 1000);
+                // send query to server for twitter data
+                console.log('timestamp: ', timestamp);
+              }
+            }
+          },
           type : 'spline',
           threshold : null,
           tooltip : {
@@ -298,7 +309,7 @@ $(document).ready(function() {
               text: 'Sentiment'
             }
           }]
-      });
+        });
     });
   };
 
@@ -364,11 +375,6 @@ $(document).ready(function() {
     var isShown = series.visible;
     // TODO:need to redraw chart to fit new scale
     series.setVisible(!isShown, true);
-
-  });
-  
-  $('.chart').click(function() {
-    alert('booyah!');
 
   });
 
