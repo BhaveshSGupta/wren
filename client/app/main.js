@@ -126,6 +126,7 @@ $(document).ready(function() {
           data : returnData.twitter.five_min,
           cursor: 'pointer',
           type : 'spline',
+          visible: false,
           point: {
             events: {
               click: function() {

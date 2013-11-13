@@ -57,7 +57,7 @@ var AppView = Backbone.View.extend({
             </section> \
             <section> \
               <header>Tweet Intervals</header> \
-              <input name="twitter_sentiment" value="5" type="radio" checked> 5 min</input><br /> \
+              <input name="twitter_sentiment" value="5" type="radio"> 5 min</input><br /> \
               <input name="twitter_sentiment" value="10" type="radio"> 10 min</input><br /> \
               <input name="twitter_sentiment" value="30" type="radio"> 30 min</input><br /> \
               <input name="twitter_sentiment" value="60" type="radio"> 1 hr</input><br /> \
