@@ -102,7 +102,7 @@ $(document).ready(function() {
           yAxis: 0
         },{
           name : 'BTC China Bid Price',
-          color: '#e74c3c',
+          color: '#555',
           data : returnData.btcchina,
           visible: false,
           type : 'spline',
@@ -155,10 +155,11 @@ $(document).ready(function() {
                   }
                   // show popup div
                   $('.popup').removeClass('hidden');
-                  $('.main').addClass('darken_background');
+                  $('.transparent_layer').css('display', 'inline');
                   $(document).click(function() {
+                    $('.popup ul').scrollTop(0);
                     $('.popup').addClass('hidden');
-                    $('.main').removeClass('darken_background');
+                    $('.transparent_layer').css('display', 'none');
                   });
                 });
               }
@@ -261,10 +262,12 @@ $(document).ready(function() {
             }
           },
           title: {
-            text: 'USD',
+            text: 'Buy Value (USD)',
             style: {
-              color: '#333',
-              'font-size': '2em'
+              color: '#222',
+              'font-size': '1.3em',
+              'letter-spacing': '0.1em',
+              'text-transform': 'uppercase'
             }
           }
         }, // Primary Axis
@@ -278,8 +281,10 @@ $(document).ready(function() {
             title: {
               text: 'Sentiment',
               style: {
-                color: '#333',
-                'font-size': '2em'
+                color: '#222',
+                'font-size': '1.3em',
+                'letter-spacing': '0.1em',
+                'text-transform': 'uppercase'
               }
             }
           }]

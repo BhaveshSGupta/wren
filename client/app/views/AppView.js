@@ -13,16 +13,17 @@ var AppView = Backbone.View.extend({
   // TODO: Split out Charts from main template
   template: _.template(
     '<section class="popup hidden"><ul></ul></section> \
-    <img class="loading" src="img/intersection.gif" /> \
+     <section class="transparent_layer"></section> \
+     <img class="loading" src="img/intersection.gif" /> \
      <section class="main"> \
       <header class="topbar"> \
         <span class="logo">wren</span> \
         <navbar> \
           <li> \
-            <a href="">Sentiment</a> \
+            <a href="/">Markets</a> \
           </li> \
           <li> \
-            <a href="/">Markets</a> \
+            <a href="">Sentiment</a> \
           </li> \
         </navbar> \
         <aside class="live_data hidden"> \
@@ -41,7 +42,7 @@ var AppView = Backbone.View.extend({
         <section class="chart"></section> \
         <section class="sidebar"> \
           <aside class="toggleData"> \
-            <header><h4>Show / Hide Data</h4></header> \
+            <header><h4>Options</h4></header> \
             <section> \
               <header>Exchanges</header> \
               <section> \
@@ -75,7 +76,7 @@ var AppView = Backbone.View.extend({
           <img class="icon" src="img/google-plus.png" /> \
           <img class="icon" src="img/facebook.png" /> \
           <img class="icon" src="img/twitter.png" /> \
-          <img class="icon hack_reactor_logo" src="img/hack_reactor_mod2.png" /> \
+          <a href="http://www.hackreactor.com" target="_blank"><img class="icon hack_reactor_logo" src="img/hack_reactor_mod2.png" /></a> \
         </section> \
       </section> \
     </section>'),

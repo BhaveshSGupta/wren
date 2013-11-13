@@ -2,13 +2,15 @@ body {
   background: #ddd;
   color: #333;
   font-family: 'Helvetica', sans-serif;
+  height: 100%;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 img.loading {
   top: 40%;
-  left: 46%;
+  left: 45%;
   position: absolute;
 }
 
@@ -68,8 +70,16 @@ navbar li a:hover {
   width: 84%;
 }
 
-.darken_background {
-  opacity: 0.25;
+.transparent_layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #222;
+  display: none;
+  height: 100%;
+  opacity: 0.8;
+  width: 100%;
+  z-index: 90;
 }
 
 .live_data {
@@ -131,11 +141,11 @@ navbar li a:hover {
   background: #eeeeee;
   border-radius: 0.5%;
   border: 1px solid #777;
-  height: 550px;
+  height: 90%;
   left: 28%;
   overflow-y: scroll;
   position: absolute;
-  top: 15%;
+  top: 5%;
   width: 550px;
   z-index: 99;
 }
@@ -184,7 +194,7 @@ navbar li a:hover {
 
 .sidebar {
   border: 1px solid #bbb;
-  color: #444;
+  color: #333;
   height: 100%;
   letter-spacing: 0.1em;
   position: fixed;
@@ -205,6 +215,10 @@ navbar li a:hover {
 
 .toggleData {
   margin-left: 2%;
+}
+
+.toggleData > header h4 {
+  margin: 0 0 3% 0;
 }
 
 .icons {
