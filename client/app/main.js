@@ -2,8 +2,8 @@ $(document).ready(function() {
   // Initialize Backbone App here
   // set up model objects
   var app = new App({});
-  // var server_url = 'http://127.0.0.1:5000';                // Development
-  var server_url = 'http://little-wren.herokuapp.com';  // Production
+  var server_url = 'http://127.0.0.1:5000';                // Development
+  // var server_url = 'http://little-wren.herokuapp.com';  // Production
 
   // build a view for the top level of the whole app
   var appView = new AppView({model: app});
@@ -66,7 +66,7 @@ $(document).ready(function() {
 
           inputEnabled: false,
 
-          selected : 2
+          selected : 4
         },
 
         series : [{
@@ -339,14 +339,33 @@ $(document).ready(function() {
         }
         ],
         yAxis: [{
+          labels: {
+            format: '${value}',
+            style: {
+              'font-size': '1.5em'
+            }
+          },
           title: {
-            text: 'USD'
+            text: 'USD',
+            style: {
+              color: '#333',
+              'font-size': '2em'
+            }
           }
         }, // Primary Axis
           {   // Secondary Axis
             opposite: true,
+            labels: {
+              style: {
+                'font-size': '1.5em'
+              }
+            },
             title: {
-              text: 'Sentiment'
+              text: 'Sentiment',
+              style: {
+                color: '#333',
+                'font-size': '2em'
+              }
             }
           }]
         });
