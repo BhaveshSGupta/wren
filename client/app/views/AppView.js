@@ -13,6 +13,7 @@ var AppView = Backbone.View.extend({
   // TODO: Split out Charts from main template
   template: _.template(
     '<section class="popup hidden"><ul></ul></section> \
+    <img class="loading" src="img/bar180.gif" /> \
      <section class="main"> \
       <header class="topbar"> \
         <span class="logo">wren</span> \
@@ -24,8 +25,8 @@ var AppView = Backbone.View.extend({
             <a href="/">Markets</a> \
           </li> \
         </navbar> \
-        <aside class="live_data"> \
-          <aside class="live_data_value">$320.27</aside> \
+        <aside class="live_data hidden"> \
+          <aside class="live_data_value"></aside> \
           <aside class="live_data_currency"> \
             <aside class="currency"> \
               USD \

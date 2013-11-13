@@ -8,9 +8,21 @@ $(document).ready(function() {
   // build a view for the top level of the whole app
   var appView = new AppView({model: app});
 
+  var getBuyValue = function() {
+    $.get(server_url + '/buy-ticker', function(data) {
+      // update market div
+      data = data.toFixed(2);
+      $('.live_data').addClass('hidden');
+      $('.live_data_value').html('$'+data);
+      $('.live_data').fadeIn('slow');
+    });
+  };
+
   var loadData = function() {
     // TODO: Pull Lowest Chart Time Increment and Earliest Time from Chart Buttons
     $.get(server_url + '/data', function(returnData){
+      $('.loading').fadeOut('fast');
+
       // Create the chart
       $('.chart').highcharts('StockChart', {
         
@@ -341,6 +353,8 @@ $(document).ready(function() {
     });
   };
 
+  getBuyValue();  // update market ticker
+  setInterval(getBuyValue, 60000); // update buy value every minute
   loadData();
 
   // Show / Hide Data

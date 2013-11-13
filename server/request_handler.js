@@ -88,6 +88,19 @@ exports.eventHandler = function(req, res) {
         }
       });
       break;
+    case '/buy-ticker':
+      // get latest value from MtGox
+      connection.query('SELECT value FROM marketmovement WHERE site=1 ORDER BY timestamp DESC LIMIT 1',
+        function(err, rows) {
+          if(err){
+            console.log(err);
+            return;
+          }
+          res.writeHead(200, headers);
+          res.end(JSON.stringify(rows[0].value));
+        }
+      );
+      break;
     case '/tweets':
       var timestamp = JSON.parse(decodeURIComponent(url.parse(req.url).query, true));
       console.log('timestamp: ', timestamp);
