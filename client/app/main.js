@@ -125,7 +125,7 @@ $(document).ready(function() {
           color: '#3498db',
           data : returnData.twitter.five_min,
           cursor: 'pointer',
-          type : 'column',
+          type : 'spline',
           point: {
             events: {
               click: function() {
@@ -173,7 +173,7 @@ $(document).ready(function() {
           color: '#2980b9',
           data : returnData.twitter.ten_min,
           visible: false,
-          type : 'column',
+          type : 'spline',
           tooltip : {
             valueDecimals : 2
           },
@@ -183,7 +183,7 @@ $(document).ready(function() {
           color: '#2980b9',
           data : returnData.twitter.thirty_min,
           visible: false,
-          type : 'column',
+          type : 'spline',
           tooltip : {
             valueDecimals : 2
           },
@@ -193,7 +193,7 @@ $(document).ready(function() {
           color: '#2980b9',
           data : returnData.twitter.one_hour,
           visible: false,
-          type : 'column',
+          type : 'spline',
           tooltip : {
             valueDecimals : 2
           },
@@ -203,7 +203,7 @@ $(document).ready(function() {
           color: '#2980b9',
           data : returnData.twitter.three_hour,
           visible: false,
-          type : 'column',
+          type : 'spline',
           tooltip : {
             valueDecimals : 2
           },
@@ -213,7 +213,7 @@ $(document).ready(function() {
           color: '#2980b9',
           data : returnData.twitter.six_hour,
           visible: false,
-          type : 'column',
+          type : 'spline',
           tooltip : {
             valueDecimals : 2
           },
@@ -223,7 +223,7 @@ $(document).ready(function() {
           color: '#2980b9',
           data : returnData.twitter.twelve_hour,
           visible: false,
-          type : 'column',
+          type : 'spline',
           tooltip : {
             valueDecimals : 2
           },
@@ -233,7 +233,7 @@ $(document).ready(function() {
           color: '#2980b9',
           data : returnData.twitter.one_day,
           visible: false,
-          type : 'column',
+          type : 'spline',
           tooltip : {
             valueDecimals : 2
           },
@@ -243,7 +243,7 @@ $(document).ready(function() {
           color: '#2980b9',
           data : returnData.twitter.three_day,
           visible: false,
-          type : 'column',
+          type : 'spline',
           tooltip : {
             valueDecimals : 2
           },
