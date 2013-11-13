@@ -208,8 +208,10 @@ navbar li a:hover {
 
 .sidebar {
   border: 1px solid #333;
+  border-radius: 1.5%;
   float: right;
   height: 70%;
+  margin-top: 1%;
   width: 15%;
 }
 

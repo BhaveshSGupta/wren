@@ -61,6 +61,8 @@ exports.eventHandler = function(req, res) {
   case '.ttf':
     contentType = 'font/ttf';
     break;
+  case '.gif':
+    contentType = 'image/gif';
   default:
     contentType = 'text/html';
     break;

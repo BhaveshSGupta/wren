@@ -90,7 +90,7 @@ $(document).ready(function() {
         },{
           name : 'BitStamp Bid Price',
           data : returnData.bitstamp,
-          visible: true,
+          visible: false,
           type : 'spline',
           threshold : null,
           tooltip : {
@@ -109,7 +109,7 @@ $(document).ready(function() {
         },{
           name : 'BTC China Bid Price',
           data : returnData.btcchina,
-          visible: true,
+          visible: false,
           type : 'spline',
           threshold : null,
           tooltip : {
