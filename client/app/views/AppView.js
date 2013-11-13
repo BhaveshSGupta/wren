@@ -70,22 +70,12 @@ var AppView = Backbone.View.extend({
         </section> \
       </section> \
       <section class="bottom_bar"> \
-        <section class="feeds"> \
-          <section class="google_news feed"> \
-            <header> \
-              Google News \
-            </header> \
-          </section> \
-          <section class="twitter feed"> \
-            <header> \
-              Twitter \
-            </twitter> \
-          </section> \
-          <section class="reddit feed"> \
-            <header> \
-              Reddit \
-            </header> \
-          </section> \
+        <section class="icons"> \
+          <img class="icon" src="img/bitcoin.png" /> \
+          <img class="icon" src="img/google-plus.png" /> \
+          <img class="icon" src="img/facebook.png" /> \
+          <img class="icon" src="img/twitter.png" /> \
+          <img class="icon hack_reactor_logo" src="img/hack_reactor_mod2.png" /> \
         </section> \
       </section> \
     </section>'),

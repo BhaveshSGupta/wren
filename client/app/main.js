@@ -2,8 +2,8 @@ $(document).ready(function() {
   // Initialize Backbone App here
   // set up model objects
   var app = new App({});
-  // var server_url = 'http://127.0.0.1:5000';                // Development
-  var server_url = 'http://little-wren.herokuapp.com';  // Production
+  var server_url = 'http://127.0.0.1:5000';                // Development
+  // var server_url = 'http://little-wren.herokuapp.com';  // Production
 
   // build a view for the top level of the whole app
   var appView = new AppView({model: app});
@@ -25,6 +25,7 @@ $(document).ready(function() {
 
       // Create the chart
       $('.chart').highcharts('StockChart', {
+        width: '70%',
         credits: {
           enabled: false
         },
@@ -65,7 +66,7 @@ $(document).ready(function() {
 
           inputEnabled: false,
 
-          selected : 4
+          selected: 3
         },
 
         series : [{
@@ -84,7 +85,6 @@ $(document).ready(function() {
               x2: 0,
               y2: 1
             },
-            //stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
             stops : [[0, '#e67e22'], [1, 'rgba(0,0,0,0)']]
             
           },
@@ -125,6 +125,7 @@ $(document).ready(function() {
           color: '#3498db',
           data : returnData.twitter.five_min,
           cursor: 'pointer',
+          type : 'column',
           point: {
             events: {
               click: function() {
@@ -163,7 +164,6 @@ $(document).ready(function() {
               }
             }
           },
-          type : 'column',
           tooltip : {
             valueDecimals : 2
           },
