@@ -12,7 +12,8 @@ var AppView = Backbone.View.extend({
 
   // TODO: Split out Charts from main template
   template: _.template(
-    '<section class="main"> \
+    '<section class="popup hidden"><ul></ul></section> \
+     <section class="main"> \
       <header class="topbar"> \
         <span class="logo">wren</span> \
         <navbar> \

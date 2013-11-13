@@ -93,6 +93,10 @@ navbar li a:hover {
   text-transform: uppercase;
 }
 
+.hidden {
+  display: none;
+}
+
 .live_data_value {
   color: #eee;
   float: left;
@@ -136,7 +140,32 @@ navbar li a:hover {
 }
 
 .popup {
-  
+  background: #eeeeee;
+  border-radius: 0.5%;
+  border: 1px solid #ccc;
+  height: 550px;
+  left: 28%;
+  overflow-y: scroll;
+  position: absolute;
+  top: 15%;
+  width: 550px;
+  z-index: 99;
+}
+
+.popup ul {
+  list-style: none;
+  padding: 1%;
+}
+
+.popup ul li {
+  background: #fff;
+  border: 1px solid #ddd;
+  height: ;
+  width: 100%;
+}
+
+.popup ul li .username {
+  font-weight: bold;
 }
 
 .sidebar {
@@ -144,9 +173,6 @@ navbar li a:hover {
   float: right;
   height: 70%;
   width: 15%;
-}
-
-.toggleData {
 }
 
 .topbar {

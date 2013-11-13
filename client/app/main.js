@@ -127,8 +127,22 @@ $(document).ready(function() {
                 console.log('timestamp: ', timestamp);
                 $.get(server_url + '/tweets', JSON.stringify(timestamp), function(data) {
                   console.log(data);
-                  // add popup div
-                  
+                  // remove previous tweets
+                    $('.popup ul li').remove();
+                  // add data to popup
+                  for(var key in data){
+                    var timestamp = data[key].timestamp;
+                    var username = data[key].username;
+                    var text = data[key].text;
+                    var sentiment = data[key].sentiment;
+                    $('.popup ul').append('<li><section class="tweet"><span class="username">' + username + '</span><br /> ' + text + ' ' + moment(timestamp*1000).format('MM-DD-YYYY hh:mm:ss') + '</section><aside class="sentiment">' + sentiment + '</aside></li>');
+                    console.log(timestamp, username, text, sentiment);
+                  }
+                  // show popup div
+                  $('.popup').removeClass('hidden');
+                  $('.popup').click(function() {
+                    $(this).addClass('hidden');
+                  });
                 });
               }
             }
