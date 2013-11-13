@@ -128,7 +128,7 @@ $(document).ready(function() {
                     $('.popup ul li').remove();
                   // add data to popup
                   for(var key in data){
-                    var timestamp = data[key].timestamp;
+                    var timestamp = data[key].timestamp*1000;
                     var username = data[key].username;
                     var text = data[key].text;
                     var sentiment = data[key].sentiment;
@@ -136,7 +136,7 @@ $(document).ready(function() {
                                              <span class="username">' +
                                                username +
                                             '</span> \
-                                               <span class="timestamp">' + ' ' + moment(timestamp*1000).format('h:mm:ss A') + '</span><br /> \
+                                               <span class="timestamp">' + ' ' + moment(timestamp).format('h:mm:ss A') + '</span><br /> \
                                              <section class="tweet">' +
                                               '<span class="text">' + text + '</span>' +
                                             '</section> \
@@ -149,8 +149,8 @@ $(document).ready(function() {
                   // show popup div
                   $('.popup').removeClass('hidden');
                   $('.main').addClass('darken_background');
-                  $('.popup').click(function() {
-                    $(this).addClass('hidden');
+                  $(document).click(function() {
+                    $('.popup').addClass('hidden');
                     $('.main').removeClass('darken_background');
                   });
                 });
