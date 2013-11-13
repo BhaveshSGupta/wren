@@ -13,7 +13,7 @@ var AppView = Backbone.View.extend({
   // TODO: Split out Charts from main template
   template: _.template(
     '<section class="popup hidden"><ul></ul></section> \
-    <img class="loading" src="img/bar180.gif" /> \
+    <img class="loading" src="img/intersection.gif" /> \
      <section class="main"> \
       <header class="topbar"> \
         <span class="logo">wren</span> \
@@ -52,7 +52,7 @@ var AppView = Backbone.View.extend({
               <input name="btcchina_buy" value="buy" type="checkbox">BTC China</input><br /> \
             </section> \
             <section> \
-              <header>Twitter Sentiment</header> \
+              <header>Group Tweets By:</header> \
               <input name="twitter_sentiment" value="5" type="radio" checked> 5 min</input><br /> \
               <input name="twitter_sentiment" value="10" type="radio"> 10 min</input><br /> \
               <input name="twitter_sentiment" value="30" type="radio"> 30 min</input><br /> \

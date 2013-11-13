@@ -169,76 +169,36 @@ $(document).ready(function() {
               }
             }
           },
-          type : 'spline',
-          threshold : null,
+          type : 'column',
           tooltip : {
             valueDecimals : 2
-          },
-          fillColor : {
-            linearGradient : {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1
-            },
-            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
           yAxis: 1
         },{
           name : 'Twitter Sentiment (10min)',
           data : returnData.twitter.ten_min,
           visible: false,
-          type : 'spline',
-          threshold : null,
+          type : 'column',
           tooltip : {
             valueDecimals : 2
-          },
-          fillColor : {
-            linearGradient : {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1
-            },
-            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
           yAxis: 1
         },{
           name : 'Twitter Sentiment (30min)',
           data : returnData.twitter.thirty_min,
           visible: false,
-          type : 'spline',
-          threshold : null,
+          type : 'column',
           tooltip : {
             valueDecimals : 2
-          },
-          fillColor : {
-            linearGradient : {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1
-            },
-            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
           yAxis: 1
         },{
           name : 'Twitter Sentiment (1hr)',
           data : returnData.twitter.one_hour,
           visible: false,
-          type : 'spline',
-          threshold : null,
+          type : 'column',
           tooltip : {
             valueDecimals : 2
-          },
-          fillColor : {
-            linearGradient : {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1
-            },
-            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
           yAxis: 1
         },{
