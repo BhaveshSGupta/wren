@@ -43,13 +43,16 @@ var AppView = Backbone.View.extend({
           <aside class="toggleData"> \
             <header><h4>Show / Hide Data: </h4></header> \
             <section> \
-              <input name="mtgox_buy" value="buy" type="checkbox" checked>MtGox</input><br />\
-            </section> \
-            <section> \
-              <input name="bitstamp_buy" value="buy" type="checkbox">BitStamp</input><br /> \
-            </section> \
-            <section> \
-              <input name="btcchina_buy" value="buy" type="checkbox">BTC China</input><br /> \
+              <header>Exchanges:</header> \
+              <section> \
+                <input name="mtgox_buy" value="buy" type="checkbox" checked>MtGox</input><br />\
+              </section> \
+              <section> \
+                <input name="bitstamp_buy" value="buy" type="checkbox">BitStamp</input><br /> \
+              </section> \
+              <section> \
+                <input name="btcchina_buy" value="buy" type="checkbox">BTC China</input><br /> \
+              </section> \
             </section> \
             <section> \
               <header>Group Tweets By:</header> \
