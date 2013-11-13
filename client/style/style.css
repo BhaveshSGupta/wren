@@ -58,6 +58,10 @@ navbar li a:hover {
   width: 84%;
 }
 
+.darken_background {
+  opacity: 0.25;
+}
+
 .live_data {
   float: right;
   height: 100%;
@@ -142,7 +146,7 @@ navbar li a:hover {
 .popup {
   background: #eeeeee;
   border-radius: 0.5%;
-  border: 1px solid #ccc;
+  border: 1px solid #777;
   height: 550px;
   left: 28%;
   overflow-y: scroll;
@@ -160,12 +164,38 @@ navbar li a:hover {
 .popup ul li {
   background: #fff;
   border: 1px solid #ddd;
-  height: ;
+  height: 70px;
   width: 100%;
 }
 
 .popup ul li .username {
+  float: left;
+  font-size: 0.95em;
   font-weight: bold;
+}
+
+.popup ul li .timestamp {
+  color: #888;
+  float: right;
+  font-size: 0.85em;
+  font-style: italic;
+}
+
+.popup ul li .text {
+  font-size: 0.9em;
+}
+
+.popup ul li .tweet {
+  float: left;
+  width: 90%;
+}
+
+.popup ul li .sentiment {
+  float: left;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  width: 9.5%;
 }
 
 .sidebar {

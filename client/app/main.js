@@ -11,8 +11,6 @@ $(document).ready(function() {
   var loadData = function() {
     // TODO: Pull Lowest Chart Time Increment and Earliest Time from Chart Buttons
     $.get(server_url + '/data', function(returnData){
-    // $.get('http://little-wren.herokuapp.com/data', JSON.stringify({begin: startingTime, interval: lowestInterval}),function(returnData){
-
       // Create the chart
       $('.chart').highcharts('StockChart', {
         
@@ -126,7 +124,6 @@ $(document).ready(function() {
                 // send query to server for twitter data
                 console.log('timestamp: ', timestamp);
                 $.get(server_url + '/tweets', JSON.stringify(timestamp), function(data) {
-                  console.log(data);
                   // remove previous tweets
                     $('.popup ul li').remove();
                   // add data to popup
@@ -135,13 +132,26 @@ $(document).ready(function() {
                     var username = data[key].username;
                     var text = data[key].text;
                     var sentiment = data[key].sentiment;
-                    $('.popup ul').append('<li><section class="tweet"><span class="username">' + username + '</span><br /> ' + text + ' ' + moment(timestamp*1000).format('MM-DD-YYYY hh:mm:ss') + '</section><aside class="sentiment">' + sentiment + '</aside></li>');
+                    $('.popup ul').append('<li> \
+                                             <span class="username">' +
+                                               username +
+                                            '</span> \
+                                               <span class="timestamp">' + ' ' + moment(timestamp*1000).format('h:mm:ss A') + '</span><br /> \
+                                             <section class="tweet">' +
+                                              '<span class="text">' + text + '</span>' +
+                                            '</section> \
+                                             <aside class="sentiment">' + 
+                                               sentiment + 
+                                            '</aside> \
+                                          </li>');
                     console.log(timestamp, username, text, sentiment);
                   }
                   // show popup div
                   $('.popup').removeClass('hidden');
+                  $('.main').addClass('darken_background');
                   $('.popup').click(function() {
                     $(this).addClass('hidden');
+                    $('.main').removeClass('darken_background');
                   });
                 });
               }
