@@ -1,5 +1,4 @@
 var http = require("http");
-var cronJob = require('cron').CronJob;
 var requestHandler = require("./request_handler.js");
 var scrapers = require("./helpers/scrapers.js");
 

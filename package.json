@@ -16,8 +16,7 @@
     "moment": "~2.4.0",
     "bitstamp-request": "~0.1.2",
     "bower": "~1.2.7",
-    "Sentimental": "0.0.4",
-    "cron": "~1.0.1"
+    "Sentimental": "0.0.4"
   },
   "engines": {
     "node": "0.10.x",
