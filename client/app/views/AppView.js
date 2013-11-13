@@ -41,9 +41,9 @@ var AppView = Backbone.View.extend({
         <section class="chart"></section> \
         <section class="sidebar"> \
           <aside class="toggleData"> \
-            <header><h4>Show / Hide Data: </h4></header> \
+            <header><h4>Show / Hide Data</h4></header> \
             <section> \
-              <header>Exchanges:</header> \
+              <header>Exchanges</header> \
               <section> \
                 <input name="mtgox_buy" value="buy" type="checkbox" checked>MtGox</input><br />\
               </section> \
@@ -55,7 +55,7 @@ var AppView = Backbone.View.extend({
               </section> \
             </section> \
             <section> \
-              <header>Group Tweets By:</header> \
+              <header>Tweet Intervals</header> \
               <input name="twitter_sentiment" value="5" type="radio" checked> 5 min</input><br /> \
               <input name="twitter_sentiment" value="10" type="radio"> 10 min</input><br /> \
               <input name="twitter_sentiment" value="30" type="radio"> 30 min</input><br /> \
