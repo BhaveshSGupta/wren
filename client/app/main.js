@@ -25,7 +25,6 @@ $(document).ready(function() {
 
       // Create the chart
       $('.chart').highcharts('StockChart', {
-        
         credits: {
           enabled: false
         },
@@ -72,6 +71,7 @@ $(document).ready(function() {
         series : [{
           name : 'MtGox Bid Price',
           data : returnData.mtgox,
+          color: '#d35400',
           type : 'areaspline',
           threshold : null,
           tooltip : {
@@ -84,11 +84,14 @@ $(document).ready(function() {
               x2: 0,
               y2: 1
             },
-            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
+            //stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
+            stops : [[0, '#e67e22'], [1, 'rgba(0,0,0,0)']]
+            
           },
           yAxis: 0
         },{
           name : 'BitStamp Bid Price',
+          color: '#16a085',
           data : returnData.bitstamp,
           visible: false,
           type : 'spline',
@@ -96,18 +99,10 @@ $(document).ready(function() {
           tooltip : {
             valueDecimals : 2
           },
-          fillColor : {
-            linearGradient : {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1
-            },
-            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
-          },
           yAxis: 0
         },{
           name : 'BTC China Bid Price',
+          color: '#e74c3c',
           data : returnData.btcchina,
           visible: false,
           type : 'spline',
@@ -127,6 +122,7 @@ $(document).ready(function() {
           yAxis: 0
         },{
           name : 'Twitter Sentiment (5min)',
+          color: '#3498db',
           data : returnData.twitter.five_min,
           cursor: 'pointer',
           point: {
@@ -134,7 +130,6 @@ $(document).ready(function() {
               click: function() {
                 var timestamp = Math.floor(this.x / 1000);
                 // send query to server for twitter data
-                console.log('timestamp: ', timestamp);
                 $.get(server_url + '/tweets', JSON.stringify(timestamp), function(data) {
                   // remove previous tweets
                     $('.popup ul li').remove();
@@ -156,7 +151,6 @@ $(document).ready(function() {
                                                sentiment + 
                                             '</aside> \
                                           </li>');
-                    console.log(timestamp, username, text, sentiment);
                   }
                   // show popup div
                   $('.popup').removeClass('hidden');
@@ -176,6 +170,7 @@ $(document).ready(function() {
           yAxis: 1
         },{
           name : 'Twitter Sentiment (10min)',
+          color: '#2980b9',
           data : returnData.twitter.ten_min,
           visible: false,
           type : 'column',
@@ -185,6 +180,7 @@ $(document).ready(function() {
           yAxis: 1
         },{
           name : 'Twitter Sentiment (30min)',
+          color: '#2980b9',
           data : returnData.twitter.thirty_min,
           visible: false,
           type : 'column',
@@ -194,6 +190,7 @@ $(document).ready(function() {
           yAxis: 1
         },{
           name : 'Twitter Sentiment (1hr)',
+          color: '#2980b9',
           data : returnData.twitter.one_hour,
           visible: false,
           type : 'column',
@@ -203,101 +200,59 @@ $(document).ready(function() {
           yAxis: 1
         },{
           name : 'Twitter Sentiment (3hr)',
+          color: '#2980b9',
           data : returnData.twitter.three_hour,
           visible: false,
-          type : 'spline',
-          threshold : null,
+          type : 'column',
           tooltip : {
             valueDecimals : 2
-          },
-          fillColor : {
-            linearGradient : {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1
-            },
-            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
           yAxis: 1
         },{
           name : 'Twitter Sentiment (6hr)',
+          color: '#2980b9',
           data : returnData.twitter.six_hour,
           visible: false,
-          type : 'spline',
-          threshold : null,
+          type : 'column',
           tooltip : {
             valueDecimals : 2
-          },
-          fillColor : {
-            linearGradient : {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1
-            },
-            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
           yAxis: 1
         },{
           name : 'Twitter Sentiment (12hr)',
+          color: '#2980b9',
           data : returnData.twitter.twelve_hour,
           visible: false,
-          type : 'spline',
-          threshold : null,
+          type : 'column',
           tooltip : {
             valueDecimals : 2
-          },
-          fillColor : {
-            linearGradient : {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1
-            },
-            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
           yAxis: 1
         },{
           name : 'Twitter Sentiment (1day)',
+          color: '#2980b9',
           data : returnData.twitter.one_day,
           visible: false,
-          type : 'spline',
-          threshold : null,
+          type : 'column',
           tooltip : {
             valueDecimals : 2
-          },
-          fillColor : {
-            linearGradient : {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1
-            },
-            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
           yAxis: 1
         },{
           name : 'Twitter Sentiment (3day)',
+          color: '#2980b9',
           data : returnData.twitter.three_day,
           visible: false,
-          type : 'spline',
-          threshold : null,
+          type : 'column',
           tooltip : {
             valueDecimals : 2
-          },
-          fillColor : {
-            linearGradient : {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1
-            },
-            stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
           },
           yAxis: 1
         }
         ],
+        xAxis: {
+          // ordinal: false
+        },
         yAxis: [{
           labels: {
             format: '${value}',

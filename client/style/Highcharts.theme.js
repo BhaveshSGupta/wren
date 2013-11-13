@@ -1,13 +1,13 @@
 /**
  * Grid theme for Highcharts JS
  * @author Torstein Hønsi
- */#e67e22
+ */
 
 Highcharts.theme = {
    global: {
           useUTC: false
         },
-   colors: ['#f39c12', '#34495e', '#2980b9', '#c0392b'],
+   colors: ['#e67e22', '#34495e', '#2980b9', '#c0392b'],
    chart: {
       backgroundColor: {
          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },

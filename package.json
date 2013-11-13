@@ -13,7 +13,6 @@
     "mtgox": "~1.0.1",
     "mysql": "~2.0.0-alpha9",
     "twitter": "~0.2.4",
-    "moment-timezone": "0.0.3",
     "moment": "~2.4.0",
     "bitstamp-request": "~0.1.2",
     "bower": "~1.2.7",
