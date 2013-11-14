@@ -52,16 +52,16 @@ var AppView = Backbone.View.extend({
             <section> \
               <header>Exchanges</header> \
               <section> \
-                <input name="mtgox_buy" value="buy" type="checkbox" checked>MtGox</input><br />\
+                <input name="mtgox_buy" value="buy" type="checkbox" checked><span class="mtgox">MtGox</span></input><br />\
               </section> \
               <section> \
-                <input name="bitstamp_buy" value="buy" type="checkbox">BitStamp</input><br /> \
+                <input name="bitstamp_buy" value="buy" type="checkbox"><span class="bitstamp">BitStamp</span></input><br /> \
               </section> \
               <section> \
-                <input name="btcchina_buy" value="buy" type="checkbox">BTC China</input><br /> \
+                <input name="btcchina_buy" value="buy" type="checkbox"><span class="btcchina">BTC China</span></input><br /> \
               </section> \
               <section> \
-                <input name="twitter_sentiment" value="sentiment" type="checkbox">Twitter Sentiment</input><br /> \
+                <input name="twitter_sentiment" value="sentiment" type="checkbox"><span class="twitter">Twitter Sentiment</span></input><br /> \
               </section> \
             </section> \
           </aside> \

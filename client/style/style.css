@@ -137,6 +137,26 @@ navbar li a:hover {
   height: 100%;
 }
 
+.mtgox {
+  color: #d35400;
+  text-shadow: 1px 1px 1px #eee;
+}
+
+.bitstamp {
+  color: #16a085;
+  text-shadow: 1px 1px 1px #eee;
+}
+
+.btcchina {
+  color: #555;
+  text-shadow: 1px 1px 1px #eee;
+}
+
+.twitter {
+  color: #2980b9;
+  text-shadow: 1px 1px 1px #eee;
+}
+
 .popup {
   background: #eeeeee;
   border-radius: 0.5%;
