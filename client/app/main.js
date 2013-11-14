@@ -136,7 +136,7 @@ $(document).ready(function() {
           },
           yAxis: 0
         },{
-          name : 'Twitter Sentiment (5min)',
+          name : 'Twitter Sentiment',
           color: '#2980b9',
           data : chartData.twitter.sentiment,
           dataGrouping: {
