@@ -50,7 +50,6 @@ var AppView = Backbone.View.extend({
           <aside class="toggleData"> \
             <header><h4>Options</h4></header> \
             <section> \
-              <header>Exchanges</header> \
               <section> \
                 <input name="mtgox_buy" value="buy" type="checkbox" checked><span class="mtgox">MtGox</span></input><br />\
               </section> \

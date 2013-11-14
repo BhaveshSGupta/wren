@@ -10,16 +10,6 @@ Highcharts.theme = {
    colors: ['#e67e22', '#34495e', '#2980b9', '#c0392b'],
    chart: {
       backgroundColor: '#eee',
-      // {
-      //    linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-      //    stops: [
-      //        [0, 'rgb(255, 255, 255)'],
-      //        [1, 'rgb(240, 240, 255)'] 
-      //       [0, 'rgb(255, 255, 255)'],
-      //       [1, 'rgb(221, 221, 221)']
-         
-      //    ]
-      // },
       borderWidth: 0,
       plotBackgroundColor: 'rgba(255, 255, 255, .9)',
       plotShadow: false,

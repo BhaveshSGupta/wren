@@ -2,8 +2,8 @@ $(document).ready(function() {
   // Initialize Backbone App here
   // set up model objects
   var app = new App({});
-  var server_url = 'http://127.0.0.1:5000';                // Development
-  // var server_url = 'http://little-wren.herokuapp.com';  // Production
+  // var server_url = 'http://127.0.0.1:5000';                // Development
+  var server_url = 'http://little-wren.herokuapp.com';  // Production
 
   // build a view for the top level of the whole app
   var appView = new AppView({model: app});
