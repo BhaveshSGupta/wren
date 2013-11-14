@@ -18,10 +18,25 @@ $(document).ready(function() {
     });
   };
 
+  var chartData = {};
+
   var loadData = function() {
     // TODO: Pull Lowest Chart Time Increment and Earliest Time from Chart Buttons
     $.get(server_url + '/data', function(returnData){
-      $('.loading').fadeOut('fast');
+      chartData = returnData;
+
+      var groupingUnits = [
+        [
+          'minute',
+          [1, 5, 10, 30]
+        ], [
+          'hour',
+          [1, 3, 6, 12]
+        ], [
+          'day',
+          [1, 3, 7]
+        ]
+      ];
 
       // Create the chart
       $('.chart').highcharts('StockChart', {
@@ -71,7 +86,7 @@ $(document).ready(function() {
 
         series : [{
           name : 'MtGox Bid Price',
-          data : returnData.mtgox,
+          data : chartData.mtgox,
           color: '#d35400',
           type : 'areaspline',
           threshold : null,
@@ -92,7 +107,7 @@ $(document).ready(function() {
         },{
           name : 'BitStamp Bid Price',
           color: '#16a085',
-          data : returnData.bitstamp,
+          data : chartData.bitstamp,
           visible: false,
           type : 'spline',
           threshold : null,
@@ -103,7 +118,7 @@ $(document).ready(function() {
         },{
           name : 'BTC China Bid Price',
           color: '#555',
-          data : returnData.btcchina,
+          data : chartData.btcchina,
           visible: false,
           type : 'spline',
           threshold : null,
@@ -122,10 +137,13 @@ $(document).ready(function() {
           yAxis: 0
         },{
           name : 'Twitter Sentiment (5min)',
-          color: '#3498db',
-          data : returnData.twitter.five_min,
+          color: '#2980b9',
+          data : chartData.twitter.five_min,
+          dataGrouping: {
+            units: groupingUnits // an array of arrays
+          },
           cursor: 'pointer',
-          type : 'spline',
+          type : 'column',
           visible: false,
           point: {
             events: {
@@ -134,20 +152,20 @@ $(document).ready(function() {
                 // send query to server for twitter data
                 $.get(server_url + '/tweets', JSON.stringify(timestamp), function(data) {
                   // remove previous tweets
-                    $('.popup ul li').remove();
+                    $('.popup ul li.temp_tweet').remove();
                   // add data to popup
                   for(var key in data){
                     var timestamp = data[key].timestamp*1000;
                     var username = data[key].username;
                     var text = data[key].text;
                     var sentiment = data[key].sentiment;
-                    $('.popup ul').append('<li> \
-                                             <span class="username">' +
-                                               username +
-                                            '</span> \
-                                               <span class="timestamp">' + ' ' + moment(timestamp).format('h:mm:ss A') + '</span><br /> \
+                    $('.popup ul').append('<li class="temp_tweet"> \
                                              <section class="tweet">' +
-                                              '<span class="text">' + text + '</span>' +
+                                             '<span class="username">' +
+                                                username +
+                                             '</span> \
+                                              <span class="timestamp">' + ' ' + moment(timestamp).format('h:mm:ss A') + '</span><br /> \
+                                              <span class="text">' + text + '</span>' +
                                             '</section> \
                                              <aside class="sentiment">' + 
                                                sentiment + 
@@ -170,92 +188,12 @@ $(document).ready(function() {
             valueDecimals : 2
           },
           yAxis: 1
-        },{
-          name : 'Twitter Sentiment (10min)',
-          color: '#2980b9',
-          data : returnData.twitter.ten_min,
-          visible: false,
-          type : 'spline',
-          tooltip : {
-            valueDecimals : 2
-          },
-          yAxis: 1
-        },{
-          name : 'Twitter Sentiment (30min)',
-          color: '#2980b9',
-          data : returnData.twitter.thirty_min,
-          visible: false,
-          type : 'spline',
-          tooltip : {
-            valueDecimals : 2
-          },
-          yAxis: 1
-        },{
-          name : 'Twitter Sentiment (1hr)',
-          color: '#2980b9',
-          data : returnData.twitter.one_hour,
-          visible: false,
-          type : 'spline',
-          tooltip : {
-            valueDecimals : 2
-          },
-          yAxis: 1
-        },{
-          name : 'Twitter Sentiment (3hr)',
-          color: '#2980b9',
-          data : returnData.twitter.three_hour,
-          visible: false,
-          type : 'spline',
-          tooltip : {
-            valueDecimals : 2
-          },
-          yAxis: 1
-        },{
-          name : 'Twitter Sentiment (6hr)',
-          color: '#2980b9',
-          data : returnData.twitter.six_hour,
-          visible: false,
-          type : 'spline',
-          tooltip : {
-            valueDecimals : 2
-          },
-          yAxis: 1
-        },{
-          name : 'Twitter Sentiment (12hr)',
-          color: '#2980b9',
-          data : returnData.twitter.twelve_hour,
-          visible: false,
-          type : 'spline',
-          tooltip : {
-            valueDecimals : 2
-          },
-          yAxis: 1
-        },{
-          name : 'Twitter Sentiment (1day)',
-          color: '#2980b9',
-          data : returnData.twitter.one_day,
-          visible: false,
-          type : 'spline',
-          tooltip : {
-            valueDecimals : 2
-          },
-          yAxis: 1
-        },{
-          name : 'Twitter Sentiment (3day)',
-          color: '#2980b9',
-          data : returnData.twitter.three_day,
-          visible: false,
-          type : 'spline',
-          tooltip : {
-            valueDecimals : 2
-          },
-          yAxis: 1
         }
         ],
         xAxis: {
           // ordinal: false
         },
-        yAxis: [{
+        yAxis: [{ // Primary Axis
           labels: {
             format: '${value}',
             style: {
@@ -271,7 +209,7 @@ $(document).ready(function() {
               'text-transform': 'uppercase'
             }
           }
-        }, // Primary Axis
+        },
           {   // Secondary Axis
             opposite: true,
             labels: {
@@ -318,44 +256,36 @@ $(document).ready(function() {
     } else if(type === 'radio'){
       // set all twitter data visible to false
       // TODO: determine which series is shown and set only that to false
-      chart.series[3].setVisible(false, false);
-      chart.series[4].setVisible(false, false);
-      chart.series[5].setVisible(false, false);
-      chart.series[6].setVisible(false, false);
-      chart.series[7].setVisible(false, false);
-      chart.series[8].setVisible(false, false);
-      chart.series[9].setVisible(false, false);
-      chart.series[10].setVisible(false, false);
-      chart.series[11].setVisible(false, false);
+      
+      series = chart.series[3];
+      series.visible = false;
 
       // set selected radio button to visible
       var value = $(this).attr('value');
       if(value === '5'){ // tweets groups by 5 mins
-        series = chart.series[3];
+        chart.series[3].setData(chartData.twitter.five_min);
       }else if(value === '10'){ // tweets grouped by 10 mins
-        series = chart.series[4];
+        chart.series[3].setData(chartData.twitter.ten_min);
       }else if(value === '30'){ // tweets grouped by 30 mins
-        series = chart.series[5];
+        chart.series[3].setData(chartData.twitter.thirty_min);
       }else if(value === '60'){ // tweets grouped by 60 mins
-        series = chart.series[6];
+        chart.series[3].setData(chartData.twitter.one_hour);
       }else if(value === '180'){ // tweets grouped by 3 hours
-        series = chart.series[7];
+        chart.series[3].setData(chartData.twitter.three_hour);
       }else if(value === '360'){ // tweets grouped by 6 hours
-        series = chart.series[8];
+        chart.series[3].setData(chartData.twitter.six_hour);
       }else if(value === '720'){ // tweets grouped by 12 hours
-        series = chart.series[9];
+        chart.series[3].setData(chartData.twitter.twelve_hour);
       } else if(value === '1440'){ // tweets grouped by 1 day 
-        series = chart.series[10];
+        chart.series[3].setData(chartData.twitter.one_day);
       } else if(value === '4320'){ // tweets grouped by 3 days
-        series = chart.series[11];
+        chart.series[3].setData(chartData.twitter.three_day);
       } else {
         alert('Not implemented yet!');
       }
-
     }
     
     var isShown = series.visible;
-    // TODO:need to redraw chart to fit new scale
     series.setVisible(!isShown, true);
 
   });
