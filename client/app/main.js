@@ -138,7 +138,7 @@ $(document).ready(function() {
         },{
           name : 'Twitter Sentiment (5min)',
           color: '#2980b9',
-          data : chartData.twitter.five_min,
+          data : chartData.twitter.sentiment,
           dataGrouping: {
             units: groupingUnits // an array of arrays
           },
@@ -148,7 +148,9 @@ $(document).ready(function() {
           point: {
             events: {
               click: function() {
+                // get grouping
                 var timestamp = Math.floor(this.x / 1000);
+                console.log('this.series', this.series);
                 // send query to server for twitter data
                 $.get(server_url + '/tweets', JSON.stringify(timestamp), function(data) {
                   // remove previous tweets
@@ -249,39 +251,11 @@ $(document).ready(function() {
         series = chart.series[1];
       } else if(name === 'btcchina_buy'){
         series = chart.series[2];
+      } else if(name === 'twitter_sentiment'){
+        series = chart.series[3];
       } else {
         alert(name + ' not implemented yet!');
         return;
-      }
-    } else if(type === 'radio'){
-      // set all twitter data visible to false
-      // TODO: determine which series is shown and set only that to false
-      
-      series = chart.series[3];
-      series.visible = false;
-
-      // set selected radio button to visible
-      var value = $(this).attr('value');
-      if(value === '5'){ // tweets groups by 5 mins
-        chart.series[3].setData(chartData.twitter.five_min);
-      }else if(value === '10'){ // tweets grouped by 10 mins
-        chart.series[3].setData(chartData.twitter.ten_min);
-      }else if(value === '30'){ // tweets grouped by 30 mins
-        chart.series[3].setData(chartData.twitter.thirty_min);
-      }else if(value === '60'){ // tweets grouped by 60 mins
-        chart.series[3].setData(chartData.twitter.one_hour);
-      }else if(value === '180'){ // tweets grouped by 3 hours
-        chart.series[3].setData(chartData.twitter.three_hour);
-      }else if(value === '360'){ // tweets grouped by 6 hours
-        chart.series[3].setData(chartData.twitter.six_hour);
-      }else if(value === '720'){ // tweets grouped by 12 hours
-        chart.series[3].setData(chartData.twitter.twelve_hour);
-      } else if(value === '1440'){ // tweets grouped by 1 day 
-        chart.series[3].setData(chartData.twitter.one_day);
-      } else if(value === '4320'){ // tweets grouped by 3 days
-        chart.series[3].setData(chartData.twitter.three_day);
-      } else {
-        alert('Not implemented yet!');
       }
     }
     

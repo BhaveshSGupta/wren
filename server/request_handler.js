@@ -123,19 +123,10 @@ exports.eventHandler = function(req, res) {
       var returnData = {mtgox: [],
                         bitstamp: [],
                         btcchina: [],
-                        twitter: { five_min: [],
-                                   ten_min: [],
-                                   thirty_min: [],
-                                   one_hour: [],
-                                   three_hour: [],
-                                   six_hour: [],
-                                   twelve_hour: [],
-                                   one_day: [],
-                                   three_day: []
-                                 }
+                        twitter: { sentiment: [] }
       };
       var counter = 0;
-      var totalQueries = 12;
+      var totalQueries = 4;
 
       // get mtgox data
       connection.query('SELECT timestamp, AVG(value), AVG(volume) FROM marketmovement WHERE site=1 GROUP BY round(timestamp / 60)',
@@ -177,107 +168,11 @@ exports.eventHandler = function(req, res) {
         }
       );
       // get twitter data
-      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 300)', // group by 5 minutes
+      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 60)', // group by one minute
         function(err, rows) {
           counter++;
           for(var key in rows){
-            returnData.twitter.five_min.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
-          }
-          if(counter === totalQueries) {
-            res.writeHead(200, headers);
-            res.end(JSON.stringify(returnData));
-          }
-        }
-      );
-      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 600)', // group by 10 minutes
-        function(err, rows) {
-          counter++;
-          for(var key in rows){
-            returnData.twitter.ten_min.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
-          }
-          if(counter === totalQueries) {
-            res.writeHead(200, headers);
-            res.end(JSON.stringify(returnData));
-          }
-        }
-      );
-      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 1800)', // group by 30 minutes
-        function(err, rows) {
-          counter++;
-          for(var key in rows){
-            returnData.twitter.thirty_min.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
-          }
-          if(counter === totalQueries) {
-            res.writeHead(200, headers);
-            res.end(JSON.stringify(returnData));
-          }
-        }
-      );
-      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 3600)', // group by 1 hr
-        function(err, rows) {
-          counter++;
-          for(var key in rows){
-            returnData.twitter.one_hour.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
-          }
-          if(counter === totalQueries) {
-            res.writeHead(200, headers);
-            res.end(JSON.stringify(returnData));
-          }
-        }
-      );
-      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 10800)', // group by 3 hrs
-        function(err, rows) {
-          counter++;
-          for(var key in rows){
-            returnData.twitter.three_hour.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
-          }
-          if(counter === totalQueries) {
-            res.writeHead(200, headers);
-            res.end(JSON.stringify(returnData));
-          }
-        }
-      );
-      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 21600)', // group by 6 hrs
-        function(err, rows) {
-          counter++;
-          for(var key in rows){
-            returnData.twitter.six_hour.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
-          }
-          if(counter === totalQueries) {
-            res.writeHead(200, headers);
-            res.end(JSON.stringify(returnData));
-          }
-        }
-      );
-      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 43200)', // group by 12 hrs
-        function(err, rows) {
-          counter++;
-          for(var key in rows){
-            returnData.twitter.twelve_hour.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
-          }
-          if(counter === totalQueries) {
-            res.writeHead(200, headers);
-            res.end(JSON.stringify(returnData));
-          }
-        }
-      );
-      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 86400)', // group by 1 day
-        function(err, rows) {
-          counter++;
-          for(var key in rows){
-            returnData.twitter.one_day.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
-          }
-          if(counter === totalQueries) {
-            res.writeHead(200, headers);
-            res.end(JSON.stringify(returnData));
-          }
-        }
-      );
-      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 259200)', // group by 3 days
-        function(err, rows) {
-          counter++;
-          for(var key in rows){
-            returnData.twitter.three_day.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
+            returnData.twitter.sentiment.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
           }
           if(counter === totalQueries) {
             res.writeHead(200, headers);

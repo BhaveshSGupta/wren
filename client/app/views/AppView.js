@@ -60,18 +60,9 @@ var AppView = Backbone.View.extend({
               <section> \
                 <input name="btcchina_buy" value="buy" type="checkbox">BTC China</input><br /> \
               </section> \
-            </section> \
-            <section> \
-              <header>Tweet Intervals</header> \
-              <input name="twitter_sentiment" value="5" type="radio"> 5 min</input><br /> \
-              <input name="twitter_sentiment" value="10" type="radio"> 10 min</input><br /> \
-              <input name="twitter_sentiment" value="30" type="radio"> 30 min</input><br /> \
-              <input name="twitter_sentiment" value="60" type="radio"> 1 hr</input><br /> \
-              <input name="twitter_sentiment" value="180" type="radio"> 3 hr</input><br /> \
-              <input name="twitter_sentiment" value="360" type="radio"> 6 hr</input><br /> \
-              <input name="twitter_sentiment" value="720" type="radio"> 12 hr</input><br /> \
-              <input name="twitter_sentiment" value="1440" type="radio"> 1 day</input><br /> \
-              <input name="twitter_sentiment" value="4320" type="radio"> 3 day</input><br /> \
+              <section> \
+                <input name="twitter_sentiment" value="sentiment" type="checkbox">Twitter Sentiment</input><br /> \
+              </section> \
             </section> \
           </aside> \
         </section> \
