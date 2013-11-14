@@ -65,9 +65,9 @@ navbar li a:hover {
 
 .chart {
   float: left;
-  height: 100%;
+  height: 500px;
   margin-top: 1%;
-  width: 84%;
+  width: 100%;
 }
 
 .transparent_layer {
