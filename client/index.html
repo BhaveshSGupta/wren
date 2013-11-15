@@ -6,12 +6,6 @@
     <script src="../bower_components/moment/min/moment.min.js"></script>
     <script src="../bower_components/highstock/js/highstock.src.js"></script>
     <script src="../bower_components/underscore/underscore-min.js"></script>
-    <script src="../bower_components/backbone/backbone-min.js"></script>
-
-    <!-- Backbone files -->
-    <script src="app/models/App.js"></script>
-
-    <script src="app/views/AppView.js"></script>
     
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <script src="style/Highcharts.theme.js"></script>
@@ -20,9 +14,7 @@
   <body>
     <section class="popup hidden">
       <ul>
-        <header>
-          <li>Tweets</li>
-        </header>
+          <li>Sentiment <span class="sentiment-header">(+ / -)</span></li>
       </ul>
     </section>
     <section class="transparent_layer hidden"></section>
@@ -68,7 +60,7 @@
                 <span class="btcchina">BTC China</span><input name="btcchina_buy" value="buy" type="checkbox"></input><br />
               </section>
               <section>
-                <span class="twitter">Twitter Sentiment</span><input name="twitter_sentiment" value="sentiment" type="checkbox"></input><br />
+                <span class="twitter">Twitter Sentiment</span><input name="twitter_sentiment" value="sentiment" type="checkbox" checked></input><br />
               </section>
             </section>
           </section>
@@ -79,7 +71,8 @@
           <img class="icon" src="img/bitcoin.png" />
           <img class="icon" src="img/google-plus.png" />
           <img class="icon" src="img/facebook.png" />
-          <img class="icon" src="img/twitter.png" />
+          <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+          <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20BitCoin%20performance%20vs%20sentiment%20analysis!&url=http%3A%2F%2Fdefault-environment-qnmrx6f75m.elasticbeanstalk.com/"><img class="icon" src="img/twitter.png" /></a>
           <a href="http://www.hackreactor.com" target="_blank"><img class="icon hack_reactor_logo" src="img/hack_reactor.png" /></a>
         </section>
       </section>

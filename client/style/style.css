@@ -172,6 +172,8 @@ navbar li a:hover {
   top: 5%;
   width: 45%;
   z-index: 99;
+  -webkit-box-shadow: 0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);
+  box-shadow: 0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);
 }
 
 .popup ul {
@@ -180,19 +182,31 @@ navbar li a:hover {
   padding: 0;
 }
 
-.popup ul header li {
+.popup ul li:first-child {
   background-color: #ececec;
+  border-bottom: 1px solid #ddd;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   color: #555;
   font-size: 14px;
   font-weight: bold;
   height: 30px;
+  line-height: 30px;
+  position: fixed;
   text-align: center;
+  text-shadow: 0 1px 0 #fff;
+  width: 45%;
+}
+
+.popup ul li:nth-child(2) {
+  margin-top: 30px;
 }
 
 .popup ul li {
   background: #fff;
-  border: 1px solid #ddd;
-  height: 70px;
+  border-bottom: 1px solid #ddd;
+  display: inline-block;
+  height: 80px;
   width: 100%;
 }
 
@@ -215,15 +229,24 @@ navbar li a:hover {
 
 .popup ul li .tweet {
   float: left;
-  width: 90%;
+  margin-left: 1%;
+  margin-top: 1%;
+  width: 84%;
 }
 
 .popup ul li .sentiment {
   float: left;
   font-size: 2em;
   font-weight: bold;
+  line-height: 250%;
   text-align: center;
-  width: 9.5%;
+  width: 15%;
+}
+
+.popup ul li .sentiment-header {
+  float: right;
+  position: relative;
+  right: 4.5%;
 }
 
 .sidebar {

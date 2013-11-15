@@ -46,6 +46,27 @@ $(document).ready(function(){
       // Create the chart
       $('.chart').highcharts('StockChart', {
         width: '70%',
+        title: {
+          style: {
+            color: '#333',
+            'font-weight': 'bold',
+            'letter-spacing': '0.1em',
+            'text-transform': 'uppercase',
+            'text-shadow': '0 1px 0 #fff'
+          },
+          text: 'BitCoin Performance vs Sentiment'
+        },
+        subtitle: {
+          style: {
+            color: '#333',
+            'font-size': '1.1em',
+            'font-weight': 'bold',
+            'letter-spacing': '0.1em',
+            'text-transform': 'uppercase',
+            'text-shadow': '0 1px 0 #fff'
+          },
+          text: '<span class="mtgox">MtGox</span> Buy Price <span style="text-transform: lowercase; font-style: italic;">vs</span> Twitter'
+        },
         credits: {
           enabled: false
         },
@@ -141,7 +162,7 @@ $(document).ready(function(){
           },
           cursor: 'pointer',
           type : 'column',
-          visible: false,
+          visible: true,
           point: {
             events: {
               click: function() {
