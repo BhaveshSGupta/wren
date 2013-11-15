@@ -31,7 +31,7 @@ $(document).ready(function(){
       var groupingUnits = [
         [
           'minute',
-          [1, 5, 10, 30]
+          [5, 10, 30]
         ], [
           'hour',
           [1, 3, 6, 12]
@@ -178,12 +178,14 @@ $(document).ready(function(){
                 $.get(server_url + '/tweets', JSON.stringify(timestamp), function(data) {
                   // remove previous tweets
                     $('.popup ul li.temp_tweet').remove();
+                    var sentiment_total = 0;
                   // add data to popup
                   for(var key in data){
                     var timestamp = data[key].timestamp*1000;
                     var username = data[key].username;
                     var text = data[key].text;
                     var sentiment = data[key].sentiment;
+                    sentiment_total += sentiment;
                     $('.popup ul').append('<li class="temp_tweet"> \
                                              <section class="tweet">' +
                                              '<span class="username">' +
@@ -197,6 +199,7 @@ $(document).ready(function(){
                                             '</aside> \
                                           </li>');
                   }
+                  console.log('sentiment_total: ', sentiment_total);
                   // show popup div
                   $('.popup, .transparent_layer').removeClass('hidden');
                   // $('.transparent_layer').removeClass('hidden');
