@@ -52,15 +52,14 @@ navbar li a:hover {
   background-color: #222;
   bottom: 0;
   /*box-shadow: 60px 0 rgba(0, 0, 0, 1);*/
-  clear: both;
-  height: 30%;
+  height: 6%;
   position: absolute;
   width: 100%;
-  height: 6%;
+  z-index: 20;
 }
 
 .container {
-  height: 100%;
+  height: 94%;
   margin: 0 auto;
   padding: 0 3%;
   position: relative;
@@ -79,7 +78,6 @@ navbar li a:hover {
   top: 0;
   left: 0;
   background-color: #222;
-  display: none;
   height: 100%;
   opacity: 0.6;
   width: 100%;
@@ -217,14 +215,16 @@ navbar li a:hover {
 }
 
 .sidebar {
-  border: 1px solid #bbb;
+  border-left: 1px solid #ccc;
+  background-color: #ddd;
   color: #333;
   height: 100%;
   letter-spacing: 0.1em;
   position: fixed;
   right: 0;
   text-transform: uppercase;
-  width: 15%;
+  width: 3.5%;
+  z-index: 1;
 }
 
 .sidebar section {
@@ -239,10 +239,39 @@ navbar li a:hover {
 
 .toggleData {
   margin-left: 2%;
+  position: relative;
+  right: -100%;
 }
 
 .toggleData > header h4 {
   margin: 0 0 3% 0;
+}
+
+.toggleButton {
+  border: 3px solid #333;
+  border-radius: 20px;
+  height: 20px;
+  right: 8px;
+  top: 10px;
+  position: absolute;
+  width: 20px;
+}
+
+.vertical_text {
+  color: #222;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  /*margin-left: 25%;*/
+  position: absolute;
+  right: -63px;
+  top: 5%;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -webkit-transform-origin: bottom left;
+  -moz-transform-origin: bottom left;
+  -o-transform-origin: bottom left;
 }
 
 .icons {

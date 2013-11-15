@@ -1,9 +1,17 @@
-$(document).ready(function() {
+$(document).ready(function(){
   // Initialize Backbone App here
   // set up model objects
   var app = new App({});
-  // var server_url = 'http://127.0.0.1:5000';                // Development
-  var server_url = 'http://little-wren.herokuapp.com';  // Production
+  var server_url;
+
+  // if (process.env.IS_PRODUCTION){
+  //   server_url = 'http://little-wren.herokuapp.com';  // Production
+  // } else {
+  //   server_url = 'http://127.0.0.1:5000';             // Development
+  // }
+  
+  //   server_url = 'http://little-wren.herokuapp.com';  // Production
+  server_url = 'http://127.0.0.1:5000';             // Development
 
   // build a view for the top level of the whole app
   var appView = new AppView({model: app});
@@ -46,17 +54,9 @@ $(document).ready(function() {
         },
         rangeSelector : {
           buttons: [{
-            type: 'minute',
-            count: 30,
-            text: '30m'
-          }, {
             type: 'hour',
-            count: 1,
-            text: '1hr'
-          }, {
-            type: 'hour',
-            count: 3,
-            text: '3hr'
+            count: 6,
+            text: '6hr'
           }, {
             type: 'hour',
             count: 12,
@@ -81,7 +81,7 @@ $(document).ready(function() {
 
           inputEnabled: false,
 
-          selected: 3
+          selected: 1
         },
 
         series : [{
@@ -175,12 +175,12 @@ $(document).ready(function() {
                                           </li>');
                   }
                   // show popup div
-                  $('.popup').removeClass('hidden');
-                  $('.transparent_layer').css('display', 'inline');
+                  $('.popup, .transparent_layer').removeClass('hidden');
+                  // $('.transparent_layer').removeClass('hidden');
                   $(document).click(function() {
                     $('.popup ul').scrollTop(0);
                     $('.popup').addClass('hidden');
-                    $('.transparent_layer').css('display', 'none');
+                    $('.transparent_layer').addClass('hidden');
                   });
                 });
               }
@@ -237,6 +237,17 @@ $(document).ready(function() {
   setInterval(getBuyValue, 60000); // update buy value every minute
   loadData();
 
+  // Show / Hide Chart Options
+  $('.sidebar').hover(
+    function() {
+      $(this).css({'width': '10%'});
+      $('.vertical_text').css({top: '100%', 'margin-top': '-165%'});
+    }, function() {
+      $(this).css({'width': '3.5%'});
+      $('.vertical_text').css({top: '5%', 'margin-top': ''});
+    }
+  );
+
   // Show / Hide Data
   $('input').click(function() {
     var type = $(this).attr('type');
@@ -265,5 +276,5 @@ $(document).ready(function() {
   });
 
   // Apply the theme
-  var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+  Highcharts.setOptions(Highcharts.theme);
 });

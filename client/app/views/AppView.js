@@ -19,7 +19,7 @@ var AppView = Backbone.View.extend({
          </header> \
        </ul> \
      </section> \
-     <section class="transparent_layer"></section> \
+     <section class="transparent_layer hidden"></section> \
      <img class="loading" src="img/intersection.gif" /> \
      <section class="main"> \
       <header class="topbar"> \
@@ -47,8 +47,9 @@ var AppView = Backbone.View.extend({
       <section class="container"> \
         <section class="chart"></section> \
         <section class="sidebar"> \
-          <aside class="toggleData"> \
-            <header><h4>Options</h4></header> \
+          <section class="toggleButton"></section> \
+          <header class="vertical_text">Options</header> \
+          <section class="toggleData"> \
             <section> \
               <section> \
                 <input name="mtgox_buy" value="buy" type="checkbox" checked><span class="mtgox">MtGox</span></input><br />\
@@ -63,7 +64,7 @@ var AppView = Backbone.View.extend({
                 <input name="twitter_sentiment" value="sentiment" type="checkbox"><span class="twitter">Twitter Sentiment</span></input><br /> \
               </section> \
             </section> \
-          </aside> \
+          </section> \
         </section> \
       </section> \
       <section class="bottom_bar"> \
