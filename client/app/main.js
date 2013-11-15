@@ -10,7 +10,8 @@ $(document).ready(function(){
   //   server_url = 'http://127.0.0.1:5000';             // Development
   // }
   
-  //   server_url = 'http://little-wren.herokuapp.com';  // Production
+  // server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
+  // server_url = 'http://little-wren.herokuapp.com';     // Heroku Production
   server_url = 'http://127.0.0.1:5000';             // Development
 
   // build a view for the top level of the whole app
@@ -240,11 +241,13 @@ $(document).ready(function(){
   // Show / Hide Chart Options
   $('.sidebar').hover(
     function() {
-      $(this).css({'width': '10%'});
-      $('.vertical_text').css({top: '100%', 'margin-top': '-165%'});
+      $(this).css({'width': '12%'});
+      $('.vertical_text').css({top: '100%', 'margin-top': '-140%'});
+      $('.toggleData').css({right: '0'});
     }, function() {
       $(this).css({'width': '3.5%'});
       $('.vertical_text').css({top: '5%', 'margin-top': ''});
+      $('.toggleData').css({right: '-100%'});
     }
   );
 
