@@ -242,7 +242,7 @@ $(document).ready(function(){
   $('.sidebar').hover(
     function() {
       $(this).animate(
-        {'width': '12%',
+        {'width': '150px',
          'box-shadow': '-1px 0px 5px #bbb'
        }, 'fast');
       $('.vertical_text').animate(
