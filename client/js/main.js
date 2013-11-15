@@ -48,25 +48,25 @@ $(document).ready(function(){
       $('.chart').highcharts('StockChart', {
         width: '70%',
         title: {
+          text: '<span style="color: #d35400;">MtGox</span> BitCoin Buy Price',
           style: {
             color: '#333',
             'font-weight': 'bold',
             'letter-spacing': '0.1em',
             'text-transform': 'uppercase',
             'text-shadow': '0 1px 0 #fff'
-          },
-          text: 'BitCoin Performance <span style="color: red">vs</span> Sentiment'
+          }
         },
         subtitle: {
+          text: '<span style="text-transform: lowercase">vs</span> <span style="color: #2980b9;">Twitter Sentiment</span>',
           style: {
             color: '#333',
-            'font-size': '1.1em',
+            'font-size': '1.2em',
             'font-weight': 'bold',
             'letter-spacing': '0.1em',
             'text-transform': 'uppercase',
             'text-shadow': '0 1px 0 #fff'
-          },
-          text: '<span class="mtgox">MtGox</span> Buy Price <span style="text-transform: lowercase; font-style: italic;">vs</span> Twitter'
+          }
         },
         credits: {
           enabled: false
@@ -253,25 +253,42 @@ $(document).ready(function(){
   loadData();
 
   var setChartTitle = function(){
+    var seriesArray = [];
     var inputBoxes = $('input');
-    var title = '';
+    var first_title = '';
+    var second_title = '';
     inputBoxes.each(function(index, item){
       if(item.checked){
         if(item.name === 'mtgox_buy'){
-          title += '<span style="color: #d35400;">MtGox</span> ';
+          // title += '<span style="color: #d35400;">MtGox</span> ';
+          seriesArray.push('<span style="color: #d35400;">MtGox</span>');
         } else if(item.name === 'bitstamp_buy'){
-          title += '<span class="bitstamp">BitStamp</span> ';
+          // title += '<span style="color: #16a085;">BitStamp</span> ';
+          seriesArray.push('<span style="color: #16a085;">BitStamp</span>');
         } else if(item.name === 'btcchina_buy'){
-          title += '<span class="btcchina">BTC China</span> ';
+          // title += '<span style="color: #555;">BTC China</span> ';
+          seriesArray.push('<span style="color: #555;">BTC China</span>');
         } else if(item.name === 'twitter_sentiment'){
-          title += 'vs <span class="twitter">Twitter</span>';
+          // title += 'vs <span style="color: #2980b9;">Twitter Sentiment</span>';
+          second_title += '<span style="color: #2980b9;">Twitter Sentiment</span>';
         } else {
           console.log('FAIL: Tried to set title for input box that has not been handled yet.');
         }
       }
     });
 
-    $('.chart').highcharts().setTitle({},{text: title});
+    if(seriesArray.length){
+      first_title = seriesArray.join(', ') + ' BitCoin Buy Price';
+      console.log(first_title);
+      if(second_title.length){
+        second_title = '<span style="text-transform: lowercase">vs</span> ' + second_title;
+      }
+    } else if(second_title.length){
+      first_title = second_title;
+      second_title = '';
+    }
+
+    $('.chart').highcharts().setTitle({text: first_title}, {text: second_title});
   };
 
   // Show / Hide Chart Options
