@@ -1,6 +1,4 @@
 $(document).ready(function(){
-  // Initialize Backbone App here
-  // set up model objects
   var server_url;
 
   // if (process.env.IS_PRODUCTION){
@@ -57,7 +55,7 @@ $(document).ready(function(){
             'text-transform': 'uppercase',
             'text-shadow': '0 1px 0 #fff'
           },
-          text: 'BitCoin Performance <span style="text-transform: lowercase">vs</span> Sentiment'
+          text: 'BitCoin Performance <span style="color: red">vs</span> Sentiment'
         },
         subtitle: {
           style: {
@@ -171,7 +169,6 @@ $(document).ready(function(){
               click: function() {
                 // get grouping
                 var timestamp = Math.floor(this.x / 1000);
-                console.log('this.series', this.series);
                 // send query to server for twitter data
                 $.get(server_url + '/tweets', JSON.stringify(timestamp), function(data) {
                   // remove previous tweets
@@ -255,6 +252,28 @@ $(document).ready(function(){
   setInterval(getBuyValue, 60000); // update buy value every minute
   loadData();
 
+  var setChartTitle = function(){
+    var inputBoxes = $('input');
+    var title = '';
+    inputBoxes.each(function(index, item){
+      if(item.checked){
+        if(item.name === 'mtgox_buy'){
+          title += '<span style="color: #d35400;">MtGox</span> ';
+        } else if(item.name === 'bitstamp_buy'){
+          title += '<span class="bitstamp">BitStamp</span> ';
+        } else if(item.name === 'btcchina_buy'){
+          title += '<span class="btcchina">BTC China</span> ';
+        } else if(item.name === 'twitter_sentiment'){
+          title += 'vs <span class="twitter">Twitter</span>';
+        } else {
+          console.log('FAIL: Tried to set title for input box that has not been handled yet.');
+        }
+      }
+    });
+
+    $('.chart').highcharts().setTitle({},{text: title});
+  };
+
   // Show / Hide Chart Options
   $('.sidebar').hover(
     function() {
@@ -308,9 +327,9 @@ $(document).ready(function(){
       }
     }
     
+    setChartTitle();
     var isShown = series.visible;
     series.setVisible(!isShown, true);
-
   });
 
   // Apply the theme
