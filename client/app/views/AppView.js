@@ -15,7 +15,7 @@ var AppView = Backbone.View.extend({
     '<section class="popup hidden"> \
        <ul> \
          <header> \
-           <li>Header</li> \
+           <li>Tweets</li> \
          </header> \
        </ul> \
      </section> \

@@ -259,7 +259,7 @@ $(document).ready(function(){
         'margin-top': ''
       }, 'fast');
       $(this).animate(
-        {'width': '3.5%'
+        {'width': '40px'
        }, 'fast');
       $(this).css({'box-shadow': ''});
     }

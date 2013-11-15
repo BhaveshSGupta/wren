@@ -161,10 +161,12 @@ navbar li a:hover {
 
 .popup {
   background: #eeeeee;
-  border-radius: 0.5%;
+  border-radius: 10px;
   border: 1px solid #777;
   height: 90%;
   left: 28%;
+  margin: 0;
+  padding: 0;
   overflow-y: scroll;
   position: absolute;
   top: 5%;
@@ -174,7 +176,17 @@ navbar li a:hover {
 
 .popup ul {
   list-style: none;
-  padding: 1%;
+  margin: 0;
+  padding: 0;
+}
+
+.popup ul header li {
+  background-color: #ececec;
+  color: #555;
+  font-size: 14px;
+  font-weight: bold;
+  height: 30px;
+  margin: 0 auto;
 }
 
 .popup ul li {
@@ -224,7 +236,7 @@ navbar li a:hover {
   right: 0;
   text-align: right;
   text-transform: uppercase;
-  width: 3.5%;
+  width: 40px;
   z-index: 1;
 }
 
@@ -274,7 +286,7 @@ navbar li a:hover {
 }
 
 .icons {
-  width: 26%;
+  width: 305px;
   margin: 0.25% auto;
   
 }
