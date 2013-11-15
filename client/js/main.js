@@ -245,6 +245,8 @@ $(document).ready(function(){
       $('.toggleData').animate(
         {right: '0%'
       }, 'fast');
+      $('.toggleButton img').fadeOut();
+      $('.button_text').fadeIn();
     }, function() {
       $('.toggleData').animate({right: '-100%'}, 'fast');
       $('.vertical_text').animate(
@@ -255,6 +257,8 @@ $(document).ready(function(){
         {'width': '40px'
        }, 'fast');
       $(this).css({'box-shadow': ''});
+      $('.button_text').fadeOut();
+      $('.toggleButton img').fadeIn();
     }
   );
 
