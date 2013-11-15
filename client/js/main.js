@@ -1,7 +1,6 @@
 $(document).ready(function(){
   // Initialize Backbone App here
   // set up model objects
-  var app = new App({});
   var server_url;
 
   // if (process.env.IS_PRODUCTION){
@@ -13,9 +12,6 @@ $(document).ready(function(){
   // server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
   // server_url = 'http://little-wren.herokuapp.com';     // Heroku Production
   server_url = 'http://127.0.0.1:5000';             // Development
-
-  // build a view for the top level of the whole app
-  var appView = new AppView({model: app});
 
   var getBuyValue = function() {
     $.get(server_url + '/buy-ticker', function(data) {
