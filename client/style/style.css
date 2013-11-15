@@ -236,6 +236,7 @@ navbar li a:hover {
   margin: 35% 3% 0 0;
   position: relative;
   right: -100%;
+  width: 145px;
 }
 
 .toggleData header h4 {

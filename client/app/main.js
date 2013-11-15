@@ -241,13 +241,27 @@ $(document).ready(function(){
   // Show / Hide Chart Options
   $('.sidebar').hover(
     function() {
-      $(this).css({'width': '12%'});
-      $('.vertical_text').css({top: '100%', 'margin-top': '-140%'});
-      $('.toggleData').css({right: '0'});
+      $(this).animate(
+        {'width': '12%',
+         'box-shadow': '-1px 0px 5px #bbb'
+       }, 'fast');
+      $('.vertical_text').animate(
+        {top: '100%',
+        'margin-top': '-140%'
+      }, 'fast');
+      $('.toggleData').animate(
+        {right: '0%'
+      }, 'fast');
     }, function() {
-      $(this).css({'width': '3.5%'});
-      $('.vertical_text').css({top: '5%', 'margin-top': ''});
-      $('.toggleData').css({right: '-100%'});
+      $('.toggleData').animate({right: '-100%'}, 'fast');
+      $('.vertical_text').animate(
+        {top: '5%',
+        'margin-top': ''
+      }, 'fast');
+      $(this).animate(
+        {'width': '3.5%',
+         'box-shadow': ''
+       }, 'fast');
     }
   );
 
