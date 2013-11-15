@@ -220,7 +220,7 @@ $(document).ready(function(){
             }
           },
           title: {
-            text: 'Buy Value ($USD)',
+            text: 'Buy Price ($USD)',
             style: {
               color: '#222',
               'font-size': '1.3em',
