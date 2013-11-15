@@ -193,9 +193,6 @@ $(document).ready(function(){
           yAxis: 1
         }
         ],
-        xAxis: {
-          // ordinal: false
-        },
         yAxis: [{ // Primary Axis
           labels: {
             format: '${value}',

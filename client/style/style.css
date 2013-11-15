@@ -89,7 +89,7 @@ navbar li a:hover {
   height: 100%;
   letter-spacing: 0;
   margin-top: 0.25%;
-  width: 19%;
+  width: 200px;
 }
 
 .hidden {
@@ -186,7 +186,7 @@ navbar li a:hover {
   font-size: 14px;
   font-weight: bold;
   height: 30px;
-  margin: 0 auto;
+  text-align: center;
 }
 
 .popup ul li {
