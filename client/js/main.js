@@ -171,12 +171,15 @@ $(document).ready(function(){
           },
           point: {
             events: {
-              click: function() {
+              click: function(e) {
                 // get grouping
                 var timestamp = Math.floor(this.x / 1000);
+                console.log('begin: ', this.x/1000, 'end: ', (this.x / 1000) + (this.series.currentDataGrouping.unitRange/100));
+                console.log('data grouping: ', this.series.currentDataGrouping.unitRange);
                 // send query to server for twitter data
                 $.get(server_url + '/tweets', JSON.stringify(timestamp), function(data) {
                   // remove previous tweets
+                    
                     $('.popup ul li.temp_tweet').remove();
                     var sentiment_total = 0;
                   // add data to popup
