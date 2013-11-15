@@ -242,9 +242,9 @@ $(document).ready(function(){
   $('.sidebar').hover(
     function() {
       $(this).animate(
-        {'width': '150px',
-         'box-shadow': '-1px 0px 5px #bbb'
+        {'width': '150px'
        }, 'fast');
+      $(this).css({'box-shadow': '-1px 0px 5px #aaa'});
       $('.vertical_text').animate(
         {top: '100%',
         'margin-top': '-140%'
@@ -259,9 +259,9 @@ $(document).ready(function(){
         'margin-top': ''
       }, 'fast');
       $(this).animate(
-        {'width': '3.5%',
-         'box-shadow': ''
+        {'width': '3.5%'
        }, 'fast');
+      $(this).css({'box-shadow': ''});
     }
   );
 

@@ -25,7 +25,7 @@ var AppView = Backbone.View.extend({
       <header class="topbar"> \
         <span class="logo">wren</span> \
         <navbar> \
-           <li> \
+          <li> \
             <a href="">Sentiment?</a> \
           </li> \
           <li> \
