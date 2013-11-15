@@ -9,7 +9,7 @@ $(document).ready(function(){
   
   // server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
   // server_url = 'http://little-wren.herokuapp.com';     // Heroku Production
-  server_url = 'http://127.0.0.1:5000';             // Development
+  server_url = 'http://127.0.0.1:5000';                   // Development
 
   var getBuyValue = function() {
     $.get(server_url + '/buy-ticker', function(data) {
@@ -47,6 +47,11 @@ $(document).ready(function(){
       // Create the chart
       $('.chart').highcharts('StockChart', {
         width: '70%',
+        tooltip : {
+          valueDecimals : 2,
+          valuePrefix: '$',
+          valueSuffix: ' USD'
+        },
         title: {
           floating: true,
           text: '<span style="color: #d35400;">MtGox</span> BitCoin Buy Price',
@@ -112,7 +117,8 @@ $(document).ready(function(){
           type : 'areaspline',
           threshold : null,
           tooltip : {
-            valueDecimals : 2
+            valueDecimals : 2,
+            valuePrefix: '$'
           },
           fillColor : {
             linearGradient : {
@@ -121,8 +127,7 @@ $(document).ready(function(){
               x2: 0,
               y2: 1
             },
-            stops : [[0, '#e67e22'], [1, 'rgba(0,0,0,0)']]
-            
+            stops : [[0, '#e67e22'], [1, 'rgba(0,0,0,0)']] 
           },
           yAxis: 0
         },{
@@ -132,9 +137,6 @@ $(document).ready(function(){
           visible: false,
           type : 'spline',
           threshold : null,
-          tooltip : {
-            valueDecimals : 2
-          },
           yAxis: 0
         },{
           name : 'BTC China Bid Price',
@@ -143,9 +145,6 @@ $(document).ready(function(){
           visible: false,
           type : 'spline',
           threshold : null,
-          tooltip : {
-            valueDecimals : 2
-          },
           fillColor : {
             linearGradient : {
               x1: 0,
@@ -166,6 +165,10 @@ $(document).ready(function(){
           cursor: 'pointer',
           type : 'column',
           visible: true,
+          tooltip: {
+            valuePrefix: null,
+            valueSuffix: '<br/>(<b>click column to see tweets</b>)'
+          },
           point: {
             events: {
               click: function() {
@@ -206,9 +209,7 @@ $(document).ready(function(){
               }
             }
           },
-          tooltip : {
-            valueDecimals : 2
-          },
+          
           yAxis: 1
         }
         ],

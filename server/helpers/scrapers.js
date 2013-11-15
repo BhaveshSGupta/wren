@@ -46,8 +46,8 @@ exports.scrapeTweets = function () {
     if (data.statuses) {
       var closureFunc = function (i) {
         var tweet_id = data.statuses[i].id.toString();
-        var username = data.statuses[i].user.screen_name;
-        var text = data.statuses[i].text;
+        var username = connection.escape(data.statuses[i].user.screen_name);
+        var text = connection.escape(data.statuses[i].text);
         // TODO: whitelist characters instead of blacklist
         // remove non-unicode characters (probably better to whitelist what I will accept rather than create a blacklist)
         text = text.replace(/([^\x00-\xFF]|\s)*$/g, '');
@@ -132,7 +132,7 @@ exports.scrapeBitstamp = function () {
         console.log(e);
         return;
       }
-      var timestamp = response.timestamp; 
+      var timestamp = response.timestamp;
       var volume = response.volume;
       var value = response.bid;
       var currency = 1; // USD
