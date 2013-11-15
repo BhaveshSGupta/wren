@@ -43,6 +43,9 @@ $(document).ready(function(){
         ]
       ];
 
+      // unhide sidebar
+      $('.sidebar').removeClass('hidden');
+
       // Create the chart
       $('.chart').highcharts('StockChart', {
         width: '70%',
@@ -54,7 +57,7 @@ $(document).ready(function(){
             'text-transform': 'uppercase',
             'text-shadow': '0 1px 0 #fff'
           },
-          text: 'BitCoin Performance vs Sentiment'
+          text: 'BitCoin Performance <span style="text-transform: lowercase">vs</span> Sentiment'
         },
         subtitle: {
           style: {
