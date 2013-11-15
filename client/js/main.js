@@ -48,6 +48,7 @@ $(document).ready(function(){
       $('.chart').highcharts('StockChart', {
         width: '70%',
         title: {
+          floating: true,
           text: '<span style="color: #d35400;">MtGox</span> BitCoin Buy Price',
           style: {
             color: '#333',
@@ -58,6 +59,7 @@ $(document).ready(function(){
           }
         },
         subtitle: {
+          floating: true,
           text: '<span style="text-transform: lowercase">vs</span> <span style="color: #2980b9;">Twitter Sentiment</span>',
           style: {
             color: '#333',
@@ -218,7 +220,7 @@ $(document).ready(function(){
             }
           },
           title: {
-            text: 'Buy Value (USD)',
+            text: 'Buy Value ($USD)',
             style: {
               color: '#222',
               'font-size': '1.3em',
