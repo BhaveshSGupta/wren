@@ -2,8 +2,6 @@ var url = require('url');
 var mysql = require('mysql');
 var fs = require('fs');
 var path = require('path');
-var moment = require('moment');
-
 
 // Define CORS headers
 var headers = {
@@ -16,16 +14,13 @@ var headers = {
 
 // establish database connection
 var connection = mysql.createConnection({
-  host     : 'littlebird.c0eactkzzr6c.us-west-2.rds.amazonaws.com',
-  port     : '3306',
-  user     : process.env.AMAZON_RDS_USER,
-  password : process.env.AMAZON_RDS_PWD,
-  database : 'wren',
-  // host     : 'localhost',
-  // user       : 'root',
-  // database   : 'little_bird',
   charset  : 'utf-8',
-  multipleStatements: true
+  database : 'wren',
+  host     : 'littlebird.c0eactkzzr6c.us-west-2.rds.amazonaws.com',
+  multipleStatements: true,
+  password : process.env.AMAZON_RDS_PWD,
+  port     : '3306',
+  user     : process.env.AMAZON_RDS_USER
 });
 
 exports.sendResponse = sendResponse = function(response, obj, status){

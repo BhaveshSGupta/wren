@@ -25,16 +25,6 @@ var twit = new twitter({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
-// Key+secret is required to access the private API
-var gox = new mtgox({
-  key: process.env.MTGOX_KEY,
-  secret: process.env.MTGOX_SECRET
-});
-
-// Connect to Bitstamp
-// var privateBitstamp = new Bitstamp(api.bitstamp.key, api.bitstamp.secret, api.bitstamp.clientID);
-var privateBitstamp = new Bitstamp(process.env.BITSTAMP_CLIENTID, process.env.BITSTAMP_KEY, process.env.BITSTAMP_SECRET);
-
 // TODO: Refactor the scraper to use the same function call for different services
 exports.scrapeTweets = function () {
   twit.search('bitcoin OR bitcoins OR #mtgox OR #bitstamp OR #btce', {lang: 'en', count: 100}, function (data) {
@@ -81,6 +71,12 @@ exports.scrapeTweets = function () {
   });
 };
 
+// MTGOX key+secret required to access the private API
+var gox = new mtgox({
+  key: process.env.MTGOX_KEY,
+  secret: process.env.MTGOX_SECRET
+});
+
 // get MtGox order depth
 exports.scrapeMtGox = function () {
   gox.market('BTCUSD', function (err, depth) {
@@ -112,6 +108,9 @@ exports.scrapeMtGox = function () {
     }
   });
 };
+
+// Connect to Bitstamp
+var privateBitstamp = new Bitstamp(process.env.BITSTAMP_CLIENTID, process.env.BITSTAMP_KEY, process.env.BITSTAMP_SECRET);
 
 // Scrape Bitstamp
 exports.scrapeBitstamp = function () {

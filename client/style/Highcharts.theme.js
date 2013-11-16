@@ -78,31 +78,6 @@ Highcharts.theme = {
     }],
     selected: 1
   },
-  subtitle: {
-    floating: true,
-    text: '<span style="text-transform: lowercase">vs</span> <span style="color: #2980b9;">Twitter Sentiment</span>',
-    style: {
-      color: '#333',
-      font: 'bold 12px "Trebuchet MS", Verdana, sans-serif',
-      'font-size': '1.2em',
-      'font-weight': 'bold',
-      'letter-spacing': '0.1em',
-      'text-transform': 'uppercase',
-      'text-shadow': '0 1px 0 #fff'
-    }
-  },
-  title: {
-    floating: true,
-    text: '<span style="color: #d35400;">MtGox</span> BitCoin Buy Price',
-    style: {
-      color: '#333',
-      font: 'bold 16px "Trebuchet MS", Verdana, sans-serif',
-      'font-weight': 'bold',
-      'letter-spacing': '0.1em',
-      'text-transform': 'uppercase',
-      'text-shadow': '0 1px 0 #fff'
-    }
-  },
   tooltip : {
     valueDecimals : 2,
     valuePrefix: '$',
