@@ -1,8 +1,8 @@
 var server_url;
 
-server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
+// server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
 // server_url = 'http://little-wren.herokuapp.com';     // Heroku Production
-// server_url = 'http://127.0.0.1:5000';                   // Development
+server_url = 'http://127.0.0.1:5000';                   // Development
 
 // chartData global for storing data
 var chartData = {};
