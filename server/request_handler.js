@@ -105,11 +105,13 @@ exports.eventHandler = function(req, res) {
       );
       break;
     case '/tweets':
-      var timestamp = JSON.parse(decodeURIComponent(url.parse(req.url).query, true));
-      timestamp = timestamp;
+      var recv = JSON.parse(decodeURIComponent(url.parse(req.url).query, true));
+      console.log('recv: ', recv);
+      var begin = recv.begin;
+      var end = recv.end;
       // get mtgox data
       connection.query('SELECT timestamp, username, text, sentiment FROM tweets WHERE (timestamp BETWEEN ? AND ?) ORDER BY sentiment DESC',
-        [timestamp, timestamp + 300],
+        [begin, end],
         function(err, rows) {
           if(err){
             console.log(err);
