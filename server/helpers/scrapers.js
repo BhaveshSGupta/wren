@@ -117,7 +117,6 @@ exports.scrapeBitstamp = function () {
       var volume = response.volume;
       var value = response.bid;
       var currency = 1; // USD
-      console.log('bitstamp timestamp: ', timestamp, 'vol: ', volume, 'value: ', value);
       connection.query('SELECT 1 FROM marketmovement WHERE site=2 AND timestamp=?', [timestamp],
         function (err, rows) {
           if (err) {
