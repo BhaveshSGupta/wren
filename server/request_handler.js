@@ -109,9 +109,12 @@ exports.eventHandler = function(req, res) {
       };
       var counter = 0;
       var totalQueries = 4;
+      var one_month_ago = Date.now() - 2678400000;
+      console.log('one month ago:', one_month_ago);
 
       // get mtgox data
       connection.query('SELECT timestamp, AVG(value), AVG(volume) FROM marketmovement WHERE site=1 GROUP BY round(timestamp / 60)',
+        [one_month_ago],
         function(err, rows) {
           if(err){
             console.log(err);

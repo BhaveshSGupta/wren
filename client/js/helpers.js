@@ -2,15 +2,16 @@ var server_url;
 
 // TODO: Find a better way to do this (cannot access environment vars in the client, don't want to keep two version
 //       of this file)
-server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
+// server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
 // server_url = 'http://little-wren.herokuapp.com';     // Heroku Production
-// server_url = 'http://127.0.0.1:5000';                   // Development
+server_url = 'http://127.0.0.1:5000';                   // Development
 
 // chartData global for storing data
 var chartData = {};
 
 var loadData = function() {
   // TODO: Pull Lowest Chart Time Increment and Earliest Time from Chart Buttons
+
   $.get(server_url + '/data', function(returnData){
     chartData = JSON.parse(returnData);
 
@@ -102,8 +103,6 @@ var loadData = function() {
               $.get(server_url + '/tweets', JSON.stringify({begin: begin, end: begin+interval}), function(data) {
                 data = JSON.parse(data);
 
-                // remove previous tweets
-                $('.popup ul li.temp_tweet').remove();
                 var sentiment_total = 0;
                 // add data to popup
                 for(var key in data){
@@ -133,6 +132,8 @@ var loadData = function() {
                   $('.popup ul').scrollTop(0);
                   $('.popup').addClass('hidden');
                   $('.transparent_layer').addClass('hidden');
+                  // remove tweets
+                  $('.popup ul li.temp_tweet').remove();
                 });
               });
             }

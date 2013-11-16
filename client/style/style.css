@@ -274,8 +274,25 @@ navbar li a:hover {
   z-index: 1;
 }
 
+.sidebar a {
+  text-decoration: none;
+}
+
 .sidebar section {
   font-size: 0.8em;
+}
+
+.sidebar .exchanges header h5, .sidebar .sentiments header h5 {
+  background-color: #bbb;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  color: #444;
+  cursor: default;
+  font-size: 1.2em;
+  letter-spacing: 0.1em;
+  margin: 5px 0;
+  padding: 5px 0;
+  width: 100%;
 }
 
 .toggleData {

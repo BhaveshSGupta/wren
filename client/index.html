@@ -50,18 +50,30 @@
           <header class="vertical_text">Options</header>
           <section class="toggleData">
             <section>
-              <header><h4>Data</h4></header>
-              <section>
-                <a href="http://en.wikipedia.org/wiki/Mt.Gox"><span class="mtgox">MtGox</span><input name="mtgox_buy" value="buy" type="checkbox" checked></input></a><br />
+              <header>
+                <h4>Data</h4>
+              </header>
+              <section class="exchanges">
+                <header>
+                  <h5>Exchanges</h5>
+                </header>
+                <section>
+                  <a href="https://www.mtgox.com/" target="_blank"><span class="mtgox">MtGox</span><input name="mtgox_buy" value="buy" type="checkbox" checked></input></a><br />
+                </section>
+                <section>
+                  <a href="https://www.bitstamp.net/" target="_blank"><span class="bitstamp">BitStamp</span><input name="bitstamp_buy" value="buy" type="checkbox"></input></a><br />
+                </section>
+                <section>
+                  <a href="https://vip.btcchina.com/" target="blank_"><span class="btcchina">BTC China</span><input name="btcchina_buy" value="buy" type="checkbox"></input></a><br />
+                </section>
               </section>
-              <section>
-                <span class="bitstamp">BitStamp</span><input name="bitstamp_buy" value="buy" type="checkbox"></input><br />
-              </section>
-              <section>
-                <span class="btcchina">BTC China</span><input name="btcchina_buy" value="buy" type="checkbox"></input><br />
-              </section>
-              <section>
-                <span class="twitter">Twitter Sentiment</span><input name="twitter_sentiment" value="sentiment" type="checkbox" checked></input><br />
+              <section class="sentiments">
+                <header>
+                  <h5>Sentiment</h5>
+                </header>
+                <section>
+                  <span class="twitter">Twitter</span><input name="twitter_sentiment" value="sentiment" type="checkbox" checked></input><br />
+                </section>
               </section>
             </section>
           </section>
