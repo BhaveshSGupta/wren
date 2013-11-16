@@ -1,5 +1,7 @@
 var server_url;
 
+// TODO: Find a better way to do this (cannot access environment vars in the client, don't want to keep two version
+//       of this file)
 // server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
 // server_url = 'http://little-wren.herokuapp.com';     // Heroku Production
 server_url = 'http://127.0.0.1:5000';                   // Development
@@ -167,6 +169,7 @@ var loadData = function() {
         labels: {
           format: '${value}',
           style: {
+            color: '#333',
             'font-size': '1.5em'
           }
         },
@@ -189,6 +192,7 @@ var loadData = function() {
       {   // Secondary Axis
         labels: {
           style: {
+            color: '#333',
             'font-size': '1.5em'
           }
         },
