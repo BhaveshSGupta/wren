@@ -1,12 +1,10 @@
 var https = require('https');
 var twitter = require('twitter');
-var fs = require('fs');
 var moment = require('moment');
 var mysql = require('mysql');
 var mtgox = require('mtgox');
 var Bitstamp = require('bitstamp-request');
 var analyze = require('Sentimental').analyze;
-var sentiment = require('./sentiment.js');
 
 // establish database connection
 var connection = mysql.createConnection({
@@ -15,9 +13,6 @@ var connection = mysql.createConnection({
   user     : process.env.AMAZON_RDS_USER,
   password : process.env.AMAZON_RDS_PWD,
   database : 'wren',
-  // host        : 'localhost',
-  // user        : 'root',
-  // database    : 'little_bird',
   charset  : 'utf-8',
   multipleStatements: true
 });
@@ -56,8 +51,8 @@ exports.scrapeTweets = function () {
         timestamp = Math.floor(Date.parse(timestamp)/1000);
 
         // check that tweet does not already exist
-        connection.query("SELECT 1 FROM tweets WHERE tweet_id=?", [tweet_id],
-          function (err, rows, fields) {
+        connection.query('SELECT 1 FROM tweets WHERE tweet_id=?', [tweet_id],
+          function (err, rows) {
             if (err) {
               console.log(err);
               return;
@@ -66,9 +61,9 @@ exports.scrapeTweets = function () {
             // insert into database if doesn't already exist
             if (rows.length === 0) {
               var tweet_sentiment = analyze(text).score;
-              connection.query("INSERT INTO tweets (username, text, timestamp, sentiment, tweet_id) VALUES (?, ?, ?, ?, ?)",
+              connection.query('INSERT INTO tweets (username, text, timestamp, sentiment, tweet_id) VALUES (?, ?, ?, ?, ?)',
                 [username, text, timestamp, tweet_sentiment, tweet_id],
-                function (err, rows, fields) {
+                function (err) {
                   if (err) {
                     console.log('text causing error: ', text);
                     console.log(err);
@@ -95,19 +90,17 @@ exports.scrapeMtGox = function () {
       var volume = depth.volume;
       var value = depth.bid;
       var currency = 1; // USD
-      console.log('mtgox timestamp: ', timestamp, 'vol: ', volume, 'value: ', value);
-      connection.query("SELECT 1 FROM marketmovement WHERE site=1 AND timestamp=?", [timestamp],
-        function (err, rows, fields) {
+      connection.query('SELECT 1 FROM marketmovement WHERE site=1 AND timestamp=?', [timestamp],
+        function (err, rows) {
           if (err) {
             console.log(err);
             return;
           }
-          console.log('mtgox succeeded');
           // insert into database if doesn't already exist
           if (rows.length === 0) {
-            connection.query("INSERT INTO marketmovement (site, volume, value, timestamp, currency) VALUES (?, ?, ?, ?, ?)",
+            connection.query('INSERT INTO marketmovement (site, volume, value, timestamp, currency) VALUES (?, ?, ?, ?, ?)',
               [site, volume, value, timestamp, currency],
-              function (err, rows, fields) {
+              function (err) {
                 if (err) {
                   console.log(err);
                   return;
@@ -126,7 +119,7 @@ exports.scrapeBitstamp = function () {
     if(response) {
       var site = 2; // bitstamp value in table
       try {
-        var response = JSON.parse(response.req.res.body);
+        response = JSON.parse(response.req.res.body);
       } catch(e) {
         console.log(response.req.res.body);
         console.log(e);
@@ -137,18 +130,17 @@ exports.scrapeBitstamp = function () {
       var value = response.bid;
       var currency = 1; // USD
       console.log('bitstamp timestamp: ', timestamp, 'vol: ', volume, 'value: ', value);
-      connection.query("SELECT 1 FROM marketmovement WHERE site=2 AND timestamp=?", [timestamp],
-        function (err, rows, fields) {
+      connection.query('SELECT 1 FROM marketmovement WHERE site=2 AND timestamp=?', [timestamp],
+        function (err, rows) {
           if (err) {
             console.log(err);
             return;
           }
-          console.log('bitstamp succeeded');
           // insert into database if doesn't already exist
           if (rows.length === 0) {
-            connection.query("INSERT INTO marketmovement (site, volume, value, timestamp, currency) VALUES (?, ?, ?, ?, ?)",
+            connection.query('INSERT INTO marketmovement (site, volume, value, timestamp, currency) VALUES (?, ?, ?, ?, ?)',
               [site, volume, value, timestamp, currency],
-              function (err, rows, fields) {
+              function (err) {
                 if (err) {
                   console.log(err);
                   return;
@@ -162,9 +154,9 @@ exports.scrapeBitstamp = function () {
 
 // TODO: Move this into a helper file
 var collectData = function(request, callback){
-  var data = "";
+  var data = '';
   request.on('error', function(err){
-    console.log("ERROR: " + err.message);
+    console.log('ERROR: ' + err.message);
   });
   request.on('data', function(chunk){
     data += chunk;
@@ -188,9 +180,9 @@ exports.scrapeBTCChina = function () {
       var volume = parseFloat(data.vol, 10).toFixed(2);
       var timestamp = Math.floor(new Date() / 1000);   // need to assign the timestamp myself
       var currency = 2; // value of RMB
-      connection.query("INSERT INTO marketmovement (site, volume, value, timestamp, currency) VALUES (?, ?, ?, ?, ?)",
+      connection.query('INSERT INTO marketmovement (site, volume, value, timestamp, currency) VALUES (?, ?, ?, ?, ?)',
         [site, volume, buy, timestamp, currency],
-        function (err, rows, fields) {
+        function (err) {
           if (err) {
             console.log(err);
             return;
@@ -199,6 +191,6 @@ exports.scrapeBTCChina = function () {
       );
     });
   }).on('error', function(e) {
-    console.log("Got error: " + e.message);
+    console.log('Got error: ' + e.message);
   });
 };
