@@ -309,10 +309,14 @@ navbar li a:hover {
 }
 
 .toggleData {
-  margin: 35% 3% 0 0;
+  margin: 35% 0 0 0;
   position: relative;
   right: -100%;
   width: 145px;
+}
+
+.toggleData input {
+  margin-right: 3%;
 }
 
 .toggleData header h4 {
