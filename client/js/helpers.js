@@ -99,17 +99,35 @@ var loadData = function() {
         },
         point: {
           events: {
+            // Click on a Twitter Sentiment point to show the individual tweets
             click: function() {
               // get grouping
               var begin = Math.floor(this.x / 1000);
               var interval = this.series.currentDataGrouping.unitRange / 100;
 
-              // send query to server for twitter data
+              // show popup div
+              $('.popup, .transparent_layer').removeClass('hidden');
+
+              // fadeIn() fadeOut() loop for LOADING
+              $('.popup .loading').fadeIn(1000);
+              
+              // Add ability to click to close window
+              $(document).click(function() {
+                $('.popup').addClass('hidden');
+                $('.transparent_layer').addClass('hidden');
+                // Remove tweets
+                $('.popup ul li.temp_tweet').remove();
+              });
+
+              // Send query to server for twitter data
               $.get(server_url + '/tweets', JSON.stringify({begin: begin, end: begin+interval}), function(data) {
                 data = JSON.parse(data);
-
                 var sentiment_total = 0;
-                // add data to popup
+
+                // Remove loading symbol
+                $('.popup .loading').css({display: 'none'});
+
+                // Add data to popup
                 for(var key in data){
                   var timestamp = data[key].timestamp*1000;
                   var username = data[key].username;
@@ -129,17 +147,6 @@ var loadData = function() {
                                           '</aside> \
                                         </li>');
                 }
-
-                // show popup div
-                $('.popup, .transparent_layer').removeClass('hidden');
-                // $('.transparent_layer').removeClass('hidden');
-                $(document).click(function() {
-                  $('.popup ul').scrollTop(0);
-                  $('.popup').addClass('hidden');
-                  $('.transparent_layer').addClass('hidden');
-                  // remove tweets
-                  $('.popup ul li.temp_tweet').remove();
-                });
               });
             }
           }
