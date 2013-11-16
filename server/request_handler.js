@@ -62,16 +62,14 @@ exports.eventHandler = function(req, res) {
         if(exists) {
           fs.readFile(path.resolve(__dirname, lookup), function(err, data) {
             if (err) {
-              res.writeHead(500);
-              res.end();
+              sendResponse(res, {}, 500);
             } else {
               res.writeHead(200, {'Content-Type': contentType });
               res.end(data);
             }
           });
         } else {
-          res.writeHead(404, headers);
-          res.end();
+          sendResponse(res, {}, 404);
         }
       });
       break;
@@ -83,8 +81,7 @@ exports.eventHandler = function(req, res) {
             console.log(err);
             return;
           }
-          res.writeHead(200, headers);
-          res.end(JSON.stringify(rows[0].value));
+          sendResponse(res, JSON.stringify(rows[0].value), 200);
         }
       );
       break;
@@ -100,8 +97,7 @@ exports.eventHandler = function(req, res) {
             console.log(err);
             return;
           }
-          res.writeHead(200, headers);
-          res.end(JSON.stringify(rows));
+          sendResponse(res, JSON.stringify(rows), 200);
         }
       );
       break;
@@ -122,8 +118,7 @@ exports.eventHandler = function(req, res) {
             returnData.mtgox.push([rows[key].timestamp*1000, rows[key]['AVG(value)'], rows[key]['AVG(volume)']]);
           }
           if(counter === totalQueries) {
-            res.writeHead(200, headers);
-            res.end(JSON.stringify(returnData));
+            sendResponse(res, JSON.stringify(returnData), 200);
           }
         }
       );
@@ -135,8 +130,7 @@ exports.eventHandler = function(req, res) {
             returnData.bitstamp.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
           }
           if(counter === totalQueries) {
-            res.writeHead(200, headers);
-            res.end(JSON.stringify(returnData));
+            sendResponse(res, JSON.stringify(returnData), 200);
           }
         }
       );
@@ -148,8 +142,7 @@ exports.eventHandler = function(req, res) {
             returnData.btcchina.push([rows[key].timestamp*1000, rows[key]['AVG(value)']/6.09]);
           }
           if(counter === totalQueries) {
-            res.writeHead(200, headers);
-            res.end(JSON.stringify(returnData));
+            sendResponse(res, JSON.stringify(returnData), 200);
           }
         }
       );
@@ -161,8 +154,7 @@ exports.eventHandler = function(req, res) {
             returnData.twitter.sentiment.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
           }
           if(counter === totalQueries) {
-            res.writeHead(200, headers);
-            res.end(JSON.stringify(returnData));
+            sendResponse(res, JSON.stringify(returnData), 200);
           }
         }
       );
@@ -173,16 +165,14 @@ exports.eventHandler = function(req, res) {
         if(exists) {
           fs.readFile(path.resolve(__dirname, lookup), function(err, data) {
             if (err) {
-              res.writeHead(500);
-              res.end();
+              sendResponse(res, {}, 500);
             } else {
               res.writeHead(200, {'Content-Type': contentType });
               res.end(data);
             }
           });
         } else {
-          res.writeHead(404, headers);
-          res.end();
+          sendResponse(res, {}, 404);
         }
       });
       break;
@@ -190,16 +180,13 @@ exports.eventHandler = function(req, res) {
     break;
 
   case 'POST':
-    res.writeHead(200, headers);
-    res.end('POST method received');
+    sendResponse(res, {}, 200);
     break;
   case 'OPTIONS':
-    res.writeHead(200, headers);
-    res.end('OPTIONS method received');
+    sendResponse(res, {}, 200);
     break;
   default:
-    res.writeHead(501, headers);
-    res.end('Unrecognized request method');
+    sendResponse(res, {}, 501);
     break;
   }
 };

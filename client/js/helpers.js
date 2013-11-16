@@ -1,51 +1,8 @@
 var server_url;
-// if (process.env.IS_PRODUCTION){
-//   server_url = 'http://little-wren.herokuapp.com';  // Production
-// } else {
-//   server_url = 'http://127.0.0.1:5000';             // Development
-// }
 
 // server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
 // server_url = 'http://little-wren.herokuapp.com';     // Heroku Production
 server_url = 'http://127.0.0.1:5000';                   // Development
-
-var setChartTitle = function(){
-  var seriesArray = [];
-  var inputBoxes = $('input');
-  var first_title = '';
-  var second_title = '';
-  inputBoxes.each(function(index, item){
-    if(item.checked){
-      if(item.name === 'mtgox_buy'){
-        // title += '<span style="color: #d35400;">MtGox</span> ';
-        seriesArray.push('<span style="color: #d35400;">MtGox</span>');
-      } else if(item.name === 'bitstamp_buy'){
-        // title += '<span style="color: #16a085;">BitStamp</span> ';
-        seriesArray.push('<span style="color: #16a085;">BitStamp</span>');
-      } else if(item.name === 'btcchina_buy'){
-        // title += '<span style="color: #555;">BTC China</span> ';
-        seriesArray.push('<span style="color: #555;">BTC China</span>');
-      } else if(item.name === 'twitter_sentiment'){
-        // title += 'vs <span style="color: #2980b9;">Twitter Sentiment</span>';
-        second_title += '<span style="color: #2980b9;">Twitter Sentiment</span>';
-      } else {
-        console.log('FAIL: Tried to set title for input box that has not been handled yet.');
-      }
-    }
-  });
-
-  if(seriesArray.length){
-    first_title = seriesArray.join(', ') + ' BitCoin Buy Price';
-    if(second_title.length){
-      second_title = '<span style="text-transform: lowercase">vs</span> ' + second_title;
-    }
-  } else if(second_title.length){
-    first_title = second_title;
-    second_title = '';
-  }
-
-  $('.chart').highcharts().setTitle({text: first_title}, {text: second_title});
-};
 
 // chartData global for storing data
 var chartData = {};
@@ -53,7 +10,7 @@ var chartData = {};
 var loadData = function() {
   // TODO: Pull Lowest Chart Time Increment and Earliest Time from Chart Buttons
   $.get(server_url + '/data', function(returnData){
-    chartData = returnData;
+    chartData = JSON.parse(returnData);
 
     var groupingUnits = [
       [
@@ -256,39 +213,90 @@ var loadData = function() {
   });
 };
 
+// Dynamically change the chart title to show which data series are shown with their respective colors
+// Purpose is to the replace a legend
+var setChartTitle = function(){
+  var seriesArray = [];
+  var inputBoxes = $('input');
+  var first_title = '';
+  var second_title = '';
+  inputBoxes.each(function(index, item){
+    if(item.checked){
+      if(item.name === 'mtgox_buy'){
+        // title += '<span style="color: #d35400;">MtGox</span> ';
+        seriesArray.push('<span style="color: #d35400;">MtGox</span>');
+      } else if(item.name === 'bitstamp_buy'){
+        // title += '<span style="color: #16a085;">BitStamp</span> ';
+        seriesArray.push('<span style="color: #16a085;">BitStamp</span>');
+      } else if(item.name === 'btcchina_buy'){
+        // title += '<span style="color: #555;">BTC China</span> ';
+        seriesArray.push('<span style="color: #555;">BTC China</span>');
+      } else if(item.name === 'twitter_sentiment'){
+        // title += 'vs <span style="color: #2980b9;">Twitter Sentiment</span>';
+        second_title += '<span style="color: #2980b9;">Twitter Sentiment</span>';
+      } else {
+        console.log('FAIL: Tried to set title for input box that has not been handled yet.');
+      }
+    }
+  });
+
+  if(seriesArray.length){
+    first_title = seriesArray.join(', ') + ' BitCoin Buy Price';
+    if(second_title.length){
+      second_title = '<span style="text-transform: lowercase">vs</span> ' + second_title;
+    }
+  } else if(second_title.length){
+    first_title = second_title;
+    second_title = '';
+  }
+
+  $('.chart').highcharts().setTitle({text: first_title}, {text: second_title});
+};
+
+// Add hover slide animation to the sidebar to hide/show the sidebar
 var loadSidebarOptions = function(){
-  // Show / Hide Chart Options
+
   $('.sidebar').hover(
     function() {
+      // Slide out the sidebar
       $(this).animate(
         {'width': '150px'
        }, 'fast');
       $(this).css({'box-shadow': '-1px 0px 5px #aaa'});
+      // Drop the OPTIONS text to the bottom of the sidebar
       $('.vertical_text').animate(
         {top: '100%',
         'margin-top': '-140%'
       }, 'fast');
+      // Slide input boxes for toggling the data series over to be shown
       $('.toggleData').animate(
         {right: '0%'
       }, 'fast');
+      // Remove the LEFT ARROW < to be replaced by an X while the sidebar is showing
       $('.toggleButton img').fadeOut();
       $('.button_text').fadeIn();
-    }, function() {
+    },
+    // To be triggered when the mouse leaves the sidebar
+    function() {
+      // Slide the data series back to the right
       $('.toggleData').animate({right: '-100%'}, 'fast');
+      // Return the OPTIONS text to the top of the sidebar
       $('.vertical_text').animate(
         {top: '5%',
         'margin-top': ''
       }, 'fast');
+      // Shrink the width of the sidebar
       $(this).animate(
         {'width': '40px'
        }, 'fast');
       $(this).css({'box-shadow': ''});
+      // Fade out the X and fade in the LEFT ARROW <
       $('.button_text').fadeOut();
       $('.toggleButton img').fadeIn();
     }
   );
   
-  // Show / Hide Data
+  // Toggle visiblity for data series
   $('input').click(function() {
     var type = $(this).attr('type');
     var name = $(this).attr('name');
@@ -312,16 +320,20 @@ var loadSidebarOptions = function(){
     
     setChartTitle();
     var isShown = series.visible;
-    series.setVisible(!isShown, true);
+    series.setVisible(!isShown, true); // true indicates that chart *should* be redrawn by invoking this function
   });
 };
 
+// Retrieve the latest buy price from server for MtGox
 var getBuyValue = function() {
   $.get(server_url + '/buy-ticker', function(data) {
+
     // update market div
-    data = data.toFixed(2);
-    $('.live_data').addClass('hidden');
-    $('.live_data_value').html('$'+data);
-    $('.live_data').fadeIn('slow');
+    $('.live_data').fadeOut('slow', function() {
+      data = JSON.parse(data).toFixed(2);
+      $('.live_data').addClass('hidden');
+      $('.live_data_value').html('$'+data);
+      $('.live_data').fadeIn('slow');
+    });
   });
 };
