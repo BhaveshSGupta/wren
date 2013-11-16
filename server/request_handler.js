@@ -113,6 +113,9 @@ exports.eventHandler = function(req, res) {
       // get mtgox data
       connection.query('SELECT timestamp, AVG(value), AVG(volume) FROM marketmovement WHERE site=1 GROUP BY round(timestamp / 60)',
         function(err, rows) {
+          if(err){
+            console.log(err);
+          }
           counter++;
           for(var key in rows){
             returnData.mtgox.push([rows[key].timestamp*1000, rows[key]['AVG(value)'], rows[key]['AVG(volume)']]);
@@ -125,6 +128,9 @@ exports.eventHandler = function(req, res) {
       // get bitstamp data
       connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=2 GROUP BY round(timestamp / 60)',
         function(err, rows) {
+          if(err){
+            console.log(err);
+          }
           counter++;
           for(var key in rows){
             returnData.bitstamp.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
@@ -137,6 +143,9 @@ exports.eventHandler = function(req, res) {
       // get btc china data
       connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=3 GROUP BY round(timestamp / 60)',
         function(err, rows) {
+          if(err){
+            console.log(err);
+          }
           counter++;
           for(var key in rows){
             returnData.btcchina.push([rows[key].timestamp*1000, rows[key]['AVG(value)']/6.09]);
@@ -149,6 +158,9 @@ exports.eventHandler = function(req, res) {
       // get twitter data
       connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 60)', // group by one minute
         function(err, rows) {
+          if(err){
+            console.log(err);
+          }
           counter++;
           for(var key in rows){
             returnData.twitter.sentiment.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);

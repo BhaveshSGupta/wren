@@ -2,9 +2,9 @@ var server_url;
 
 // TODO: Find a better way to do this (cannot access environment vars in the client, don't want to keep two version
 //       of this file)
-server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
+// server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
 // server_url = 'http://little-wren.herokuapp.com';     // Heroku Production
-// server_url = 'http://127.0.0.1:5000';                   // Development
+server_url = 'http://127.0.0.1:5000';                   // Development
 
 // chartData global for storing data
 var chartData = {};
@@ -185,6 +185,7 @@ var loadData = function() {
             color: '#222',
             fontFamily: 'Trebuchet MS, Verdana, sans-serif',
             'font-size': '1.3em',
+            'font-weight': 'normal',
             'letter-spacing': '0.1em',
             'text-transform': 'uppercase'
           }
@@ -209,6 +210,7 @@ var loadData = function() {
             color: '#222',
             font: '11px Trebuchet MS, Verdana, sans-serif',
             'font-size': '1.3em',
+            'font-weight': 'normal',
             'letter-spacing': '0.1em',
             'text-transform': 'uppercase'
           }

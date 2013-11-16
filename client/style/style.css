@@ -83,7 +83,7 @@ navbar li a:hover {
   width: 100%;
 }
 
-.hack_reactor_logo {
+.icons .hack_reactor_logo {
   width: 100px;
 }
 
@@ -92,7 +92,7 @@ navbar li a:hover {
 }
 
 .icons {
-  width: 305px;
+  width: 275px;
   margin: 0.25% auto;
   
 }
