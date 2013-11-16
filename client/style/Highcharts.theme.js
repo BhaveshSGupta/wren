@@ -23,8 +23,6 @@ Highcharts.theme = {
     useUTC: false
   },
 
-  inputEnabled: false,
-
   labels: {
     style: {
       color: '#99b'
@@ -76,6 +74,7 @@ Highcharts.theme = {
       text: '30d',
       type: 'day'
     }],
+    inputEnabled: false,
     selected: 1
   },
   tooltip : {
