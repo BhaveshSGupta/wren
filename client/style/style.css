@@ -88,7 +88,7 @@ navbar li a:hover {
 }
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 .icons {
@@ -153,7 +153,7 @@ navbar li a:hover {
   width: 100%;
 }
 
-.loading {
+.tweet_loading {
   color: #333;
   display: none;
   font-weight: bold;
@@ -296,10 +296,10 @@ navbar li a:hover {
 }
 
 .sidebar .exchanges header h5, .sidebar .sentiments header h5 {
-  background-color: #bbb;
+  background-color: #ccc;
   border-top: 1px solid #aaa;
   border-bottom: 1px solid #aaa;
-  color: #444;
+  color: #555;
   cursor: default;
   font-size: 1.2em;
   letter-spacing: 0.1em;

@@ -109,7 +109,7 @@ var loadData = function() {
               $('.popup, .transparent_layer').removeClass('hidden');
 
               // fadeIn() fadeOut() loop for LOADING
-              $('.popup .loading').fadeIn(1000);
+              $('.popup .tweet_loading').fadeIn(1000);
               
               // Add ability to click to close window
               $(document).click(function() {
@@ -125,7 +125,7 @@ var loadData = function() {
                 var sentiment_total = 0;
 
                 // Remove loading symbol
-                $('.popup .loading').css({display: 'none'});
+                $('.popup .tweet_loading').css({display: 'none'});
 
                 // Add data to popup
                 for(var key in data){
@@ -347,10 +347,9 @@ var loadSidebarOptions = function(){
 // Retrieve the latest buy price from server for MtGox
 var getBuyValue = function() {
   $.get(server_url + '/buy-ticker', function(data) {
-
+    data = JSON.parse(data).toFixed(2);
     // update market div
     $('.live_data').fadeOut('slow', function() {
-      data = JSON.parse(data).toFixed(2);
       $('.live_data').addClass('hidden');
       $('.live_data_value').html('$'+data);
       $('.live_data').fadeIn('slow');
