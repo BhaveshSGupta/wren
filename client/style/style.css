@@ -48,6 +48,11 @@ navbar li a:hover {
   font-size: 1.1em;
 }
 
+.bitstamp {
+  color: #16a085;
+  text-shadow: 1px 1px 1px #eee;
+}
+
 .bottom_bar {
   background-color: #222;
   bottom: 0;
@@ -56,6 +61,11 @@ navbar li a:hover {
   position: absolute;
   width: 100%;
   z-index: 20;
+}
+
+.btcchina {
+  color: #555;
+  text-shadow: 1px 1px 1px #eee;
 }
 
 .container {
@@ -73,15 +83,30 @@ navbar li a:hover {
   width: 100%;
 }
 
-.transparent_layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #222;
-  height: 100%;
-  opacity: 0.6;
-  width: 100%;
-  z-index: 90;
+.hack_reactor_logo {
+  width: 100px;
+}
+
+.hidden {
+  display: none;
+}
+
+.icons {
+  width: 305px;
+  margin: 0.25% auto;
+  
+}
+
+.icon {
+  height: 32px;
+  width: 32px;
+  margin-right: 4%;
+  opacity: 0.8;
+}
+
+.icon:hover {
+  cursor: pointer;
+  opacity: 1;
 }
 
 .live_data {
@@ -90,10 +115,6 @@ navbar li a:hover {
   letter-spacing: 0;
   margin-top: 0.25%;
   width: 200px;
-}
-
-.hidden {
-  display: none;
 }
 
 .live_data_value {
@@ -141,16 +162,6 @@ navbar li a:hover {
 
 .mtgox {
   color: #d35400;
-  text-shadow: 1px 1px 1px #eee;
-}
-
-.bitstamp {
-  color: #16a085;
-  text-shadow: 1px 1px 1px #eee;
-}
-
-.btcchina {
-  color: #555;
   text-shadow: 1px 1px 1px #eee;
 }
 
@@ -305,6 +316,31 @@ navbar li a:hover {
   top: 1px;
 }
 
+.topbar {
+  color: #8c919b;
+  background-color: #222;
+  box-shadow: 0px 0 10px rgba(0, 0, 0, 1);
+  font-size: 1.2em;
+  font-family: Arial, Verdana, 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+  line-height: 250%;
+  padding: 0 7%;
+  text-transform: uppercase;
+  z-index: 20;
+}
+
+.transparent_layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #222;
+  height: 100%;
+  opacity: 0.6;
+  width: 100%;
+  z-index: 90;
+}
+
 .vertical_text {
   color: #222;
   text-transform: uppercase;
@@ -320,39 +356,4 @@ navbar li a:hover {
   -webkit-transform-origin: bottom left;
   -moz-transform-origin: bottom left;
   -o-transform-origin: bottom left;
-}
-
-.icons {
-  width: 305px;
-  margin: 0.25% auto;
-  
-}
-
-.icon {
-  height: 32px;
-  width: 32px;
-  margin-right: 4%;
-  opacity: 0.8;
-}
-
-.hack_reactor_logo {
-  width: 100px;
-}
-
-.icon:hover {
-  cursor: pointer;
-  opacity: 1;
-}
-
-.topbar {
-  color: #8c919b;
-  background-color: #222;
-  box-shadow: 0px 0 10px rgba(0, 0, 0, 1);
-  font-size: 1.2em;
-  font-family: Arial, Verdana, 'Helvetica Neue', Helvetica, sans-serif;
-  font-weight: normal;
-  letter-spacing: 0.2em;
-  line-height: 250%;
-  padding: 0 7%;
-  text-transform: uppercase;
 }

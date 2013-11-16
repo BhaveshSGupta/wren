@@ -2,9 +2,9 @@ var server_url;
 
 // TODO: Find a better way to do this (cannot access environment vars in the client, don't want to keep two version
 //       of this file)
-// server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
+server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';     // AWS Elastic Beanstalk Production
 // server_url = 'http://little-wren.herokuapp.com';     // Heroku Production
-server_url = 'http://127.0.0.1:5000';                   // Development
+// server_url = 'http://127.0.0.1:5000';                   // Development
 
 // chartData global for storing data
 var chartData = {};
@@ -100,8 +100,9 @@ var loadData = function() {
 
               // send query to server for twitter data
               $.get(server_url + '/tweets', JSON.stringify({begin: begin, end: begin+interval}), function(data) {
+                data = JSON.parse(data);
+
                 // remove previous tweets
-                  
                 $('.popup ul li.temp_tweet').remove();
                 var sentiment_total = 0;
                 // add data to popup
