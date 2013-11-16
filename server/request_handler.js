@@ -1,7 +1,7 @@
 var url = require('url');
-var mysql = require('mysql');
 var fs = require('fs');
 var path = require('path');
+var connection = require('./helpers/db.js').connection;
 
 // Define CORS headers
 var headers = {
@@ -11,17 +11,6 @@ var headers = {
   'access-control-max-age': 10, // Seconds
   'Content-Type': 'application/json'
 };
-
-// establish database connection
-var connection = mysql.createConnection({
-  charset  : 'utf-8',
-  database : 'wren',
-  host     : 'littlebird.c0eactkzzr6c.us-west-2.rds.amazonaws.com',
-  multipleStatements: true,
-  password : process.env.AMAZON_RDS_PWD,
-  port     : '3306',
-  user     : process.env.AMAZON_RDS_USER
-});
 
 exports.sendResponse = sendResponse = function(response, obj, status){
   status = status || 200;
@@ -101,7 +90,6 @@ exports.eventHandler = function(req, res) {
       break;
     case '/tweets':
       var recv = JSON.parse(decodeURIComponent(url.parse(req.url).query, true));
-      console.log('recv: ', recv);
       var begin = recv.begin;
       var end = recv.end;
       // get mtgox data

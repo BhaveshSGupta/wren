@@ -36,7 +36,6 @@ var setChartTitle = function(){
 
   if(seriesArray.length){
     first_title = seriesArray.join(', ') + ' BitCoin Buy Price';
-    console.log(first_title);
     if(second_title.length){
       second_title = '<span style="text-transform: lowercase">vs</span> ' + second_title;
     }
@@ -91,7 +90,7 @@ var loadData = function() {
             x2: 0,
             y2: 1
           },
-          stops : [[0, '#e67e22'], [1, 'rgba(0,0,0,0)']] 
+          stops : [[0, '#e67e22'], [1, 'rgba(0,0,0,0)']]
         },
         yAxis: 0
       },{
@@ -140,8 +139,6 @@ var loadData = function() {
               var begin = Math.floor(this.x / 1000);
               var interval = this.series.currentDataGrouping.unitRange / 100;
 
-              console.log('begin: ', this.x/1000, 'end: ', (this.x / 1000) + (this.series.currentDataGrouping.unitRange/100));
-              console.log('data grouping: ', this.series.currentDataGrouping.unitRange);
               // send query to server for twitter data
               $.get(server_url + '/tweets', JSON.stringify({begin: begin, end: begin+interval}), function(data) {
                 // remove previous tweets
@@ -168,7 +165,7 @@ var loadData = function() {
                                           '</aside> \
                                         </li>');
                 }
-                console.log('sentiment_total: ', sentiment_total);
+
                 // show popup div
                 $('.popup, .transparent_layer').removeClass('hidden');
                 // $('.transparent_layer').removeClass('hidden');

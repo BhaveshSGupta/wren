@@ -1,21 +1,10 @@
 var https = require('https');
 var twitter = require('twitter');
 var moment = require('moment');
-var mysql = require('mysql');
 var mtgox = require('mtgox');
 var Bitstamp = require('bitstamp-request');
 var analyze = require('Sentimental').analyze;
-
-// establish database connection
-var connection = mysql.createConnection({
-  host     : 'littlebird.c0eactkzzr6c.us-west-2.rds.amazonaws.com',
-  port     : '3306',
-  user     : process.env.AMAZON_RDS_USER,
-  password : process.env.AMAZON_RDS_PWD,
-  database : 'wren',
-  charset  : 'utf-8',
-  multipleStatements: true
-});
+var connection = require('./db.js').connection;
 
 // Connect to Twitter API
 var twit = new twitter({
