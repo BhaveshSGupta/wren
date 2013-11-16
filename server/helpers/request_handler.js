@@ -1,7 +1,7 @@
 var url = require('url');
 var fs = require('fs');
 var path = require('path');
-var connection = require('./helpers/db.js').connection;
+var connection = require('./db.js').connection;
 
 // Define CORS headers
 var headers = {

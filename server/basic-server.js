@@ -1,5 +1,5 @@
 var http = require("http");
-var requestHandler = require("./request_handler.js");
+var requestHandler = require("./helpers/request_handler.js");
 var scrapers = require("./helpers/scrapers.js");
 
 var port = process.env.PORT || 5000;

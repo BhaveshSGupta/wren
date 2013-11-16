@@ -19,5 +19,3 @@ Tech Stack:
   Server   -- Node.js (Amazon Elastic Beanstalk), Sentimental, Moment.js
   Database -- MySQL (Amazon RDS)
   Client   -- jQuery, Moment.js
-
-Map of Code-base:
