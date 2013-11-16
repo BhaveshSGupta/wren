@@ -14,14 +14,14 @@ URL: http://default-environment-qnmrx6f75m.elasticbeanstalk.com/
 
 **Challenges:**
 --------------
-  -- Getting old Twitter data
-  -- Database slowdown due to a lack of indexes
-  -- HighStocks flexibility
-  -- UTC Timestamps
-  -- Sentiment Analysis
+  - Getting old Twitter data
+  - Database slowdown due to a lack of indexes
+  - HighStocks flexibility
+  - UTC Timestamps
+  - Sentiment Analysis
 
 **Tech Stack:**
 --------------
-  Server   -- Node.js (Amazon Elastic Beanstalk), Sentimental, Moment.js
-  Database -- MySQL (Amazon RDS)
-  Client   -- jQuery, Moment.js
+  - Server   -- Node.js (Amazon Elastic Beanstalk), Sentimental, Moment.js
+  - Database -- MySQL (Amazon RDS)
+  - Client   -- jQuery, Moment.js
