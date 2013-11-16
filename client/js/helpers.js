@@ -146,8 +146,8 @@ var loadData = function() {
               $.get(server_url + '/tweets', JSON.stringify({begin: begin, end: begin+interval}), function(data) {
                 // remove previous tweets
                   
-                  $('.popup ul li.temp_tweet').remove();
-                  var sentiment_total = 0;
+                $('.popup ul li.temp_tweet').remove();
+                var sentiment_total = 0;
                 // add data to popup
                 for(var key in data){
                   var timestamp = data[key].timestamp*1000;
@@ -183,7 +183,78 @@ var loadData = function() {
         },
         yAxis: 1
       }
-      ]
+      ],
+      subtitle: {
+        floating: true,
+        text: '<span style="text-transform: lowercase">vs</span> <span style="color: #2980b9;">Twitter Sentiment</span>',
+        style: {
+          color: '#333',
+          font: 'bold 12px "Trebuchet MS", Verdana, sans-serif',
+          'font-size': '1.2em',
+          'font-weight': 'bold',
+          'letter-spacing': '0.1em',
+          'text-transform': 'uppercase',
+          'text-shadow': '0 1px 0 #fff'
+        }
+      },
+      title: {
+        floating: true,
+        text: '<span style="color: #d35400;">MtGox</span> BitCoin Buy Price',
+        style: {
+          color: '#333',
+          font: 'bold 16px "Trebuchet MS", Verdana, sans-serif',
+          'font-weight': 'bold',
+          'letter-spacing': '0.1em',
+          'text-transform': 'uppercase',
+          'text-shadow': '0 1px 0 #fff'
+        }
+      },
+      yAxis: [{ // Primary Axis
+        labels: {
+          format: '${value}',
+          style: {
+            'font-size': '1.5em'
+          }
+        },
+        lineColor: '#000',
+        lineWidth: 1,
+        minorTickInterval: 'auto',
+        tickColor: '#000',
+        tickWidth: 1,
+        title: {
+          text: 'Buy Price ($USD)',
+          style: {
+            color: '#222',
+            fontFamily: 'Trebuchet MS, Verdana, sans-serif',
+            'font-size': '1.3em',
+            'letter-spacing': '0.1em',
+            'text-transform': 'uppercase'
+          }
+        }
+      },
+      {   // Secondary Axis
+        labels: {
+          style: {
+            'font-size': '1.5em'
+          }
+        },
+        lineColor: '#000',
+        lineWidth: 1,
+        minorTickInterval: 'auto',
+        opposite: true,
+        tickWidth: 1,
+        tickColor: '#000',
+        title: {
+          text: 'Sentiment',
+          style: {
+            color: '#222',
+            font: '11px Trebuchet MS, Verdana, sans-serif',
+            'font-size': '1.3em',
+            'letter-spacing': '0.1em',
+            'text-transform': 'uppercase'
+          }
+        }
+      }]
     });
   });
 };
