@@ -16,7 +16,6 @@
   "dependencies": {
     "jquery": "~2.0.3",
     "moment": "~2.4.0",
-    "underscore": "~1.5.2",
     "highstock": "~3.0.1"
   }
 }
