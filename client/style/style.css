@@ -53,6 +53,11 @@ navbar li a:hover {
   text-shadow: 1px 1px 1px #eee;
 }
 
+.bold_italic {
+  font-style: italic;
+  font-weight: bold;
+}
+
 .bottom_bar {
   background-color: #222;
   bottom: 0;
@@ -80,6 +85,7 @@ navbar li a:hover {
   float: left;
   height: 83%;
   margin-top: 1%;
+  position: relative;
   width: 100%;
 }
 
@@ -89,6 +95,30 @@ navbar li a:hover {
 
 .hidden {
   display: none;
+}
+
+.hover_window {
+  background-color: LightCyan;
+  border: 2px solid #666;
+  border-radius: 5px;
+  display: none;
+  font-size: 0.9em;
+  height: 40px;
+  padding: 5px 0;
+  opacity: 0.95;
+  position: absolute;
+  right: 45%;
+  text-align: center;
+  text-shadow: 1px 1px 1px #eee;
+  top: 9%;
+  width: 120px;
+  -webkit-box-shadow: 0 2px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);
+  box-shadow: 0 2px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);
+}
+
+.hover_window p {
+  margin-top: 5px;
+  padding: 0;
 }
 
 .icons {

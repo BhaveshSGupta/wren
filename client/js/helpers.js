@@ -230,7 +230,19 @@ var loadData = function() {
         }
       }]
     });
+    
+    // show hover window
+    $('.hover_window').fadeIn('slow');
+
+    // Hide hover popup when mouse is over the chart
+    $('.chart').hover(function() {
+      $('.hover_window').fadeOut('slow');
+    }, function() {
+      $('.hover_window').fadeIn();
+    }
+  );
   });
+  
 };
 
 // Dynamically change the chart title to show which data series are shown with their respective colors
