@@ -27,6 +27,5 @@ Tech Stack
  ----------
  - Kevin Roth ( kevinroth82 at gmail.com -- the author of Sentimental )
  - Kate Jenkins ( catherine.ann.jenkins at gmail.com )
- - Ruan Pethiyagoda ( ruan at hackreactor.com )
- - Shawn Drost ( shawn at hackreactor.com )
+ - Hack Reactor ( www.hackreactor.com )
  - Bitcoin for the Befuddled!
