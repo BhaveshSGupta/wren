@@ -17,6 +17,7 @@ Tech Stack
  ----------
  - Node.js
  - MySQL 
+ - HighStocks
  - jQuery 
  - Moment.js 
  - Sentimental (for Twitter sentiment analysis)
