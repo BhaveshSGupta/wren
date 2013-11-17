@@ -105,7 +105,7 @@ exports.eventHandler = function(req, res) {
       var returnData = {mtgox: [],
                         bitstamp: [],
                         btcchina: [],
-                        twitter: { sentiment: [] }
+                        twitter: { sentiment: [], volume: [] }
       };
       var counter = 0;
       var totalQueries = 4;
@@ -159,7 +159,7 @@ exports.eventHandler = function(req, res) {
         }
       );
       // get twitter data
-      connection.query('SELECT timestamp, SUM(sentiment), count(*) FROM tweets GROUP BY round(timestamp / 60)', // group by one minute
+      connection.query('SELECT timestamp, SUM(sentiment), COUNT(*) FROM tweets GROUP BY round(timestamp / 60)', // group by one minute
         function(err, rows) {
           if(err){
             console.log(err);
@@ -167,6 +167,7 @@ exports.eventHandler = function(req, res) {
           counter++;
           for(var key in rows){
             returnData.twitter.sentiment.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
+            returnData.twitter.volume.push([rows[key].timestamp*1000, rows[key]['COUNT(*)']]);
           }
           if(counter === totalQueries) {
             sendResponse(res, JSON.stringify(returnData), 200);

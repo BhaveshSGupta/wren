@@ -22,8 +22,6 @@ exports.scrapeTweets = function () {
         var tweet_id = data.statuses[i].id.toString();
         var username = data.statuses[i].user.screen_name;
         var text = data.statuses[i].text;
-        // TODO: whitelist characters instead of blacklist
-        // remove non-unicode characters (probably better to whitelist what I will accept rather than create a blacklist)
         text = text.replace(/([^\x00-\xFF]|\s)*$/g, '');
         
         var timestamp = moment(data.statuses[i].created_at).format('YYYY-MM-DD HH:mm:ss');
