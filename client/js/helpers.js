@@ -18,6 +18,7 @@ var loadData = function() {
   // TODO: Pull Lowest Chart Time Increment and Earliest Time from Chart Buttons
 
   $.get(server_url + '/data', function(returnData){
+   
     chartData = JSON.parse(returnData);
 
     var groupingUnits = [
@@ -40,7 +41,7 @@ var loadData = function() {
     $('.chart').highcharts('StockChart', {
       series : [{
         name : 'MtGox Bid Price',
-        data : chartData.mtgox,
+        data : chartData.mtgox.btc,
         color: '#d35400',
         type : 'areaspline',
         threshold : null,
@@ -61,7 +62,7 @@ var loadData = function() {
       },{
         name : 'BitStamp Bid Price',
         color: '#16a085',
-        data : chartData.bitstamp,
+        data : chartData.bitstamp.btc,
         visible: false,
         type : 'spline',
         threshold : null,
@@ -69,7 +70,24 @@ var loadData = function() {
       },{
         name : 'BTC China Bid Price',
         color: '#555',
-        data : chartData.btcchina,
+        data : chartData.btcchina.btc,
+        visible: false,
+        type : 'spline',
+        threshold : null,
+        fillColor : {
+          linearGradient : {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 1
+          },
+          stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
+        },
+        yAxis: 0
+      },{
+        name : 'BTC-e LTC Bid Price',
+        color: '#555',
+        data : chartData.btce.ltc,
         visible: false,
         type : 'spline',
         threshold : null,
@@ -86,16 +104,15 @@ var loadData = function() {
       },{
         name : 'Twitter Sentiment',
         color: '#2980b9',
-        data : chartData.twitter.sentiment,
+        data : chartData.twitter.btc.sentiment,
         dataGrouping: {
           units: groupingUnits // an array of arrays
         },
         cursor: 'pointer',
-        type : 'column',
+        type : 'spline',
         visible: true,
         tooltip: {
-          valuePrefix: null,
-          valueSuffix: '<br/>(<b>click column to see tweets</b>)'
+          valuePrefix: null
         },
         point: {
           events: {
@@ -156,7 +173,7 @@ var loadData = function() {
       ],
       subtitle: {
         floating: true,
-        text: '<span style="text-transform: lowercase">vs</span> <span style="color: #2980b9;">Twitter Sentiment</span>',
+        text: '<span style="text-transform: lowercase">vs</span> <span style="color: #2980b9;">Twitter Sentiment (BTC)</span>',
         style: {
           color: '#333',
           font: 'bold 12px "Trebuchet MS", Verdana, sans-serif',
@@ -169,7 +186,7 @@ var loadData = function() {
       },
       title: {
         floating: true,
-        text: '<span style="color: #d35400;">MtGox</span> BitCoin Buy Price',
+        text: '<span style="color: #d35400;">MtGox</span> (BTC) Buy Price',
         style: {
           color: '#333',
           font: 'bold 16px "Trebuchet MS", Verdana, sans-serif',
@@ -255,17 +272,15 @@ var setChartTitle = function(){
   inputBoxes.each(function(index, item){
     if(item.checked){
       if(item.name === 'mtgox_buy'){
-        // title += '<span style="color: #d35400;">MtGox</span> ';
-        seriesArray.push('<span style="color: #d35400;">MtGox</span>');
+        seriesArray.push('<span style="color: #d35400;">MtGox (BTC)</span>');
       } else if(item.name === 'bitstamp_buy'){
-        // title += '<span style="color: #16a085;">BitStamp</span> ';
-        seriesArray.push('<span style="color: #16a085;">BitStamp</span>');
+        seriesArray.push('<span style="color: #16a085;">BitStamp (BTC)</span>');
       } else if(item.name === 'btcchina_buy'){
-        // title += '<span style="color: #555;">BTC China</span> ';
-        seriesArray.push('<span style="color: #555;">BTC China</span>');
+        seriesArray.push('<span style="color: #555;">BTC China (BTC)</span>');
+      } else if(item.name === 'btce_ltc_buy'){
+        seriesArray.push('<span style="color: #555;">BTC-e (LTC)</span>');
       } else if(item.name === 'twitter_sentiment'){
-        // title += 'vs <span style="color: #2980b9;">Twitter Sentiment</span>';
-        second_title += '<span style="color: #2980b9;">Twitter Sentiment</span>';
+        second_title += '<span style="color: #2980b9;">Twitter Sentiment(BTC)</span>';
       } else {
         console.log('FAIL: Tried to set title for input box that has not been handled yet.');
       }
@@ -273,7 +288,7 @@ var setChartTitle = function(){
   });
 
   if(seriesArray.length){
-    first_title = seriesArray.join(', ') + ' BitCoin Buy Price';
+    first_title = seriesArray.join(', ') + ' Buy Price';
     if(second_title.length){
       second_title = '<span style="text-transform: lowercase">vs</span> ' + second_title;
     }
@@ -342,8 +357,10 @@ var loadSidebarOptions = function(){
         series = chart.series[1];
       } else if(name === 'btcchina_buy'){
         series = chart.series[2];
-      } else if(name === 'twitter_sentiment'){
+      } else if(name === 'btce_ltc_buy'){
         series = chart.series[3];
+      } else if(name === 'twitter_sentiment'){
+        series = chart.series[4];
       } else {
         alert(name + ' not implemented yet!');
         return;

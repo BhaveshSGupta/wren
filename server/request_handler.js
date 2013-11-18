@@ -102,13 +102,14 @@ exports.eventHandler = function(req, res) {
       );
       break;
     case '/data':
-      var returnData = {mtgox: [],
-                        bitstamp: [],
-                        btcchina: [],
-                        twitter: { sentiment: [], volume: [] }
+      var returnData = {mtgox: {btc: []},
+                        bitstamp: {btc: []},
+                        btcchina: {btc: []},
+                        btce: {ltc: []},
+                        twitter: { btc: { sentiment: [], volume: [] }}
       };
       var counter = 0;
-      var totalQueries = 4;
+      var totalQueries = 5;
       var one_month_ago = Date.now() - 2678400000;
       console.log('one month ago:', one_month_ago);
 
@@ -121,7 +122,7 @@ exports.eventHandler = function(req, res) {
           }
           counter++;
           for(var key in rows){
-            returnData.mtgox.push([rows[key].timestamp*1000, rows[key]['AVG(value)'], rows[key]['AVG(volume)']]);
+            returnData.mtgox.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)'], rows[key]['AVG(volume)']]);
           }
           if(counter === totalQueries) {
             sendResponse(res, JSON.stringify(returnData), 200);
@@ -136,7 +137,7 @@ exports.eventHandler = function(req, res) {
           }
           counter++;
           for(var key in rows){
-            returnData.bitstamp.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
+            returnData.bitstamp.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
           }
           if(counter === totalQueries) {
             sendResponse(res, JSON.stringify(returnData), 200);
@@ -151,7 +152,22 @@ exports.eventHandler = function(req, res) {
           }
           counter++;
           for(var key in rows){
-            returnData.btcchina.push([rows[key].timestamp*1000, rows[key]['AVG(value)']/6.09]);
+            returnData.btcchina.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']/6.09]);
+          }
+          if(counter === totalQueries) {
+            sendResponse(res, JSON.stringify(returnData), 200);
+          }
+        }
+      );
+      // get btce ltc data
+      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=4 GROUP BY round(timestamp / 60)',
+        function(err, rows) {
+          if(err){
+            console.log(err);
+          }
+          counter++;
+          for(var key in rows){
+            returnData.btce.ltc.push([rows[key].timestamp, rows[key]['AVG(value)']]);
           }
           if(counter === totalQueries) {
             sendResponse(res, JSON.stringify(returnData), 200);
@@ -166,8 +182,8 @@ exports.eventHandler = function(req, res) {
           }
           counter++;
           for(var key in rows){
-            returnData.twitter.sentiment.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
-            returnData.twitter.volume.push([rows[key].timestamp*1000, rows[key]['COUNT(*)']]);
+            returnData.twitter.btc.sentiment.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
+            returnData.twitter.btc.volume.push([rows[key].timestamp*1000, rows[key]['COUNT(*)']]);
           }
           if(counter === totalQueries) {
             sendResponse(res, JSON.stringify(returnData), 200);

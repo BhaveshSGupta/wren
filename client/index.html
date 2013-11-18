@@ -27,10 +27,10 @@
       <header class="topbar">
         <span class="logo">wren</span>
         <navbar>
-          <li>
+          <!-- <li>
             <a href="http://www.befuddled.org/befuddled" target="_blank">Bitcoins?</a>
           </li>
-          <!-- <li>
+          <li>
             <a href="">Sentiment</a>
           </li>
           <li>
@@ -52,7 +52,7 @@
       <section class="container">
         <section class="chart"></section>
         <aside class="hover_window">
-          <p><span class="bold_italic">Click</span> on columns to see Tweets.</p>
+          <p><span class="bold_italic">Click</span> on <span class="twitter">blue data</span> to see Tweets.</p>
         </aside>
         <section class="sidebar hidden">
           <section class="toggleButton"><img src="img/left-tri16px.png" /><span class="button_text hidden">X</span></section>
@@ -64,7 +64,7 @@
               </header>
               <section class="exchanges">
                 <header>
-                  <h5>Exchanges</h5>
+                  <h5>BTC Exchanges</h5>
                 </header>
                 <section>
                   <a href="https://www.mtgox.com/" target="_blank"><span class="mtgox">MtGox ($USD)</span><input name="mtgox_buy" value="buy" type="checkbox" checked></input></a><br />
@@ -75,8 +75,11 @@
                 <section>
                   <a href="https://vip.btcchina.com/" target="blank_"><span class="btcchina">BTC China (¥CNY<super>*</super>)</span><input name="btcchina_buy" value="buy" type="checkbox"></input></a><br />
                 </section>
-                 <section>
-                  <span class="btcchina">BTC-e (LTC) ($USD)><input name="btce_buy" value="buy" type="checkbox"></input></a><br />
+                <header>
+                  <h5>LTC Exchanges</h5>
+                </header>
+                <section>
+                  <span class="btcchina">BTC-e ($USD)<input name="btce_ltc_buy" value="buy" type="checkbox"></input></a><br />
                 </section>
               </section>
               <section class="sentiments">
@@ -84,7 +87,7 @@
                   <h5>Sentiment</h5>
                 </header>
                 <section>
-                  <span class="twitter">Twitter</span><input name="twitter_sentiment" value="sentiment" type="checkbox" checked></input><br />
+                  <span class="twitter">Twitter (BTC)</span><input name="twitter_sentiment" value="sentiment" type="checkbox" checked></input><br />
                 </section>
               </section>
             </section>
