@@ -20,7 +20,13 @@ var loadData = function() {
   $.get(server_url + '/data', function(returnData){
    
     chartData = JSON.parse(returnData);
-    console.log(chartData);
+    var sma6 = simpleMovingAverage(576); // SMA PERIOD: 1 day (data is in 5 min intervals)
+    var twitterSentimentSMA = [[],[]];
+    for(var i = 0; i < chartData.twitter.btc.sentiment.length; i++){
+      twitterSentimentSMA[i] = chartData.twitter.btc.sentiment[i];
+      twitterSentimentSMA[i][1] = sma6(chartData.twitter.btc.sentiment[i][1]);
+    }
+    console.log('sma:', twitterSentimentSMA);
 
     var groupingUnits = [
       [
@@ -105,7 +111,7 @@ var loadData = function() {
       },{
         name : 'Twitter Sentiment',
         color: '#2980b9',
-        data : chartData.twitter.btc.sentiment,
+        data : twitterSentimentSMA,
         dataGrouping: {
           units: groupingUnits // an array of arrays
         },
@@ -169,6 +175,21 @@ var loadData = function() {
               });
             }
           }
+        },
+        yAxis: 1
+      },{
+        name : 'Twitter Volume',
+        color: '#2980b9',
+        data : chartData.twitter.btc.volume,
+        dataGrouping: {
+          units: groupingUnits // an array of arrays
+        },
+        cursor: 'pointer',
+        type : 'spline',
+        visible: false,
+        tooltip: {
+          valuePrefix: null,
+          valueSuffix: null
         },
         yAxis: 1
       }
@@ -362,8 +383,10 @@ var loadSidebarOptions = function(){
         console.log('china', series);
       } else if(name === 'btce_ltc_buy'){
         series = chart.series[3];
-      } else if(name === 'twitter_sentiment'){
+      } else if(name === 'twitter_btc_sentiment'){
         series = chart.series[4];
+      } else if(name === 'twitter_btc_volume'){
+        series = chart.series[5];
       } else {
         alert(name + ' not implemented yet!');
         return;
