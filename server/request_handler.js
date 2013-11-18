@@ -166,7 +166,7 @@ exports.eventHandler = function(req, res) {
             console.log(err);
           }
           for(var key in rows){
-            returnData.btce.ltc.push([rows[key].timestamp, rows[key]['AVG(value)']]);
+            returnData.btce.ltc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
           }
           counter++;
           if(counter === totalQueries) {

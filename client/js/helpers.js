@@ -20,6 +20,7 @@ var loadData = function() {
   $.get(server_url + '/data', function(returnData){
    
     chartData = JSON.parse(returnData);
+    console.log(chartData);
 
     var groupingUnits = [
       [
@@ -358,6 +359,7 @@ var loadSidebarOptions = function(){
         series = chart.series[1];
       } else if(name === 'btcchina_buy'){
         series = chart.series[2];
+        console.log('china', series);
       } else if(name === 'btce_ltc_buy'){
         series = chart.series[3];
       } else if(name === 'twitter_sentiment'){
