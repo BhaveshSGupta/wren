@@ -54,10 +54,6 @@ var loadData = function() {
         color: '#d35400',
         type : 'areaspline',
         threshold : null,
-        tooltip : {
-          valueDecimals : 2,
-          valuePrefix: '$'
-        },
         fillColor : {
           linearGradient : {
             x1: 0,
@@ -115,7 +111,7 @@ var loadData = function() {
         color: '#2980b9',
         data : chartData.twitter.btc.sentiment,
         dataGrouping: {
-          units: groupingUnits // an array of arrays
+          units: groupingUnits
         },
         cursor: 'pointer',
         type : 'spline',
@@ -184,7 +180,7 @@ var loadData = function() {
         color: '#2980b9',
         data : chartData.twitter.btc.volume,
         dataGrouping: {
-          units: groupingUnits // an array of arrays
+          units: groupingUnits
         },
         cursor: 'pointer',
         type : 'spline',
