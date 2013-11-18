@@ -175,7 +175,7 @@ var loadData = function() {
           }
         },
         yAxis: 1
-      },{
+      }/*,{
         name : 'Twitter Volume',
         color: '#2980b9',
         data : chartData.twitter.btc.volume,
@@ -190,7 +190,7 @@ var loadData = function() {
           valueSuffix: null
         },
         yAxis: 1
-      }
+      }*/
       ],
       subtitle: {
         floating: true,
@@ -302,9 +302,9 @@ var setChartTitle = function(){
         seriesArray.push('<span style="color: #555;">BTC-e (LTC)</span>');
       } else if(item.name === 'twitter_btc_sentiment'){
         second_title += '<span style="color: #2980b9;">Twitter Sentiment(BTC)</span>';
-      } else if(item.name === 'twitter_btc_volume'){
+      } /*else if(item.name === 'twitter_btc_volume'){
         second_title += '<span style="color: #2980b9;">Twitter Volume(BTC)</span>';
-      } else {
+      } */else {
         console.log('FAIL: Tried to set title for input box that has not been handled yet.');
       }
     }
