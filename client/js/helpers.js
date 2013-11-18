@@ -40,7 +40,7 @@ var loadData = function() {
     // Create the chart
     $('.chart').highcharts('StockChart', {
       series : [{
-        name : 'MtGox Bid Price',
+        name : 'MtGox (BTC) Bid Price',
         data : chartData.mtgox.btc,
         color: '#d35400',
         type : 'areaspline',
@@ -60,7 +60,7 @@ var loadData = function() {
         },
         yAxis: 0
       },{
-        name : 'BitStamp Bid Price',
+        name : 'BitStamp (BTC) Bid Price',
         color: '#16a085',
         data : chartData.bitstamp.btc,
         visible: false,
@@ -68,7 +68,7 @@ var loadData = function() {
         threshold : null,
         yAxis: 0
       },{
-        name : 'BTC China Bid Price',
+        name : 'BTC China (BTC) Bid Price',
         color: '#555',
         data : chartData.btcchina.btc,
         visible: false,
@@ -85,7 +85,7 @@ var loadData = function() {
         },
         yAxis: 0
       },{
-        name : 'BTC-e LTC Bid Price',
+        name : 'BTC-e (LTC) Bid Price',
         color: '#555',
         data : chartData.btce.ltc,
         visible: false,
@@ -112,7 +112,8 @@ var loadData = function() {
         type : 'spline',
         visible: true,
         tooltip: {
-          valuePrefix: null
+          valuePrefix: null,
+          valueSuffix: null
         },
         point: {
           events: {
@@ -186,7 +187,7 @@ var loadData = function() {
       },
       title: {
         floating: true,
-        text: '<span style="color: #d35400;">MtGox</span> (BTC) Buy Price',
+        text: '<span style="color: #d35400;">MtGox (BTC)</span> Buy Price',
         style: {
           color: '#333',
           font: 'bold 16px "Trebuchet MS", Verdana, sans-serif',

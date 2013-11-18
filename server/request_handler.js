@@ -120,10 +120,10 @@ exports.eventHandler = function(req, res) {
           if(err){
             console.log(err);
           }
-          counter++;
           for(var key in rows){
             returnData.mtgox.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)'], rows[key]['AVG(volume)']]);
           }
+          counter++;
           if(counter === totalQueries) {
             sendResponse(res, JSON.stringify(returnData), 200);
           }
@@ -135,10 +135,10 @@ exports.eventHandler = function(req, res) {
           if(err){
             console.log(err);
           }
-          counter++;
           for(var key in rows){
             returnData.bitstamp.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
           }
+          counter++;
           if(counter === totalQueries) {
             sendResponse(res, JSON.stringify(returnData), 200);
           }
@@ -150,10 +150,10 @@ exports.eventHandler = function(req, res) {
           if(err){
             console.log(err);
           }
-          counter++;
           for(var key in rows){
             returnData.btcchina.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']/6.09]);
           }
+          counter++;
           if(counter === totalQueries) {
             sendResponse(res, JSON.stringify(returnData), 200);
           }
@@ -165,10 +165,10 @@ exports.eventHandler = function(req, res) {
           if(err){
             console.log(err);
           }
-          counter++;
           for(var key in rows){
             returnData.btce.ltc.push([rows[key].timestamp, rows[key]['AVG(value)']]);
           }
+          counter++;
           if(counter === totalQueries) {
             sendResponse(res, JSON.stringify(returnData), 200);
           }
@@ -180,11 +180,11 @@ exports.eventHandler = function(req, res) {
           if(err){
             console.log(err);
           }
-          counter++;
           for(var key in rows){
             returnData.twitter.btc.sentiment.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
             returnData.twitter.btc.volume.push([rows[key].timestamp*1000, rows[key]['COUNT(*)']]);
           }
+          counter++;
           if(counter === totalQueries) {
             sendResponse(res, JSON.stringify(returnData), 200);
           }
