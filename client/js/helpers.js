@@ -20,13 +20,15 @@ var loadData = function() {
   $.get(server_url + '/data', function(returnData){
    
     chartData = JSON.parse(returnData);
-    var sma6 = simpleMovingAverage(576); // SMA PERIOD: 1 day (data is in 5 min intervals)
-    var twitterSentimentSMA = [[],[]];
+    
+    // Smooth Twitter data with Simple Moving Average
+    // SMA Period: 2 days
+    var sma2 = simpleMovingAverage(576); // 2 days (data arrives in 5)
+
     for(var i = 0; i < chartData.twitter.btc.sentiment.length; i++){
-      twitterSentimentSMA[i] = chartData.twitter.btc.sentiment[i];
-      twitterSentimentSMA[i][1] = sma6(chartData.twitter.btc.sentiment[i][1]);
+      chartData.twitter.btc.sentiment[i][1] = sma2(chartData.twitter.btc.sentiment[i][1]);
+      chartData.twitter.btc.volume[i][1] = sma2(chartData.twitter.btc.volume[i][1]);
     }
-    console.log('sma:', twitterSentimentSMA);
 
     var groupingUnits = [
       [
@@ -111,7 +113,7 @@ var loadData = function() {
       },{
         name : 'Twitter Sentiment',
         color: '#2980b9',
-        data : twitterSentimentSMA,
+        data : chartData.twitter.btc.sentiment,
         dataGrouping: {
           units: groupingUnits // an array of arrays
         },
@@ -302,8 +304,10 @@ var setChartTitle = function(){
         seriesArray.push('<span style="color: #555;">BTC China (BTC)</span>');
       } else if(item.name === 'btce_ltc_buy'){
         seriesArray.push('<span style="color: #555;">BTC-e (LTC)</span>');
-      } else if(item.name === 'twitter_sentiment'){
+      } else if(item.name === 'twitter_btc_sentiment'){
         second_title += '<span style="color: #2980b9;">Twitter Sentiment(BTC)</span>';
+      } else if(item.name === 'twitter_btc_volume'){
+        second_title += '<span style="color: #2980b9;">Twitter Volume(BTC)</span>';
       } else {
         console.log('FAIL: Tried to set title for input box that has not been handled yet.');
       }
@@ -380,7 +384,6 @@ var loadSidebarOptions = function(){
         series = chart.series[1];
       } else if(name === 'btcchina_buy'){
         series = chart.series[2];
-        console.log('china', series);
       } else if(name === 'btce_ltc_buy'){
         series = chart.series[3];
       } else if(name === 'twitter_btc_sentiment'){
