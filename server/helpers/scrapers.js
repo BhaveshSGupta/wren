@@ -179,3 +179,32 @@ exports.scrapeBTCChina = function () {
     console.log('Got error: ' + e.message);
   });
 };
+
+// Scrape BTCe (Litecoin)
+exports.scrapeBTCe = function () {
+  https.get('https://btc-e.com/api/2/ltc_usd/ticker', function(res) {
+    collectData(res, function(data) {
+      try {
+        data = (JSON.parse(data)).ticker;
+      } catch(e) {
+        console.log(e);
+      }
+      var site = 4; // BTCe - LTC (Litecoin currency)
+      var buy = data.buy;
+      var volume = data.vol;
+      var timestamp = data.server_time;
+      var currency = 1; // value of USD
+      connection.query('INSERT INTO marketmovement (site, volume, value, timestamp, currency) VALUES (?, ?, ?, ?, ?)',
+        [site, volume, buy, timestamp, currency],
+        function (err) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+        }
+      );
+    });
+  }).on('error', function(e) {
+    console.log('Got error: ' + e.message);
+  });
+};
