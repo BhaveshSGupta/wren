@@ -4,7 +4,7 @@ var moment = require('moment');
 var mtgox = require('mtgox');
 var Bitstamp = require('bitstamp-request');
 var analyze = require('Sentimental').analyze;
-var connection = require('./db.js').connection;
+var connection = require('../config/db.js').connection;
 
 // Connect to Twitter API
 var twit = new twitter({

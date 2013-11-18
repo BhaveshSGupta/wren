@@ -1,7 +1,7 @@
 var url = require('url');
 var fs = require('fs');
 var path = require('path');
-var connection = require('./helpers/db.js').connection;
+var connection = require('./config/db.js').connection;
 
 // Define CORS headers
 var headers = {
@@ -111,10 +111,9 @@ exports.eventHandler = function(req, res) {
       var counter = 0;
       var totalQueries = 5;
       var one_month_ago = Date.now() - 2678400000;
-      console.log('one month ago:', one_month_ago);
 
       // get mtgox data
-      connection.query('SELECT timestamp, AVG(value), AVG(volume) FROM marketmovement WHERE site=1 GROUP BY round(timestamp / 60)',
+      connection.query('SELECT timestamp, AVG(value), AVG(volume) FROM marketmovement WHERE site=1 GROUP BY round(timestamp / 300)',
         [one_month_ago],
         function(err, rows) {
           if(err){
@@ -130,7 +129,7 @@ exports.eventHandler = function(req, res) {
         }
       );
       // get bitstamp data
-      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=2 GROUP BY round(timestamp / 60)',
+      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=2 GROUP BY round(timestamp / 300)',
         function(err, rows) {
           if(err){
             console.log(err);
@@ -145,7 +144,7 @@ exports.eventHandler = function(req, res) {
         }
       );
       // get btc china data
-      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=3 GROUP BY round(timestamp / 60)',
+      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=3 GROUP BY round(timestamp / 300)',
         function(err, rows) {
           if(err){
             console.log(err);
@@ -160,7 +159,7 @@ exports.eventHandler = function(req, res) {
         }
       );
       // get btce ltc data
-      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=4 GROUP BY round(timestamp / 60)',
+      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE site=4 GROUP BY round(timestamp / 300)',
         function(err, rows) {
           if(err){
             console.log(err);
@@ -175,7 +174,7 @@ exports.eventHandler = function(req, res) {
         }
       );
       // get twitter data
-      connection.query('SELECT timestamp, SUM(sentiment), COUNT(*) FROM tweets GROUP BY round(timestamp / 60)', // group by one minute
+      connection.query('SELECT timestamp, SUM(sentiment), COUNT(*) FROM tweets GROUP BY round(timestamp / 300)', // group by one minute
         function(err, rows) {
           if(err){
             console.log(err);
