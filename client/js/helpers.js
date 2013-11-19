@@ -30,6 +30,16 @@ var loadData = function() {
       chartData.twitter.btc.volume[i][1] = sma2(chartData.twitter.btc.volume[i][1]);
     }
 
+    // Test Cross-Coefficient
+    // var sentimentSeries = [];
+    // var bidSeries = [];
+    // for(i = 0; i < chartData.twitter.btc.sentiment.length; i++){
+    //   sentimentSeries.push(chartData.twitter.btc.sentiment[i][1]);
+    //   bidSeries.push(chartData.mtgox.btc[i][1]);
+    // }
+
+    // crossCoefficient(sentimentSeries, bidSeries, 144);
+
     var groupingUnits = [
       [
         'minute',
