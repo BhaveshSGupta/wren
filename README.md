@@ -1,4 +1,4 @@
-WREN - An Overview of Bitcoin Exchange Performance vs Twitter Sentiments
+WREN - An Overview of Bitcoin Exchange Performance vs Twitter Sentiment
 ==============
 
 **Description:**
