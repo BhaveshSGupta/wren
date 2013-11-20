@@ -1,8 +1,5 @@
 var server_url;
 
-// TODO: Find a better way to do this (cannot access environment vars in the client, don't want to keep two version
-//       of this file)
-
 if(window.location.hostname !== 'localhost'){
   // AWS Elastic Beanstalk Production
   server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';
@@ -15,15 +12,13 @@ if(window.location.hostname !== 'localhost'){
 var chartData = {};
 
 var loadData = function() {
-  // TODO: Pull Lowest Chart Time Increment and Earliest Time from Chart Buttons
-
   $.get(server_url + '/data', function(returnData){
    
     chartData = JSON.parse(returnData);
     
     // Smooth Twitter data with Simple Moving Average
     // SMA Period: 2 days
-    var sma2 = simpleMovingAverage(576); // 2 days (data arrives in 5)
+    var sma2 = simpleMovingAverage(432); // 2 days (data arrives in 5)
 
     for(var i = 0; i < chartData.twitter.btc.sentiment.length; i++){
       chartData.twitter.btc.sentiment[i][1] = sma2(chartData.twitter.btc.sentiment[i][1]);
