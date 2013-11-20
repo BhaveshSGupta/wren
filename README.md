@@ -1,4 +1,4 @@
-WREN - An Overview of Bitcoin Exchange Performance vs Twitter Sentiment
+WREN - Compare trends in Twitter sentiment vs Bitcoin price
 ==============
 
 **Description:**
@@ -10,21 +10,21 @@ WREN empowers you to spot investment opportunities by:
  
 URL: http://default-environment-qnmrx6f75m.elasticbeanstalk.com/
 
-![Alt text](/screenshots/screenshot.png "MtGox performance over past 7 days vs Twitter Sentiment")
-![Alt text](/screenshots/tweets.png "Twitter Sentiment")
+![Alt text](/img/screenshots/screenshot.png "MtGox performance over past 7 days vs Twitter Sentiment")
+![Alt text](/img/screenshots/tweets.png "Twitter Sentiment")
 
 Tech Stack
- ----------
- - Node.js
- - MySQL 
- - HighStocks
- - jQuery 
+----------
+ - ![Alt text](/img/techstack/nodejs.png "Node.js")
+ - ![Alt text](/img/techstack/mysql.png "MySQL") 
+ - ![Alt text](/img/techstack/highcharts.png "HighCharts")
+ - ![Alt text](/img/techstack/jquery.png "jQuery") 
  - Moment.js 
  - Sentimental (for Twitter sentiment analysis)
  - APIs: Twitter, MtGox, Bitstamp, BTC China
 
- Thanks
- ----------
+Thanks
+----------
  - Kevin Roth ( kevinroth82 at gmail.com -- the author of Sentimental )
  - Kate Jenkins ( catherine.ann.jenkins at gmail.com )
  - Hack Reactor ( www.hackreactor.com )
