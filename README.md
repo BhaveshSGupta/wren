@@ -1,4 +1,4 @@
-WREN: <br />Compare trends in Twitter sentiment vs Bitcoin price
+WREN: <br />Compare trends in Twitter sentiment <br /> vs Bitcoin price
 ==============
 
 **Description:**
