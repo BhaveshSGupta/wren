@@ -13,6 +13,14 @@ URL: http://www.bitwren.com/
 ![Alt text](/img/screenshots/screenshot.png "MtGox performance over past 7 days vs Twitter Sentiment")
 ![Alt text](/img/screenshots/tweets.png "Twitter Sentiment")
 
+Usage
+--------------
+Wren shows MtGox bid prices for the past 7 days versus Twitter sentiment by default.
+ - Hover your mouse over the chart to see the prices / sentiment at specific points in the chart
+ - Click the zoom toolbar in the top left of the chart to change the timeframe shown
+ - Move your cursor to the OPTIONS sidebar on the righthand side of the screen to show/hide different data sets
+ - Click on the blue data series to see what people are saying at any particular point and the respective sentiment
+
 Technology Stack
 ----------
  ![Alt text](/img/techstack/nodejs.png "Node.js")
