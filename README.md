@@ -15,10 +15,10 @@ URL: http://default-environment-qnmrx6f75m.elasticbeanstalk.com/
 
 Tech Stack
 ----------
- - ![Alt text](/img/techstack/nodejs.png "Node.js")
- - ![Alt text](/img/techstack/mysql.png "MySQL") 
- - ![Alt text](/img/techstack/highcharts.png "HighCharts")
- - ![Alt text](/img/techstack/jquery.png "jQuery") 
+ ![Alt text](/img/techstack/nodejs.png "Node.js")
+ ![Alt text](/img/techstack/mysql.png "MySQL") 
+ ![Alt text](/img/techstack/highcharts.png "HighCharts")
+ ![Alt text](/img/techstack/jquery.png "jQuery") 
  - Moment.js 
  - Sentimental (for Twitter sentiment analysis)
  - APIs: Twitter, MtGox, Bitstamp, BTC China
