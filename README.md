@@ -36,4 +36,3 @@ Thanks
  - Kevin Roth ( kevinroth82 at gmail.com -- the author of Sentimental )
  - Kate Jenkins ( catherine.ann.jenkins at gmail.com )
  - Hack Reactor ( www.hackreactor.com )
- - Bitcoin for the Befuddled!
