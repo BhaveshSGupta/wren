@@ -135,7 +135,7 @@ exports.eventHandler = function(req, res) {
 
       // get mtgox data
       if(queries && queries.mtgox) {
-        connection.query('SELECT timestamp, AVG(value), AVG(volume) FROM marketmovement WHERE timestamp > ? AND site=1'/*GROUP BY round(timestamp / 900)'*/,
+        connection.query('SELECT timestamp, AVG(value), AVG(volume) FROM marketmovement WHERE timestamp > ? AND site=1 GROUP BY round(timestamp / 900)',
           [one_month_ago],
           function(err, rows) {
             if(err){
@@ -154,7 +154,7 @@ exports.eventHandler = function(req, res) {
 
       // get bitstamp data
       if(queries && queries.bitstamp) {
-        connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=2' /*GROUP BY round(timestamp / 1800)'*/,
+        connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=2 GROUP BY round(timestamp / 1800)',
           [one_month_ago],
           function(err, rows) {
             if(err){
@@ -192,7 +192,7 @@ exports.eventHandler = function(req, res) {
 
       // get btce ltc data
       if(queries && queries.btce) {
-        connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=4' /* GROUP BY round(timestamp / 1800)'*/,
+        connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=4 GROUP BY round(timestamp / 1800)',
           [one_month_ago],
           function(err, rows) {
             if(err){
