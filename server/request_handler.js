@@ -75,14 +75,14 @@ exports.eventHandler = function(req, res) {
       break;
 
     case '/buy-ticker':
-      // get latest value from MtGox
-      connection.query('SELECT value FROM marketmovement WHERE site=1 ORDER BY timestamp DESC LIMIT 1',
+      // get latest value from BTC China
+      connection.query('SELECT value FROM marketmovement WHERE site=3 ORDER BY timestamp DESC LIMIT 1',
         function(err, rows) {
           if(err){
             console.log(err);
             return;
           }
-          sendResponse(res, JSON.stringify(rows[0].value), 200);
+          sendResponse(res, JSON.stringify(rows[0].value / 6.2), 200); // rough conversion from RMB to USD
         }
       );
       break;
@@ -105,6 +105,7 @@ exports.eventHandler = function(req, res) {
       break;
 
     case '/data':
+      var queries = JSON.parse(decodeURIComponent(url.parse(req.url).query, true));
       var returnData = {mtgox: {btc: []},
                         bitstamp: {btc: []},
                         btcchina: {btc: []},
@@ -112,94 +113,121 @@ exports.eventHandler = function(req, res) {
                         twitter: { btc: { sentiment: [], volume: [] }}
       };
       var counter = 0;
-      var totalQueries = 2;
+      var totalQueries = 0;
       var one_month_ago = Math.floor(Date.now() - 2678400000)/1000;
 
+      // Count queries to use for counting total database query returns (async) verus total
+      if(queries && queries.mtgox){
+        totalQueries++;
+      }
+      if(queries && queries.bitstamp){
+        totalQueries++;
+      }
+      if(queries && queries.btcchina){
+        totalQueries++;
+      }
+      if(queries && queries.btce){
+        totalQueries++;
+      }
+      if(queries && queries.twitter){
+        totalQueries++;
+      }
+
       // get mtgox data
-      // connection.query('SELECT timestamp, AVG(value), AVG(volume) FROM marketmovement WHERE timestamp > ? AND site=1'/*GROUP BY round(timestamp / 900)'*/,
-      //   [one_month_ago],
-      //   function(err, rows) {
-      //     if(err){
-      //       console.log(err);
-      //     }
-      //     for(var key in rows){
-      //       returnData.mtgox.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)'], rows[key]['AVG(volume)']]);
-      //     }
-      //     counter++;
-      //     if(counter === totalQueries) {
-      //       sendResponse(res, JSON.stringify(returnData), 200);
-      //     }
-      //   }
-      // );
+      if(queries && queries.mtgox) {
+        connection.query('SELECT timestamp, AVG(value), AVG(volume) FROM marketmovement WHERE timestamp > ? AND site=1'/*GROUP BY round(timestamp / 900)'*/,
+          [one_month_ago],
+          function(err, rows) {
+            if(err){
+              console.log(err);
+            }
+            for(var key in rows){
+              returnData.mtgox.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)'], rows[key]['AVG(volume)']]);
+            }
+            counter++;
+            if(counter === totalQueries) {
+              sendResponse(res, JSON.stringify(returnData), 200);
+            }
+          }
+        );
+      }
 
       // get bitstamp data
-      // connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=2' /*GROUP BY round(timestamp / 1800)'*/,
-      //   [one_month_ago],
-      //   function(err, rows) {
-      //     if(err){
-      //       console.log(err);
-      //     }
-      //     for(var key in rows){
-      //       returnData.bitstamp.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
-      //     }
-      //     counter++;
-      //     if(counter === totalQueries) {
-      //       sendResponse(res, JSON.stringify(returnData), 200);
-      //     }
-      //   }
-      // );
+      if(queries && queries.bitstamp) {
+        connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=2' /*GROUP BY round(timestamp / 1800)'*/,
+          [one_month_ago],
+          function(err, rows) {
+            if(err){
+              console.log(err);
+            }
+            for(var key in rows){
+              returnData.bitstamp.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
+            }
+            counter++;
+            if(counter === totalQueries) {
+              sendResponse(res, JSON.stringify(returnData), 200);
+            }
+          }
+        );
+      }
 
       // get btc china data
-      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=3 GROUP BY round(timestamp / 1800)',
-        [one_month_ago],
-        function(err, rows) {
-          if(err){
-            console.log(err);
+      if(queries && queries.btcchina) {
+        connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=3 GROUP BY round(timestamp / 1800)',
+          [one_month_ago],
+          function(err, rows) {
+            if(err){
+              console.log(err);
+            }
+            for(var key in rows){
+              returnData.btcchina.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']/6.09]);
+            }
+            counter++;
+            if(counter === totalQueries) {
+              sendResponse(res, JSON.stringify(returnData), 200);
+            }
           }
-          for(var key in rows){
-            returnData.btcchina.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']/6.09]);
-          }
-          counter++;
-          if(counter === totalQueries) {
-            sendResponse(res, JSON.stringify(returnData), 200);
-          }
-        }
-      );
+        );
+      }
 
       // get btce ltc data
-      // connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=4' /* GROUP BY round(timestamp / 1800)'*/,
-      //   [one_month_ago],
-      //   function(err, rows) {
-      //     if(err){
-      //       console.log(err);
-      //     }
-      //     for(var key in rows){
-      //       returnData.btce.ltc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
-      //     }
-      //     counter++;
-      //     if(counter === totalQueries) {
-      //       sendResponse(res, JSON.stringify(returnData), 200);
-      //     }
-      //   }
-      // );
+      if(queries && queries.btce) {
+        connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=4' /* GROUP BY round(timestamp / 1800)'*/,
+          [one_month_ago],
+          function(err, rows) {
+            if(err){
+              console.log(err);
+            }
+            for(var key in rows){
+              returnData.btce.ltc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']]);
+            }
+            counter++;
+            if(counter === totalQueries) {
+              sendResponse(res, JSON.stringify(returnData), 200);
+            }
+          }
+        );
+      }
 
       // get twitter data
-      connection.query('SELECT timestamp, SUM(sentiment), COUNT(*) FROM tweets WHERE timestamp > ? GROUP BY round(timestamp / 900)',
-        [one_month_ago],
-        function(err, rows) {
-          if(err){
-            console.log(err);
+      if(queries && queries.twitter) {
+        connection.query('SELECT timestamp, SUM(sentiment), COUNT(*) FROM tweets WHERE timestamp > ? GROUP BY round(timestamp / 900)',
+          [one_month_ago],
+          function(err, rows) {
+            if(err){
+              console.log(err);
+            }
+            for(var key in rows){
+              returnData.twitter.btc.sentiment.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
+              returnData.twitter.btc.volume.push([rows[key].timestamp*1000, rows[key]['COUNT(*)']]);
+            }
+            counter++;
+            if(counter === totalQueries) {
+              sendResponse(res, JSON.stringify(returnData), 200);
+            }
           }
-          for(var key in rows){
-            returnData.twitter.btc.sentiment.push([rows[key].timestamp*1000, rows[key]['SUM(sentiment)']]);
-            returnData.twitter.btc.volume.push([rows[key].timestamp*1000, rows[key]['COUNT(*)']]);
-          }
-          counter++;
-          if(counter === totalQueries) {
-            sendResponse(res, JSON.stringify(returnData), 200);
-          }
-        }
-      );
+        );
+      }
       break;
 
     default:
