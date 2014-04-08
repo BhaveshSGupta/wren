@@ -6,14 +6,15 @@
     <script src="../bower_components/jquery/jquery.min.js"></script>
     <script src="../bower_components/moment/min/moment.min.js"></script>
     <script src="../bower_components/highstock/js/highstock.src.min.js"></script>
-    
+
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <link rel="SHORTCUT ICON" HREF="/img/favicon.ico">
     <script src="style/Highcharts.theme.js"></script>
     <script src="js/main.js"></script>
     <script src="js/helpers.js"></script>
+    <script src="js/chartHelpers.js"></script>
     <script src="js/stats/sma.js"></script>
-    <script src="js/stats/crossCoefficient.js"></script>
+    <!-- <script src="js/stats/crossCoefficient.js"></script> -->
   </head>
   <body>
     <section class="popup hidden">
@@ -29,8 +30,8 @@
     <section class="main">
       <header class="topbar">
         <span class="logo">wren</span>
-        <navbar>
-          <!-- <li>
+        <!-- <navbar>
+          <li>
             <a href="http://www.befuddled.org/befuddled" target="_blank">Bitcoins?</a>
           </li>
           <li>
@@ -38,8 +39,8 @@
           </li>
           <li>
             <a href="/">Volume</a>
-          </li> -->
-        </navbar>
+          </li>
+        </navbar> -->
         <aside class="live_data hidden">
           <aside class="live_data_value"></aside>
           <aside class="live_data_currency">
@@ -70,13 +71,13 @@
                   <h5>BTC Exchanges</h5>
                 </header>
                 <section>
-                  <a href="https://www.mtgox.com/" target="_blank"><span class="mtgox">MtGox ($USD)</span><input name="mtgox_buy" value="buy" type="checkbox" checked></input></a><br />
+                  <a href="https://vip.btcchina.com/" target="blank_"><span class="btcchina">BTC China (¥CNY<super>*</super>)</span><input name="btcchina_buy" value="buy" type="checkbox" checked></input></a><br />
                 </section>
                 <section>
                   <a href="https://www.bitstamp.net/" target="_blank"><span class="bitstamp">BitStamp ($USD)</span><input name="bitstamp_buy" value="buy" type="checkbox"></input></a><br />
                 </section>
                 <section>
-                  <a href="https://vip.btcchina.com/" target="blank_"><span class="btcchina">BTC China (¥CNY<super>*</super>)</span><input name="btcchina_buy" value="buy" type="checkbox"></input></a><br />
+                  <a href="https://www.mtgox.com/" target="_blank"><span class="mtgox">MtGox ($USD)</span><input name="mtgox_buy" value="buy" type="checkbox"></input></a><br />
                 </section>
                 <header>
                   <h5>LTC Exchanges</h5>

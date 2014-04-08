@@ -5,7 +5,7 @@ html {
 body {
   background: #ddd;
   color: #333;
-  font-family: 'Helvetica', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -81,6 +81,14 @@ navbar li a:hover {
   width: 90%;
 }
 
+.container h2 {
+  text-align: center;
+}
+
+.container h3 {
+  text-align: center;
+}
+
 .chart {
   float: left;
   height: 83%;
@@ -124,7 +132,7 @@ navbar li a:hover {
 .icons {
   width: 315px;
   margin: 0.3% auto;
-  
+
 }
 
 .icon {
@@ -385,7 +393,7 @@ navbar li a:hover {
   background-color: #222;
   box-shadow: 0px 0 10px rgba(0, 0, 0, 1);
   font-size: 1.2em;
-  font-family: Arial, Verdana, 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif;
   font-weight: normal;
   letter-spacing: 0.2em;
   line-height: 250%;

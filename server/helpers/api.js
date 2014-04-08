@@ -14,8 +14,7 @@ var twit = new twitter({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
-// TODO: Refactor the scraper to use the same function call for different services
-exports.scrapeTweets = function () {
+exports.Tweets = function () {
   twit.search('bitcoin OR bitcoins OR #mtgox OR #bitstamp OR #btce', {lang: 'en', count: 100}, function (data) {
     if (data.statuses) {
       var closureFunc = function (i) {
@@ -23,7 +22,7 @@ exports.scrapeTweets = function () {
         var username = data.statuses[i].user.screen_name;
         var text = data.statuses[i].text;
         text = text.replace(/([^\x00-\xFF]|\s)*$/g, '');
-        
+
         var timestamp = moment(data.statuses[i].created_at).format('YYYY-MM-DD HH:mm:ss');
         timestamp = Math.floor(Date.parse(timestamp)/1000);
 
@@ -54,7 +53,7 @@ exports.scrapeTweets = function () {
         closureFunc(i);
       }
     }
-    
+
   });
 };
 
@@ -65,7 +64,7 @@ var gox = new mtgox({
 });
 
 // get MtGox order depth
-exports.scrapeMtGox = function () {
+exports.MtGox = function () {
   gox.market('BTCUSD', function (err, depth) {
     if (depth) {
       var site = 1; // mtgox value in table
@@ -97,10 +96,12 @@ exports.scrapeMtGox = function () {
 };
 
 // Connect to Bitstamp
-var privateBitstamp = new Bitstamp(process.env.BITSTAMP_CLIENTID, process.env.BITSTAMP_KEY, process.env.BITSTAMP_SECRET);
+var privateBitstamp = new Bitstamp(process.env.BITSTAMP_CLIENTID,
+                                   process.env.BITSTAMP_KEY,
+                                   process.env.BITSTAMP_SECRET);
 
 // Scrape Bitstamp
-exports.scrapeBitstamp = function () {
+exports.Bitstamp = function () {
   privateBitstamp.get('https://www.bitstamp.net/api/ticker/', function(err, response){
     if(response) {
       var site = 2; // bitstamp value in table
@@ -152,7 +153,7 @@ var collectData = function(request, callback){
 };
 
 // Scrape BTC China
-exports.scrapeBTCChina = function () {
+exports.BTCChina = function () {
   https.get('https://data.btcchina.com/data/ticker', function(res) {
     collectData(res, function(data) {
       try {
@@ -181,7 +182,7 @@ exports.scrapeBTCChina = function () {
 };
 
 // Scrape BTCe (Litecoin)
-exports.scrapeBTCe = function () {
+exports.BTCe = function () {
   https.get('https://btc-e.com/api/2/ltc_usd/ticker', function(res) {
     collectData(res, function(data) {
       try {

@@ -64,7 +64,7 @@ exports.eventHandler = function(req, res) {
             if (err) {
               sendResponse(res, {}, 500);
             } else {
-              res.writeHead(200, {'Content-Type': contentType });
+              res.writeHead(200, {'Content-Type': contentType});
               res.end(data);
             }
           });
@@ -73,6 +73,7 @@ exports.eventHandler = function(req, res) {
         }
       });
       break;
+
     case '/buy-ticker':
       // get latest value from MtGox
       connection.query('SELECT value FROM marketmovement WHERE site=1 ORDER BY timestamp DESC LIMIT 1',
@@ -85,6 +86,7 @@ exports.eventHandler = function(req, res) {
         }
       );
       break;
+
     case '/tweets':
       var recv = JSON.parse(decodeURIComponent(url.parse(req.url).query, true));
       var begin = recv.begin;
@@ -101,6 +103,7 @@ exports.eventHandler = function(req, res) {
         }
       );
       break;
+
     case '/data':
       var returnData = {mtgox: {btc: []},
                         bitstamp: {btc: []},
@@ -113,23 +116,24 @@ exports.eventHandler = function(req, res) {
       var one_month_ago = Math.floor(Date.now() - 2678400000)/1000;
 
       // get mtgox data
-      connection.query('SELECT timestamp, AVG(value), AVG(volume) FROM marketmovement WHERE timestamp > ? AND site=1 GROUP BY round(timestamp / 900)',
-        [one_month_ago],
-        function(err, rows) {
-          if(err){
-            console.log(err);
-          }
-          for(var key in rows){
-            returnData.mtgox.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)'], rows[key]['AVG(volume)']]);
-          }
-          counter++;
-          if(counter === totalQueries) {
-            sendResponse(res, JSON.stringify(returnData), 200);
-          }
-        }
-      );
+      // connection.query('SELECT timestamp, AVG(value), AVG(volume) FROM marketmovement WHERE timestamp > ? AND site=1'/*GROUP BY round(timestamp / 900)'*/,
+      //   [one_month_ago],
+      //   function(err, rows) {
+      //     if(err){
+      //       console.log(err);
+      //     }
+      //     for(var key in rows){
+      //       returnData.mtgox.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)'], rows[key]['AVG(volume)']]);
+      //     }
+      //     counter++;
+      //     if(counter === totalQueries) {
+      //       sendResponse(res, JSON.stringify(returnData), 200);
+      //     }
+      //   }
+      // );
+
       // get bitstamp data
-      // connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=2 GROUP BY round(timestamp / 1800)',
+      // connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=2' /*GROUP BY round(timestamp / 1800)'*/,
       //   [one_month_ago],
       //   function(err, rows) {
       //     if(err){
@@ -144,24 +148,26 @@ exports.eventHandler = function(req, res) {
       //     }
       //   }
       // );
+
       // get btc china data
-      // connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=3 GROUP BY round(timestamp / 1800)',
-      //   [one_month_ago],
-      //   function(err, rows) {
-      //     if(err){
-      //       console.log(err);
-      //     }
-      //     for(var key in rows){
-      //       returnData.btcchina.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']/6.09]);
-      //     }
-      //     counter++;
-      //     if(counter === totalQueries) {
-      //       sendResponse(res, JSON.stringify(returnData), 200);
-      //     }
-      //   }
-      // );
+      connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=3 GROUP BY round(timestamp / 1800)',
+        [one_month_ago],
+        function(err, rows) {
+          if(err){
+            console.log(err);
+          }
+          for(var key in rows){
+            returnData.btcchina.btc.push([rows[key].timestamp*1000, rows[key]['AVG(value)']/6.09]);
+          }
+          counter++;
+          if(counter === totalQueries) {
+            sendResponse(res, JSON.stringify(returnData), 200);
+          }
+        }
+      );
+
       // get btce ltc data
-      // connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=4 GROUP BY round(timestamp / 1800)',
+      // connection.query('SELECT timestamp, AVG(value) FROM marketmovement WHERE timestamp > ? AND site=4' /* GROUP BY round(timestamp / 1800)'*/,
       //   [one_month_ago],
       //   function(err, rows) {
       //     if(err){
@@ -176,9 +182,10 @@ exports.eventHandler = function(req, res) {
       //     }
       //   }
       // );
+
       // get twitter data
-      connection.query('SELECT timestamp, SUM(sentiment), COUNT(*) FROM tweets GROUP BY round(timestamp / 900)',
-        // [one_month_ago],
+      connection.query('SELECT timestamp, SUM(sentiment), COUNT(*) FROM tweets WHERE timestamp > ? GROUP BY round(timestamp / 900)',
+        [one_month_ago],
         function(err, rows) {
           if(err){
             console.log(err);
@@ -194,6 +201,7 @@ exports.eventHandler = function(req, res) {
         }
       );
       break;
+
     default:
       // serve up files
       fs.exists(path.resolve(__dirname, lookup), function(exists) {
