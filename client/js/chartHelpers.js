@@ -92,7 +92,8 @@ var createChart = function() {
           // Click on a Twitter Sentiment point to show the individual tweets
           click: function() {
             // get grouping
-            var begin = Math.floor(this.x / 1000);
+            var begin = Math.floor(this.x / 1000); // convert to unix timestamp
+
             var interval = this.series.currentDataGrouping.unitRange / 100;
 
             // show popup div
@@ -142,22 +143,7 @@ var createChart = function() {
         }
       },
       yAxis: 1
-    }/*,{
-      name : 'Twitter Volume',
-      color: '#2980b9',
-      data : chartData.twitter.btc.volume,
-      dataGrouping: {
-        units: groupingUnits
-      },
-      cursor: 'pointer',
-      type : 'spline',
-      visible: false,
-      tooltip: {
-        valuePrefix: null,
-        valueSuffix: null
-      },
-      yAxis: 1
-    }*/
+    }
     ],
     subtitle: {
       floating: true,

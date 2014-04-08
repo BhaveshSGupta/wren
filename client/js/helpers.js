@@ -9,12 +9,38 @@ if(window.location.hostname !== 'localhost'){
 }
 
 // chartData global for storing data
-var chartData = {};
+var chartData = {
+                  mtgox: {btc: []},
+                  bitstamp: {btc: []},
+                  btcchina: {btc: []},
+                  btce: {ltc: []},
+                  twitter: { btc: { sentiment: [], volume: [] }}
+                };
 
-var loadData = function() {
-  $.get(server_url + '/data', function(returnData){
+//
+var loadData = function(queries) {
+  queries = queries || getQuerySelections();
 
-    chartData = JSON.parse(returnData);
+  $.get(server_url + '/data', JSON.stringify(queries), function(returnData){
+
+    var newData = JSON.parse(returnData);
+
+    for(var key in newData){
+      if(key === 'twitter') {
+        if(newData[key].btc.sentiment.length !== 0) {
+          chartData[key] = newData[key];
+        }
+      } else {
+        if(newData[key].btc && newData[key].btc.length !== 0) {
+          console.log(key);
+          chartData[key] = newData[key];
+        } if(newData[key].ltc && newData[key].ltc.length !== 0) {
+          chartData[key] = newData[key];
+        }
+      }
+    }
+
+    console.log(newData);
 
     // Smooth Twitter data with Simple Moving Average
     // SMA Period: 2 days
@@ -25,10 +51,12 @@ var loadData = function() {
       chartData.twitter.btc.volume[i][1] = sma2(chartData.twitter.btc.volume[i][1]);
     }
 
-    // unhide sidebar
-    $('.sidebar').removeClass('hidden');
+    $('.chart').removeClass('hidden');
 
     createChart();
+
+    // unhide sidebar
+    $('.sidebar').removeClass('hidden');
 
     // show hover window
     $('.hover_window').fadeIn('slow');
@@ -42,10 +70,8 @@ var loadData = function() {
   );
   }).fail(function(err) {
     console.log(err);
-    var $container = $('.container');
-    $('.loading').addClass('hidden'); // Hide loading spinner
-    $container.empty();
-    $container.append('<h2>Whoops! Seems there was an error fetching the data...</h2>');
+    $('.chart, .hover_window, .loading').addClass('hidden');
+    $('.container').append('<h2>Whoops! Seems there was an error fetching the data...</h2>');
 
   });
 
@@ -91,6 +117,35 @@ var loadSidebarOptions = function(){
       // Fade out the X and fade in the LEFT ARROW <
       $('.button_text').fadeOut();
       $('.toggleButton img').fadeIn();
+
+      // get data if necessary
+      var queries = getQuerySelections();
+      var needQuery = false;
+
+      for(var key in queries) {
+        if(chartData[key].btc){
+          if(chartData[key].btc.length === 0) {
+            needQuery = true;
+          } else {
+            delete queries[key];
+          }
+        }
+        if(chartData[key].ltc){
+          if(chartData[key].ltc.length === 0) {
+            needQuery = true;
+          } else {
+            delete queries[key];
+          }
+        }
+      }
+
+      if(needQuery) {
+        $('.chart').empty();
+        $('.hover_window').addClass('hidden');
+        $('.loading').removeClass('hidden');
+        loadData(queries);
+      }
+
     }
   );
 
@@ -124,6 +179,29 @@ var loadSidebarOptions = function(){
     var isShown = series.visible;
     series.setVisible(!isShown, true); // true indicates that chart *should* be redrawn by invoking this function
   });
+};
+
+var getQuerySelections = function() {
+  // check which checkboxes are checked for querying db
+  var inputBoxes = $('input');
+  var queries = {};
+  inputBoxes.each(function(index, item){
+    if(item.checked){
+      if(item.name === 'mtgox_buy'){
+        queries.mtgox = true;
+      } else if(item.name === 'bitstamp_buy'){
+        queries.bitstamp = true;
+      } else if(item.name === 'btcchina_buy'){
+        queries.btcchina = true;
+      } else if(item.name === 'btce_ltc_buy'){
+        queries.btce = true;
+      } else if(item.name === 'twitter_btc_sentiment'){
+        queries.twitter = true;
+      }
+    }
+  });
+
+  return queries;
 };
 
 // Retrieve the latest buy price from server for MtGox

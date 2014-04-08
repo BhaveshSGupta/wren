@@ -82,10 +82,7 @@ navbar li a:hover {
 }
 
 .container h2 {
-  text-align: center;
-}
-
-.container h3 {
+  margin-top: 40px;
   text-align: center;
 }
 
