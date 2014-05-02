@@ -40,8 +40,6 @@ var loadData = function(queries) {
       }
     }
 
-    console.log(newData);
-
     // Smooth Twitter data with Simple Moving Average
     // SMA Period: 2 days
     var sma2 = simpleMovingAverage(432); // 2 days (data arrives in 5)

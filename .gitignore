@@ -9,11 +9,6 @@ node_modules/
 node_modules/mtgox/package.json
 bower_components/
 
-# Sentiment Analysis #
-######################
-deeply_moving/
-db/data/sentiment/
-
 # API Info        #
 ###################
 api.config
