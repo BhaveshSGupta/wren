@@ -10,8 +10,9 @@ var app        = express();
 
 // db(app);
 
-app.set('port', process.env.PORT || 3000);
-app.engine('jade', require('jade').__express);
+app.set('port', process.env.PORT || 5000);
+// app.engine('jade', require('jade').__express);
+app.engine('html', require('ejs').renderFile);
 // app.set('views', path.join(__dirname, staticAssetPath));
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(bodyParser());
