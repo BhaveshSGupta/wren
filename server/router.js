@@ -10,15 +10,29 @@ module.exports = {
 
     app.get('/buy-ticker', function(req, res) {
       console.log('GET Request for /buy-ticker');
-      app.sequelize.query('SELECT value FROM marketmovement WHERE site=3 ORDER BY timestamp DESC LIMIT 1')
-      .success(function(rows) {
-        var buyPrice = rows[0].value / 6.2; // approximately convert value into USD
-        res.send(200, {buyPrice: buyPrice});
-      })
-      .error(function(err) {
-        console.log(err);
-        res.send(400, {error: err});
-      });
+      // ExchangePrice.find({
+      //   where: {site: 3},
+      //   order: 'timestamp DESC',
+      //   limit: 1
+      // })
+      // .success(function(rows) {
+      //   var buyPrice = rows[0].value / 6.2; // approximately convert value into USD
+      //   res.send(200, {buyPrice: buyPrice});
+      // })
+      // .error(function(err) {
+      //   console.log(err);
+      //   res.send(400, {error: err});
+      // });
+
+      // app.sequelize.query('SELECT value FROM marketmovement WHERE site=3 ORDER BY timestamp DESC LIMIT 1')
+      // .success(function(rows) {
+      //   var buyPrice = rows[0].value / 6.2; // approximately convert value into USD
+      //   res.send(200, {buyPrice: buyPrice});
+      // })
+      // .error(function(err) {
+      //   console.log(err);
+      //   res.send(400, {error: err});
+      // });
     });
 
     app.get('/prices', function(req, res) {
