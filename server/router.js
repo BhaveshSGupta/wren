@@ -10,7 +10,8 @@ module.exports = {
 
     app.get('/buy-ticker', function(req, res) {
       app.sequelize.query('SELECT value FROM marketmovement WHERE site=3 ORDER BY timestamp DESC LIMIT 1')
-      .success(function(buyPrice) {
+      .success(function(rows) {
+        var buyPrice = rows[0].value / 6.2; // approximately convert value into USD
         res.send(200, {buyPrice: buyPrice});
       })
       .error(function(err) {
@@ -23,7 +24,13 @@ module.exports = {
     });
 
     app.get('/tweets', function(req, res) {
-      res.send(200);
+      app.sequelize.query('SELECT timestamp, username, text, sentiment FROM tweets LIMIT 10'/* WHERE (timestamp BETWEEN ? AND ?) ORDER BY sentiment DESC'*/)
+      .success(function(rows) {
+        res.send(200, {tweets: rows});
+      })
+      .error(function(err) {
+        res.send(400, {error: err});
+      });
     });
 
     // Handle 404
@@ -35,7 +42,7 @@ module.exports = {
 
     // Handle 500
     app.use(function(error, req, res, next) {
-      console.log(error.stack);
+      console.error(error.stack);
       res.send(500, '500: Internal Server Error', {error: error});
     });
   }

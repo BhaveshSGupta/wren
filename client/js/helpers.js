@@ -17,11 +17,10 @@ var chartData = {
                   twitter: { btc: { sentiment: [], volume: [] }}
                 };
 
-//
 var loadData = function(queries) {
   queries = queries || getQuerySelections();
 
-  $.get(server_url + '/data', JSON.stringify(queries), function(returnData){
+  $.get(server_url + '/prices', JSON.stringify(queries), function(returnData){
 
     var newData = JSON.parse(returnData);
 

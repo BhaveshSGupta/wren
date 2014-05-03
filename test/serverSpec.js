@@ -27,6 +27,7 @@ process.env.NODE_ENV = 'test';
         .end(function(err, res) {
           should.not.exist(err);
           res.should.have.property('status').equal(200);
+          res.body.should.have.property('buyPrice');
           done();
         });
     });
@@ -55,6 +56,7 @@ process.env.NODE_ENV = 'test';
       request(app)
         .get('/doesnotexist')
         .end(function(err, res) {
+          should.not.exist(err);
           res.should.have.property('status').equal(404);
           done();
         });

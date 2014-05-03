@@ -5,7 +5,7 @@ var path       = require('path');
 var bodyParser = require('body-parser');
 var Sequelize  = require('sequelize');
 var router     = require('./router.js');
-var apis       = require('./helpers/api.js');
+// var apis       = require('./helpers/api.js');
 var app        = express();
 
 if(process.env.NODE_ENV === 'test') {
@@ -15,11 +15,11 @@ if(process.env.NODE_ENV === 'test') {
   app.set('dbPassword', null);
   app.set('dbName', 'wren');
 } else {
-  app.set('dbUrl', process.env.AMAZON_RDS_HOST);
-  app.set('dbPort', process.env.AMAZON_RDS_PORT);
-  app.set('dbUsername', process.env.AMAZON_RDS_USER);
-  app.set('dbPassword', process.env.AMAZON_RDS_PWD);
-  app.set('dbName', process.env.AMAZON_RDS_DBNAME);
+  app.set('dbUrl', process.env.AMAZON_RDS_HOST || 'localhost');
+  app.set('dbPort', process.env.AMAZON_RDS_PORT || 3306);
+  app.set('dbUsername', process.env.AMAZON_RDS_USER || 'root');
+  app.set('dbPassword', process.env.AMAZON_RDS_PWD || null);
+  app.set('dbName', process.env.AMAZON_RDS_DBNAME || 'wren');
 }
 
 app.sequelize = new Sequelize(
