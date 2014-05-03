@@ -5,17 +5,17 @@ if(window.location.hostname !== 'localhost'){
   server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';
 } else {
   // Development
-  server_url = 'http://127.0.0.1:5000';
+  server_url = 'http://localhost:5000';
 }
 
 // chartData global for storing data
 var chartData = {
-                  mtgox: {btc: []},
-                  bitstamp: {btc: []},
-                  btcchina: {btc: []},
-                  btce: {ltc: []},
-                  twitter: { btc: { sentiment: [], volume: [] }}
-                };
+  mtgox: {btc: []},
+  bitstamp: {btc: []},
+  btcchina: {btc: []},
+  btce: {ltc: []},
+  twitter: { btc: { sentiment: [], volume: [] }}
+};
 
 var loadData = function(queries) {
   queries = queries || getQuerySelections();
@@ -66,10 +66,8 @@ var loadData = function(queries) {
     }
   );
   }).fail(function(err) {
-    console.log(err);
     $('.chart, .hover_window, .loading').addClass('hidden');
     $('.container').append('<h2>Whoops! Seems there was an error fetching the data...</h2>');
-
   });
 
 };
@@ -204,12 +202,17 @@ var getQuerySelections = function() {
 // Retrieve the latest buy price from server for MtGox
 var getBuyValue = function() {
   $.get(server_url + '/buy-ticker', function(data) {
-    data = JSON.parse(data).toFixed(2);
-    // update market div
-    $('.live_data').fadeOut('slow', function() {
-      $('.live_data').addClass('hidden');
-      $('.live_data_value').html('$'+data);
-      $('.live_data').fadeIn('slow');
-    });
+    if(data.buyPrice) {
+      data = parseFloat(data.buyPrice).toFixed(2);
+      // update market div
+      $('.live_data').fadeOut('slow', function() {
+        $('.live_data').addClass('hidden');
+        $('.live_data_value').html('$'+data);
+        $('.live_data').fadeIn('slow');
+      });
+    } else {
+      console.log('/buy-ticker response not formatted correctly');
+    }
+
   });
 };

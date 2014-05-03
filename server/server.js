@@ -8,6 +8,7 @@ var router     = require('./router.js');
 // var apis       = require('./helpers/api.js');
 var app        = express();
 
+process.env.NODE_ENV = 'test';
 if(process.env.NODE_ENV === 'test') {
   app.set('dbUrl', 'localhost');
   app.set('dbPort', 3306);
@@ -29,10 +30,10 @@ app.sequelize = new Sequelize(
   {
     host: app.get('dbUrl'),
     port: app.get('dbPort'),
-    dialect: 'mysql',
+    dialect: 'mysql'//,
     // use pooling in order to reduce db connection overload and to increase speed
     // currently only for mysql and postgresql (since v1.5.0)
-    pool: { maxConnections: 5, maxIdleTime: 30}
+    // pool: { maxConnections: 5, maxIdleTime: 30}
   }
 );
 
