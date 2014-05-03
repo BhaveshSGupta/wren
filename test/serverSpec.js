@@ -21,9 +21,9 @@ process.env.NODE_ENV = 'test';
         });
     });
 
-    it('should answer GET requests for /buy-price', function(done) {
+    it('should answer GET requests for /buy-ticker', function(done) {
       request(app)
-        .get('/buy-price')
+        .get('/buy-ticker')
         .end(function(err, res) {
           should.not.exist(err);
           res.should.have.property('status').equal(200);

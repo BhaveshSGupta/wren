@@ -8,8 +8,14 @@ module.exports = {
       res.render('index');
     });
 
-    app.get('/buy-price', function(req, res) {
-      res.send(200);
+    app.get('/buy-ticker', function(req, res) {
+      app.sequelize.query('SELECT value FROM marketmovement WHERE site=3 ORDER BY timestamp DESC LIMIT 1')
+      .success(function(buyPrice) {
+        res.send(200, {buyPrice: buyPrice});
+      })
+      .error(function(err) {
+        res.send(400, {error: err});
+      });
     });
 
     app.get('/prices', function(req, res) {

@@ -3,12 +3,38 @@
 var express    = require('express');
 var path       = require('path');
 var bodyParser = require('body-parser');
+var Sequelize  = require('sequelize');
 var router     = require('./router.js');
 var apis       = require('./helpers/api.js');
-// var db         = require('./config/dbconfig.js');
 var app        = express();
 
-// db(app);
+if(process.env.NODE_ENV === 'test') {
+  app.set('dbUrl', 'localhost');
+  app.set('dbPort', 3306);
+  app.set('dbUser', 'root');
+  app.set('dbPassword', null);
+  app.set('dbName', 'wren');
+} else {
+  app.set('dbUrl', process.env.AMAZON_RDS_HOST);
+  app.set('dbPort', process.env.AMAZON_RDS_PORT);
+  app.set('dbUsername', process.env.AMAZON_RDS_USER);
+  app.set('dbPassword', process.env.AMAZON_RDS_PWD);
+  app.set('dbName', process.env.AMAZON_RDS_DBNAME);
+}
+
+app.sequelize = new Sequelize(
+  app.get('dbName'),
+  app.get('dbUser'),
+  app.get('dbPassword'),
+  {
+    host: app.get('dbUrl'),
+    port: app.get('dbPort'),
+    dialect: 'mysql',
+    // use pooling in order to reduce db connection overload and to increase speed
+    // currently only for mysql and postgresql (since v1.5.0)
+    pool: { maxConnections: 5, maxIdleTime: 30}
+  }
+);
 
 app.set('port', process.env.PORT || 5000);
 // app.engine('jade', require('jade').__express);
