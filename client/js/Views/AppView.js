@@ -16,11 +16,13 @@ App.Views.AppView = Backbone.View.extend({
   },
 
   render: function() {
-    $('body section.main').prepend(this.navBarView.render().el);
-    // $('body').append(this.footerView.render().el);
+    this.$el.find('section.main').prepend(this.navBarView.render().el);
+    this.$el.find('section.main').append(this.footerView.render().el);
 
     // Move header up (out of window)
-    $('header.topbar').css({top: '-1000px'});
-    $('header.topbar').animate({top: '0px'}, 1000);
+    $('.topbar').css({top: '-1000px'});
+    $('.bottombar').css({bottom: '-1000px'});
+    $('.topbar').animate({top: '0px'}, 1000);
+    $('.bottombar').animate({bottom: '0px'}, 1000);
   }
 });
