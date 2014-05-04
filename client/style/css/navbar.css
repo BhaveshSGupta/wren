@@ -1,0 +1,15 @@
+navbar li {
+  display: inline-block;
+  list-style-type: none;
+  font-size: 0.5em;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 10%; }
+  navbar li a {
+    color: #8c919b;
+    text-decoration: none; }
+    navbar li a:hover {
+      color: #ddd;
+      font-weight: bold;
+      font-size: 1.1em; }

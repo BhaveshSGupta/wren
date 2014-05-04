@@ -4,8 +4,9 @@ var App = App || {};
 App.Views = App.Views || {};
 
 App.Views.FooterView = Backbone.View.extend({
-  tagName: 'section',
-  className: 'bottombar',
+  tagName: 'footer',
+
+  className: 'pageFooter',
 
   template: this.JST.footer,
 

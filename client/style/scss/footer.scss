@@ -1,0 +1,15 @@
+footer {
+  &.pageFooter {
+    background-color: #222;
+    bottom: 0;
+    box-shadow: 0px 0 10px rgba(0, 0, 0, 1);
+    height: 6%;
+    position: absolute;
+    width: 100%;
+    z-index: 20;
+  }
+
+  .icons .hack_reactor_logo {
+    width: 100px;
+  }
+}

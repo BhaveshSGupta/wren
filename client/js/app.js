@@ -7,8 +7,8 @@ App.Views = App.Views || {};
 $(document).ready(function () {
   app = new App.Views.AppView();
 
-  getBuyValue();  // update market ticker
-  setInterval(getBuyValue, 60000); // update buy value every minute
+  // getBuyValue();  // update market ticker
+  // setInterval(getBuyValue, 60000); // update buy value every minute
   // loadData();
   // loadSidebarOptions();
 
