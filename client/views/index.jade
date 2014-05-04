@@ -3,9 +3,6 @@ html
   head
     meta(charset="UTF-8")
     title WREN
-    script(src="bower_components/jquery/jquery.min.js")
-    script(src="bower_components/moment/min/moment.min.js")
-    script(src="bower_components/highstock/js/highstock.src.min.js")
 
     link(rel="stylesheet", href="style/style.css")
     link(rel="SHORTCUT ICON", href="/img/favicon.ico")
@@ -17,19 +14,10 @@ html
           span.sentiment-header [ + / - ]
 
       section.tweet_loading ... LOADING ...
-
     section.transparent_layer.hidden
+
     img.loading(src="img/intersection.gif")
     section.main
-      header.topbar
-        span.logo wren
-        aside.live_data.hidden
-          aside.live_data_value
-          aside.live_data_currency
-            aside.currency USD
-            aside.per_unit
-              span.per per
-              | BTC
 
       section.container
         section.chart
@@ -92,24 +80,21 @@ html
                   input(name="twitter_btc_sentiment", value="sentiment", type="checkbox", checked)
                   br
 
-      section.bottom_bar
-        section.icons
-          a(href="mailto:collenjones@gmail.com", target="_top")
-            img.icon(src="img/gmail.png")
-
-          a(href="https://plus.google.com/share?url=http://www.bitwren.com/", target="_blank")
-            img.icon(src="img/google-plus.png")
-          a(href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]=http://www.bitwren.com/&p[images][0]=http://winpoker.com/sites/default/files/bitcoin.png&p[title]=wren!&p[summary]=Check+out+this+great+BitCoin+Exchange+vs+Twitter+Sentiment Analysis!", target="_blank")
-            img.icon(src="img/facebook.png")
-          script(src="//platform.twitter.com/widgets.js")
-          a(href="https://twitter.com/intent/tweet?text=Check%20out%20this%20BitCoin%20performance%20vs%20sentiment%20analysis!%20@collenjones%20@HackReactor&url=http%3A%2F%2Fwww.bitwren.com")
-            img.icon(src="img/twitter.png")
-          a(href="http://www.hackreactor.com", target="_blank")
-            img.icon.hack_reactor_logo(src="img/hack_reactor.png")
+    script(src="bower_components/jquery/jquery.js")
+    script(src="bower_components/underscore/underscore.js")
+    script(src="bower_components/moment/moment.js")
+    script(src="bower_components/backbone/backbone.js")
+    script(src="bower_components/highstock/js/highstock.src.js")
 
     script(src="style/Highcharts.theme.js")
     script(src="js/helpers.js")
     script(src="js/chartHelpers.js")
     script(src="js/stats/sma.js")
 
-    script(src="js/main.js")
+    script(src="js/templates/jst.js")
+
+    script(src="js/Views/AppView.js")
+    script(src="js/Views/NavBarView.js")
+    script(src="js/Views/FooterView.js")
+
+    script(src="js/app.js")
