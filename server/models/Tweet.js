@@ -8,6 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     timestamp: DataTypes.BIGINT(11).UNSIGNED,
     hastag:    DataTypes.STRING,
     sentiment: DataTypes.INTEGER,
+    /*jshint camelcase: false */
     tweet_id:  DataTypes.BIGINT(11).UNSIGNED
   });
 

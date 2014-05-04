@@ -21,7 +21,7 @@ var loadData = function(queries) {
   queries = queries || getQuerySelections();
 
   $.get(server_url + '/prices', JSON.stringify(queries), function(returnData){
-
+    console.log('prices', returnData);
     var newData = JSON.parse(returnData);
 
     for(var key in newData){
@@ -31,7 +31,6 @@ var loadData = function(queries) {
         }
       } else {
         if(newData[key].btc && newData[key].btc.length !== 0) {
-          console.log(key);
           chartData[key] = newData[key];
         } if(newData[key].ltc && newData[key].ltc.length !== 0) {
           chartData[key] = newData[key];
@@ -202,12 +201,17 @@ var getQuerySelections = function() {
 // Retrieve the latest buy price from server for MtGox
 var getBuyValue = function() {
   $.get(server_url + '/buy-ticker', function(data) {
-    if(data.buyPrice) {
-      data = parseFloat(data.buyPrice).toFixed(2);
+    if(data.value) {
+      if(data.currency && data.currency === 2) {
+        data.value /= 6.2; // convert into USD
+      }
+
+      var value = parseFloat(data.value).toFixed(2);
+
       // update market div
       $('.live_data').fadeOut('slow', function() {
         $('.live_data').addClass('hidden');
-        $('.live_data_value').html('$'+data);
+        $('.live_data_value').html('$'+value);
         $('.live_data').fadeIn('slow');
       });
     } else {
