@@ -14,6 +14,14 @@ App.Views.ChartView = Backbone.View.extend({
     this.exchangePriceCollection = new App.Collections.ExchangePrices();
     this.tweetCollection = new App.Collections.Tweets();
 
+    this.exchangePriceCollection.fetch({error: this.fetchErrorHandler}).done(function() {
+      console.log('ExchangePrices fetch succeeded!');
+    });
+
+    // this.tweetCollection.fetch().done(function() {
+    //   console.log('Tweets fetch succeeded!');
+    // });
+
     // Initalize SubViews
     this.infoModalView = new App.Views.InfoModalView();
   },
@@ -21,6 +29,10 @@ App.Views.ChartView = Backbone.View.extend({
   render: function() {
     this.createChart();
     return this;
+  },
+
+  fetchErrorHandler: function() {
+    this.trigger('fetchError');
   },
 
   groupingUnits: [

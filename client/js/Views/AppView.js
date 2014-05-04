@@ -17,25 +17,14 @@ App.Views.AppView = Backbone.View.extend({
     this.footerView = new App.Views.FooterView();
     this.chartView = new App.Views.ChartView();
     this.loadingSpinnerView = new App.Views.LoadingSpinnerView();
+    this.errorView = new App.Views.ErrorView();
 
     this.render();
 
     getBuyValue();  // update market ticker
     setInterval(getBuyValue, 60000); // update buy value every minute
 
-    $.get(server_url + '/prices', function(serverData){
-      // return all data if no params specified
-
-      console.log('prices', serverData);
-
-      // hide spinner view
-      $(self.loadingSpinnerView.el).hide();
-      self.$el.find('section.main .container').append(self.chartView.render().el);
-    })
-    .fail(function(err) {
-      $('.chart, .hoverModal, .loading').addClass('hidden');
-      $('.container').append('<h2>Whoops! Seems there was an error fetching the data...</h2>');
-    });
+    this.chartView.on('fetchError', this.showErrorView);
   },
 
   render: function() {
@@ -49,5 +38,14 @@ App.Views.AppView = Backbone.View.extend({
     $('footer.pageFooter').css({bottom: '-1000px'});
     $('.topbar').animate({top: '0px'}, 1000);
     $('footer.pageFooter').animate({bottom: '0px'}, 1000);
+  },
+
+  toggleLoadingSpinner: function() {
+    $(this.loadingSpinnerView.el).toggleClass('hidden');
+  },
+
+  showErrorView: function() {
+    $(this.sideBarView.el, this.chartView.el, this.loadingSpingerView.el).hide();
+    this.$el.find('section.main .container').append(this.errorView.render().el);
   }
 });
