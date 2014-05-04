@@ -14,7 +14,7 @@ var paths = {
   // css: 'client/style/scss/**/*.scss',
   scripts: ['*.js', 'server/**/*.js', 'client/js/*.js', 'test/**/*.js'],
   images: 'client/img/**/*',
-  templates: 'client/views/templates/compiled/**/*.html'
+  templates: 'client/views/templates/**/*.jade'
 };
 
 gulp.task('templates', function() {
@@ -25,7 +25,7 @@ gulp.task('templates', function() {
 
 // Compile client-side views into single JST file
 gulp.task('JST', function () {
-  gulp.src(paths.templates)
+  gulp.src('client/views/templates/compiled/**/*.html')
     .pipe(jstConcat('jst.js', {
       renameKeys: ['^.*templates/compiled/(.*).html$', '$1']
     }))

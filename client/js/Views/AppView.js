@@ -10,12 +10,14 @@ App.Views.AppView = Backbone.View.extend({
 
   initialize: function() {
     this.navBarView = new App.Views.NavBarView();
+    this.sideBarView = new App.Views.SideBarView();
     this.footerView = new App.Views.FooterView();
 
     this.render();
   },
 
   render: function() {
+    this.$el.find('section.main').prepend(this.sideBarView.render().el);
     this.$el.find('section.main').prepend(this.navBarView.render().el);
     this.$el.find('section.main').append(this.footerView.render().el);
 

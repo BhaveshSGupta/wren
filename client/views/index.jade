@@ -16,8 +16,8 @@ html
       section.tweet_loading ... LOADING ...
     section.transparent_layer.hidden
 
-    img.loading(src="img/intersection.gif")
     section.main
+      img.loading(src="img/intersection.gif")
 
       section.container
         section.chart
@@ -27,58 +27,6 @@ html
             | on
             span.twitter blue data
             | to see Tweets.
-
-        section.sidebar.hidden
-          section.toggleButton
-            img(src="img/left-tri16px.png")
-            span.button_text.hidden X
-          header.vertical_text Options
-          section.toggleData
-            section
-              header
-                h4 Data
-
-              section.exchanges
-                header
-                  h5 BTC Exchanges
-
-                section
-                  a(href="https://vip.btcchina.com/", target="blank_")
-                    span.btcchina BTC China (¥CNY
-                      super *
-                      | )
-                    input(name="btcchina_buy", value="buy", type="checkbox", checked)
-                    br
-
-                section
-                  a(href="https://www.bitstamp.net/", target="_blank")
-                    span.bitstamp BitStamp ($USD)
-                    input(name="bitstamp_buy", value="buy", type="checkbox")
-                    br
-
-                section
-                  a(href="https://www.mtgox.com/", target="_blank")
-                    span.mtgox MtGox ($USD)
-                    input(name="mtgox_buy", value="buy", type="checkbox")
-                    br
-
-                header
-                  h5 LTC Exchanges
-
-                section
-                  a(href="https://btc-e.com/", target="_blank")
-                    span.btcchina BTC-e ($USD)
-                    input(name="btce_ltc_buy", value="buy", type="checkbox")
-                    br
-
-              section.sentiments
-                header
-                  h5 Twitter
-
-                section
-                  span.twitter Sentiment (BTC)
-                  input(name="twitter_btc_sentiment", value="sentiment", type="checkbox", checked)
-                  br
 
     script(src="bower_components/jquery/jquery.js")
     script(src="bower_components/underscore/underscore.js")
@@ -95,6 +43,7 @@ html
 
     script(src="js/Views/AppView.js")
     script(src="js/Views/NavBarView.js")
+    script(src="js/Views/SideBarView.js")
     script(src="js/Views/FooterView.js")
 
     script(src="js/app.js")
