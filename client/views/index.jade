@@ -11,25 +11,8 @@ html
     link(rel="SHORTCUT ICON", href="/img/favicon.ico")
 
   body
-    section.popup.hidden
-      ul
-        li Sentiment
-          span.sentiment-header [ + / - ]
-
-      section.tweet_loading ... LOADING ...
-    section.transparent_layer.hidden
-
     section.main
-      img.loading(src="img/intersection.gif")
-
       section.container
-        section.chart
-        aside.hover_window
-          p
-            span.bold_italic Click
-            | on
-            span.twitter blue data
-            | to see Tweets.
 
     script(src="bower_components/jquery/jquery.js")
     script(src="bower_components/underscore/underscore.js")
@@ -47,6 +30,10 @@ html
     script(src="js/Views/AppView.js")
     script(src="js/Views/NavBarView.js")
     script(src="js/Views/SideBarView.js")
+    script(src="js/Views/ChartView.js")
+    script(src="js/Views/LoadingSpinnerView.js")
+    script(src="js/Views/InfoModalView.js")
+    script(src="js/Views/TwitterFeedView.js")
     script(src="js/Views/FooterView.js")
 
     script(src="js/app.js")

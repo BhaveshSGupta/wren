@@ -3,11 +3,11 @@
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.SideBarView = Backbone.View.extend({
+App.Views.InfoModalView = Backbone.View.extend({
   tagName: 'aside',
-  className: 'sidebar hidden',
+  className: 'hoverModal hidden',
 
-  template: this.JST.sidebar,
+  template: this.JST.hoverModal,
 
   initialize: function(options) {
   },

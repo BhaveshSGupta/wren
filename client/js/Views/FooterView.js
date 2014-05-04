@@ -11,7 +11,6 @@ App.Views.FooterView = Backbone.View.extend({
   template: this.JST.footer,
 
   initialize: function(options) {
-    this.render();
   },
 
   render: function() {

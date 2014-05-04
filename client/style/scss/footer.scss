@@ -9,7 +9,23 @@ footer {
     z-index: 20;
   }
 
-  .icons .hack_reactor_logo {
-    width: 100px;
+  .icons {
+    width: 315px;
+    margin: 0.3% auto;
+
+    .hack_reactor_logo {
+      width: 100px;
+    }
+
+    .icon {
+      height: 32px;
+      width: 32px;
+      margin-right: 4%;
+      opacity: 0.8;
+      &:hover {
+        cursor: pointer;
+        opacity: 1;
+      }
+    }
   }
 }

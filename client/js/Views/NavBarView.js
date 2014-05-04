@@ -10,7 +10,6 @@ App.Views.NavBarView = Backbone.View.extend({
   template: this.JST.navbar,
 
   initialize: function(options) {
-    this.render();
   },
 
   render: function() {

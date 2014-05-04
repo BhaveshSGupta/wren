@@ -3,11 +3,9 @@
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.SideBarView = Backbone.View.extend({
-  tagName: 'aside',
-  className: 'sidebar hidden',
+App.Views.LoadingSpinnerView = Backbone.View.extend({
 
-  template: this.JST.sidebar,
+  template: JST.loadingSpinner,
 
   initialize: function(options) {
   },

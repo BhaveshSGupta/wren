@@ -3,11 +3,9 @@
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.SideBarView = Backbone.View.extend({
-  tagName: 'aside',
-  className: 'sidebar hidden',
+App.Views.TwitterFeedView = Backbone.View.extend({
 
-  template: this.JST.sidebar,
+  template: this.JST.twitterFeed,
 
   initialize: function(options) {
   },
