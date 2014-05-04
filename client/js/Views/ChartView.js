@@ -11,12 +11,21 @@ App.Views.ChartView = Backbone.View.extend({
 
   initialize: function(options) {
      // Initialize Collections
+    this.exchangeCollection = new App.Collections.Exchanges();
     this.exchangePriceCollection = new App.Collections.ExchangePrices();
     this.tweetCollection = new App.Collections.Tweets();
 
-    this.exchangePriceCollection.fetch({error: this.fetchErrorHandler}).done(function() {
-      console.log('ExchangePrices fetch succeeded!');
-    });
+    this.exchangeCollection.fetch()
+      .done(function() {
+        console.log('Exchanges fetch succeeded!');
+      })
+      .error(function(err) {
+        this.fetchErrorHandler(err);
+      });
+
+    // this.exchangePriceCollection.fetch({error: this.fetchErrorHandler}).done(function() {
+    //   console.log('ExchangePrices fetch succeeded!');
+    // });
 
     // this.tweetCollection.fetch().done(function() {
     //   console.log('Tweets fetch succeeded!');
