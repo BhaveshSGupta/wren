@@ -13,7 +13,7 @@ var paths = {
   // css: 'client/style/scss/**/*.scss',
   scripts: ['*.js', 'server/**/*.js', 'client/js/*.js', 'test/**/*.js'],
   images: 'client/img/**/*',
-  templates: 'client/templates/**/*.html'
+  templates: 'client/views/templates/**/*.jade'
 };
 
 // Compile client-side views into single JST file
@@ -22,7 +22,7 @@ gulp.task('JST', function () {
     .pipe(jstConcat('jst.js', {
       renameKeys: ['^.*views/(.*).html$', '$1']
     }))
-    .pipe(gulp.dest('app/js/templates'));
+    .pipe(gulp.dest('client/js/templates'));
 });
 
 // JS Linter
