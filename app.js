@@ -6,7 +6,7 @@ var http           = require('http'),
     db             = require('./server/models'),
     routes         = require('./server/routes'),
     tweet          = require('./server/routes/tweet'),
-    buyTicker      = require('./server/routes/buyTicker'),
+    exchangePrices = require('./server/routes/exchangePrice'),
     app            = express();
 
 app.set('port', process.env.PORT || 5000);
@@ -17,7 +17,8 @@ app.use(bodyParser());
 // Routes
 app.get('/', routes.index);
 app.get('/tweets', tweet.getAll);
-app.get('/buy-ticker', buyTicker.getTicker);
+app.get('/buy-ticker', exchangePrices.getTicker);
+app.get('/prices', exchangePrices.getAll);
 
 // Handle 404
 app.use(function(req, res) {

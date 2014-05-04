@@ -1,5 +1,14 @@
 var db = require('../models');
 
+exports.getAll = function(req, res) {
+  db.ExchangePrice.findAll(
+    {where: ["timestamp > ?", Date.now() - 1000 * 60 * 60 * 24 * 30]}
+  )
+  .success(function(tickerPrice) {
+    res.send(200, tickerPrice);
+  });
+};
+
 exports.getTicker = function(req, res) {
   db.ExchangePrice.find(
     {where: {site: 3},
