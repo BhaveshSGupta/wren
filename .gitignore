@@ -6,6 +6,12 @@
 ###################
 *.dev
 
+# Compiled files  #
+###################
+dist
+*.css
+jst.js
+
 # Module Info     #
 ###################
 node_modules/

@@ -4,7 +4,7 @@ var db = require('../models');
 
 exports.getAll = function(req, res) {
   db.ExchangePrice.findAll(
-    {where: ['timestamp > ?', Date.now() - 1000 * 60 * 60 * 24 * 30]} // within one month
+    {where: ['timestamp > ?', Math.floor((Date.now() - 1000 * 60 * 60 * 24 * 30)/1000)]} // within one month
   )
   .success(function(tickerPrice) {
     res.send(200, tickerPrice);
