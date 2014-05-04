@@ -4,7 +4,7 @@ var fs        = require('fs'),
     path      = require('path'),
     Sequelize = require('sequelize'),
     lodash    = require('lodash'),
-    app       = require('../../app.js'),
+    app       = require('../server.js'),
     db        = {};
 
 var sequelize = new Sequelize(
@@ -16,9 +16,6 @@ var sequelize = new Sequelize(
     port: process.env.AMAZON_RDS_PORT || 3306,
     dialect: 'mysql',
     logging: false
-    // use pooling in order to reduce db connection overload and to increase speed
-    // currently only for mysql and postgresql (since v1.5.0)
-    // pool: { maxConnections: 5, maxIdleTime: 30}
   });
 
 fs

@@ -8,7 +8,7 @@ process.env.NODE_ENV = 'test';
   var chai = require('chai');
   var should = chai.should();
   var expect = chai.expect;
-  var app = require('../app.js');
+  var app = require('../server/server.js');
 
   describe('Node Server Request Listener Function', function() {
     it('should answer GET requests for /', function(done) {
