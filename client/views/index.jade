@@ -1,0 +1,115 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title WREN
+    script(src="bower_components/jquery/jquery.min.js")
+    script(src="bower_components/moment/min/moment.min.js")
+    script(src="bower_components/highstock/js/highstock.src.min.js")
+
+    link(rel="stylesheet", href="style/style.css")
+    link(rel="SHORTCUT ICON", href="/img/favicon.ico")
+
+  body
+    section.popup.hidden
+      ul
+        li Sentiment
+          span.sentiment-header [ + / - ]
+
+      section.tweet_loading ... LOADING ...
+
+    section.transparent_layer.hidden
+    img.loading(src="img/intersection.gif")
+    section.main
+      header.topbar
+        span.logo wren
+        aside.live_data.hidden
+          aside.live_data_value
+          aside.live_data_currency
+            aside.currency USD
+            aside.per_unit
+              span.per per
+              | BTC
+
+      section.container
+        section.chart
+        aside.hover_window
+          p
+            span.bold_italic Click
+            | on
+            span.twitter blue data
+            | to see Tweets.
+
+        section.sidebar.hidden
+          section.toggleButton
+            img(src="img/left-tri16px.png")
+            span.button_text.hidden X
+          header.vertical_text Options
+          section.toggleData
+            section
+              header
+                h4 Data
+
+              section.exchanges
+                header
+                  h5 BTC Exchanges
+
+                section
+                  a(href="https://vip.btcchina.com/", target="blank_")
+                    span.btcchina BTC China (¥CNY
+                      super *
+                      | )
+                    input(name="btcchina_buy", value="buy", type="checkbox", checked)
+                    br
+
+                section
+                  a(href="https://www.bitstamp.net/", target="_blank")
+                    span.bitstamp BitStamp ($USD)
+                    input(name="bitstamp_buy", value="buy", type="checkbox")
+                    br
+
+                section
+                  a(href="https://www.mtgox.com/", target="_blank")
+                    span.mtgox MtGox ($USD)
+                    input(name="mtgox_buy", value="buy", type="checkbox")
+                    br
+
+                header
+                  h5 LTC Exchanges
+
+                section
+                  a(href="https://btc-e.com/", target="_blank")
+                    span.btcchina BTC-e ($USD)
+                    input(name="btce_ltc_buy", value="buy", type="checkbox")
+                    br
+
+              section.sentiments
+                header
+                  h5 Twitter
+
+                section
+                  span.twitter Sentiment (BTC)
+                  input(name="twitter_btc_sentiment", value="sentiment", type="checkbox", checked)
+                  br
+
+      section.bottom_bar
+        section.icons
+          a(href="mailto:collenjones@gmail.com", target="_top")
+            img.icon(src="img/gmail.png")
+
+          a(href="https://plus.google.com/share?url=http://www.bitwren.com/", target="_blank")
+            img.icon(src="img/google-plus.png")
+          a(href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]=http://www.bitwren.com/&p[images][0]=http://winpoker.com/sites/default/files/bitcoin.png&p[title]=wren!&p[summary]=Check+out+this+great+BitCoin+Exchange+vs+Twitter+Sentiment Analysis!", target="_blank")
+            img.icon(src="img/facebook.png")
+          script(src="//platform.twitter.com/widgets.js")
+          a(href="https://twitter.com/intent/tweet?text=Check%20out%20this%20BitCoin%20performance%20vs%20sentiment%20analysis!%20@collenjones%20@HackReactor&url=http%3A%2F%2Fwww.bitwren.com")
+            img.icon(src="img/twitter.png")
+          a(href="http://www.hackreactor.com", target="_blank")
+            img.icon.hack_reactor_logo(src="img/hack_reactor.png")
+
+    script(src="style/Highcharts.theme.js")
+    script(src="js/helpers.js")
+    script(src="js/chartHelpers.js")
+    script(src="js/stats/sma.js")
+
+    script(src="js/main.js")
