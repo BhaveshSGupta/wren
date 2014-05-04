@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "./node_modules/bower/bin/bower install",
-    // "start": "foreman start --env .env"
-    "start": "nodemon app.js"
+    "start": "NODE_ENV=development nodemon app.js"
   },
   "author": "Collen Jones",
   "license": "BSD-2-Clause",

@@ -8,7 +8,7 @@ process.env.NODE_ENV = 'test';
   var chai = require('chai');
   var should = chai.should();
   var expect = chai.expect;
-  var app = require('../server/server.js');
+  var app = require('../app.js');
 
   describe('Node Server Request Listener Function', function() {
     it('should answer GET requests for /', function(done) {
@@ -27,7 +27,7 @@ process.env.NODE_ENV = 'test';
         .end(function(err, res) {
           should.not.exist(err);
           res.should.have.property('status').equal(200);
-          res.body.should.have.property('buyPrice');
+          res.body.should.have.property('value');
           done();
         });
     });

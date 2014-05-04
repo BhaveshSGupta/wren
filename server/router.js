@@ -1,5 +1,3 @@
-'use strict';
-
 var app = require('./server.js');
 
 module.exports = {

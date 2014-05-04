@@ -1,7 +1,5 @@
-'use strict';
-
 module.exports = function(sequelize, DataTypes) {
-  var ExchangePrice = sequelize.define('ExchangePrices', {
+  var ExchangePrice = sequelize.define('ExchangePrice', {
     id:        { type: DataTypes.BIGINT(11).UNSIGNED, primaryKey: true, autoIncrement: true },
     site:      DataTypes.INTEGER.UNSIGNED,
     volume:    DataTypes.FLOAT(12,2),

@@ -1,7 +1,5 @@
-'use strict';
-
 module.exports = function(sequelize, DataTypes) {
-  var Tweet = sequelize.define('Tweets', {
+  var Tweet = sequelize.define('Tweet', {
     id:        { type: DataTypes.BIGINT(11).UNSIGNED, primaryKey: true, autoIncrement: true },
     username:  DataTypes.STRING(45),
     text:      DataTypes.STRING(255),

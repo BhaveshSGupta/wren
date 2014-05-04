@@ -1,10 +1,8 @@
-'use strict';
-
 var fs        = require('fs'),
     path      = require('path'),
     Sequelize = require('sequelize'),
     lodash    = require('lodash'),
-    app       = require('../server.js'),
+    app       = require('../../app.js'),
     db        = {};
 
 var sequelize = new Sequelize(
@@ -24,7 +22,7 @@ var sequelize = new Sequelize(
 fs
   .readdirSync(__dirname)
   .filter(function(file) {
-    return (file.indexOf('.') !== 0) && (file !== 'index.js');
+    return ((file.indexOf('.') !== 0) && (file !== 'index.js') && (file.slice(-3) === '.js'));
   })
   .forEach(function(file) {
     var model = sequelize.import(path.join(__dirname, file));
@@ -32,8 +30,8 @@ fs
   });
 
 Object.keys(db).forEach(function(modelName) {
-  if ('associate' in db[modelName]) {
-    db[modelName].associate(db);
+  if (db[modelName].options.hasOwnProperty('associate')) {
+    db[modelName].options.associate(db);
   }
 });
 
