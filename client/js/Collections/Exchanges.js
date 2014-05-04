@@ -3,7 +3,7 @@
 var App = App || {};
 App.Collections = App.Collections || {};
 
-App.Collections.Exchange = Backbone.Collection.extend({
+App.Collections.Exchanges = Backbone.Collection.extend({
   model: App.Models.Exchange,
   url: '/exchanges/'
 });

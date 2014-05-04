@@ -10,10 +10,12 @@ App.Views.NavBarView = Backbone.View.extend({
   template: this.JST.navbar,
 
   initialize: function(options) {
+    this.buyTickerView = new App.Views.BuyTickerView();
   },
 
   render: function() {
     this.$el.html(this.template());
+    this.$el.append(this.buyTickerView.render().el);
 
     return this;
   }

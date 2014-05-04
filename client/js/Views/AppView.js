@@ -24,7 +24,7 @@ App.Views.AppView = Backbone.View.extend({
     getBuyValue();  // update market ticker
     setInterval(getBuyValue, 60000); // update buy value every minute
 
-    this.chartView.on('fetchError', this.showErrorView);
+    this.chartView.on('fetchError', this.showErrorView, this);
   },
 
   render: function() {
@@ -45,7 +45,10 @@ App.Views.AppView = Backbone.View.extend({
   },
 
   showErrorView: function() {
-    $(this.sideBarView.el, this.chartView.el, this.loadingSpingerView.el).hide();
+    $(this.sideBarView.el).hide();
+    $(this.chartView.el).hide();
+    $(this.loadingSpinnerView.el).hide();
+
     this.$el.find('section.main .container').append(this.errorView.render().el);
   }
 });

@@ -7,8 +7,9 @@ var http           = require('http'),
     Sequelize      = require('sequelize'),
     db             = require('./models'),
     routes         = require('./routes'),
-    tweet          = require('./routes/tweet'),
+    exchanges      = require('./routes/exchanges'),
     exchangePrices = require('./routes/exchangePrice'),
+    tweet          = require('./routes/tweet'),
     app            = express();
 
 app.set('port', process.env.PORT || 5000);
@@ -20,6 +21,7 @@ app.use(bodyParser());
 // Routes
 app.get('/', routes.index);
 app.get('/tweets', tweet.getAll);
+app.get('/exchanges', exchanges.getAll);
 app.get('/buy-ticker', exchangePrices.getTicker);
 app.get('/prices', exchangePrices.getAll);
 

@@ -52,6 +52,22 @@ process.env.NODE_ENV = 'test';
         });
     });
 
+    it('should answer GET requests for /exchanges', function(done) {
+      request(app)
+        .get('/exchanges')
+        .end(function(err, res) {
+          should.not.exist(err);
+          res.should.have.property('status').equal(200);
+          if(res.body.length) {
+            Object.keys(res.body[0]).length.should.equal(3);
+            res.body[0].should.have.property('id');
+            res.body[0].should.have.property('site');
+            res.body[0].should.have.property('currency');
+          }
+          done();
+        });
+    });
+
     it('should return 404 for GET request to /doesnotexist', function(done) {
       request(app)
         .get('/doesnotexist')
