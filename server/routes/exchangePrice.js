@@ -5,7 +5,7 @@ var Sequelize = require('sequelize'),
 
 exports.getAll = function(req, res) {
   db.ExchangePrice.findAll(
-    {where: ['timestamp > ?', Math.floor((Date.now() - 1000 * 60 * 60 * 24 * 30)/1000)]} // within one month
+    {where: ['timestamp > ?', Math.floor((Date.now() - 1000 * 60 * 60 * 24 * 7)/1000)]} // within one week
   )
   .success(function(tickerPrice) {
     res.send(200, tickerPrice);
@@ -18,7 +18,7 @@ exports.getExchangePrices = function(req, res) {
     db.ExchangePrice.findAll(
       { where: Sequelize.and(
         {site: req.params.exchange},
-        ['timestamp > ?', Math.floor((Date.now() - 1000 * 60 * 60 * 24 * 30)/1000)] // within one month
+        ['timestamp > ?', Math.floor((Date.now() - 1000 * 60 * 60 * 24 * 7)/1000)] // within one week
       )}
     )
     .success(function(exchangePrices) {

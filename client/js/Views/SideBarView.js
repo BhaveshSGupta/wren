@@ -9,7 +9,7 @@ App.Views.SideBarView = Backbone.View.extend({
 
   events: {
     'mouseenter': 'showFullSideBar',
-    'mouseout': 'hideFullSideBar'
+    'mouseleave': 'hideFullSideBar'
   },
 
   template: this.JST.sidebar,
@@ -24,7 +24,7 @@ App.Views.SideBarView = Backbone.View.extend({
   },
 
   showFullSideBar: function(e) {
-    console.log('here in showFullSideBar');
+
     $(this.$el).animate(
       {'width': '150px'},
       'fast');
@@ -44,7 +44,7 @@ App.Views.SideBarView = Backbone.View.extend({
   },
 
   hideFullSideBar: function(e) {
-    console.log('here in hideFullSideBar');
+
     // Slide the data series back to the right
     $('.toggleData').animate({right: '-100%'}, 'fast');
     // Return the OPTIONS text to the top of the sidebar
