@@ -25,14 +25,6 @@ App.Views.ChartView = Backbone.View.extend({
         self.fetchErrorHandler(err);
       });
 
-    // this.exchangePriceCollection.fetch({error: this.fetchErrorHandler}).done(function() {
-    //   console.log('ExchangePrices fetch succeeded!');
-    // });
-
-    // this.tweetCollection.fetch().done(function() {
-    //   console.log('Tweets fetch succeeded!');
-    // });
-
     // Initalize SubViews
     this.infoModalView = new App.Views.InfoModalView();
   },

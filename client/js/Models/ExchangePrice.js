@@ -6,5 +6,10 @@ App.Models = App.Models || {};
 App.Models.ExchangePrice = Backbone.Model.extend({
   initialize: function(options) {
     _.extend(this, options);
+  },
+
+  defaults: {
+    value: null,
+    currency: null
   }
 });

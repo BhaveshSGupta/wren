@@ -11,6 +11,9 @@ App.Views.AppView = Backbone.View.extend({
   initialize: function() {
     var self = this;
 
+    // Initialize Collections
+    this.exchangeCollection = new App.Collections.Exchanges();
+
     // Initialize SubViews
     this.navBarView = new App.Views.NavBarView();
     this.sideBarView = new App.Views.SideBarView();
@@ -21,9 +24,7 @@ App.Views.AppView = Backbone.View.extend({
 
     this.render();
 
-    getBuyValue();  // update market ticker
-    setInterval(getBuyValue, 60000); // update buy value every minute
-
+    // Event Listeners
     this.chartView.on('fetchError', this.showErrorView, this);
   },
 
