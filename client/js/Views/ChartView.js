@@ -24,13 +24,13 @@ App.Views.ChartView = Backbone.View.extend({
     console.log('Rendering HighStocks Chart...');
 
     if(this.chartOptions.series.length === 0) {
-      this.exchangeCollection.each(function(exchange) {
+      this.exchangeCollection.each(function(exchange, index) {
 
         var thisSeries = {
           name : exchange.get('site') + ' ' + exchange.get('currency') + ' Bidding Price',
           data : [],
           visible: true,
-          color: '#555',
+          color: self.chartColors[index % self.chartColors.length],
           type : 'spline',
           threshold : null,
           fillColor : {
@@ -69,6 +69,8 @@ App.Views.ChartView = Backbone.View.extend({
       [1, 3, 7]
     ]
   ],
+
+  chartColors: ['#555', '#16a085', '#d35400', '#555', '#2980b9'],
 
   chartOptions: {
     series: [],
