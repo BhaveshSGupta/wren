@@ -36,8 +36,7 @@ App.Views.AppView = Backbone.View.extend({
               callbacksRemaining--;
               if(!callbacksRemaining){
                 self.toggleLoadingSpinner();
-                self.chartView.collection = self.exchangeCollection;
-                self.$el.find('section.main .container').append(self.chartView.render().el);
+                self.chartView.render();
 
                 return;
               }
