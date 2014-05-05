@@ -2,7 +2,7 @@ this.JST = {"buyTicker": function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<aside class="live_data_value"></aside><aside class="live_data_currency"><aside class="currency">USD</aside><aside class="per_unit"><span class="per">per</span> BTC</aside></aside>';
+__p += '<aside class="live_data_value"></aside><aside class="live_data_currency"><aside class="currency">USD</aside><aside class="per_unit"><span class="per">per</span>  BTC</aside></aside>';
 
 }
 return __p

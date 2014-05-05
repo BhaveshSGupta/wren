@@ -7,9 +7,7 @@ App.Models.ExchangePrice = Backbone.Model.extend({
   initialize: function(options) {
     _.extend(this, options);
 
-    this.set('timestamp', this.get('timestamp') * 1000);
-
-    this.calculateXnY(); // for HighStocks
+    this.set('timestamp', this.get('timestamp') * 1000); // convert to ms for HighStocks
   },
 
   defaults: {
@@ -17,10 +15,5 @@ App.Models.ExchangePrice = Backbone.Model.extend({
     timestamp: null,
     site: null,
     currency: null
-  },
-
-  calculateXnY: function() {
-    this.set('x', this.get('timestamp'));
-    this.set('y', this.get('value'));
   }
 });
