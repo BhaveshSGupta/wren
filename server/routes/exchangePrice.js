@@ -1,6 +1,7 @@
 'use strict';
 
-var db = require('../models');
+var Sequelize = require('sequelize'),
+    db        = require('../models');
 
 exports.getAll = function(req, res) {
   db.ExchangePrice.findAll(
@@ -9,6 +10,27 @@ exports.getAll = function(req, res) {
   .success(function(tickerPrice) {
     res.send(200, tickerPrice);
   });
+};
+
+exports.getExchangePrices = function(req, res) {
+  if(req.params.exchange) {
+    console.log('getting exchange price');
+    db.ExchangePrice.findAll(
+      { where: Sequelize.and(
+        {site: req.params.exchange},
+        ['timestamp > ?', Math.floor((Date.now() - 1000 * 60 * 60 * 24 * 30)/1000)] // within one month
+      )}
+    )
+    .success(function(tickerPrice) {
+      res.send(200, tickerPrice);
+    })
+    .error(function(err) {
+      res.send(400, {error: err});
+    });
+  } else {
+    console.error('No exchange parameter passed.');
+    res.send(400);
+  }
 };
 
 exports.getTicker = function(req, res) {

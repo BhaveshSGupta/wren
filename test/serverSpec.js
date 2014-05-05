@@ -42,6 +42,18 @@ process.env.NODE_ENV = 'test';
         });
     });
 
+    it('should answer GET requests for /prices/:exchange', function(done) {
+      var site = 3;
+
+      request(app)
+        .get('/prices/' + site)
+        .end(function(err, res) {
+          should.not.exist(err);
+          res.should.have.property('status').equal(200);
+          done();
+        });
+    });
+
     it('should answer GET requests for /tweets', function(done) {
       request(app)
         .get('/tweets')

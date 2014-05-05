@@ -12,18 +12,6 @@ App.Views.AppView = Backbone.View.extend({
     // Initialize Collections
     this.exchangeCollection = new App.Collections.Exchanges();
 
-    this.exchangeCollection.fetch()
-      .done(function() {
-        self.exchangeCollection.each(function(exchange) {
-          console.log(exchange.toJSON());
-        });
-        self.toggleLoadingSpinner();
-        self.$el.find('section.main .container').append(self.chartView.render().el);
-      })
-      .error(function(err) {
-        self.showErrorView(err);
-      });
-
     // Initialize SubViews
     this.navBarView = new App.Views.NavBarView();
     this.sideBarView = new App.Views.SideBarView();
@@ -33,6 +21,35 @@ App.Views.AppView = Backbone.View.extend({
     this.errorView = new App.Views.ErrorView();
 
     this.render();
+
+    // Fetch Collection Data
+    this.exchangeCollection.fetch()
+      .done(function() {
+        var callbacksRemaining = self.exchangeCollection.length;
+
+        self.exchangeCollection.each(function(exchange, index) {
+          exchange.set('prices', new App.Collections.ExchangePrices({id: exchange.get('id')}));
+          var exchangePriceCollection = exchange.get('prices');
+
+          exchangePriceCollection.fetch()
+            .done(function(data) {
+              callbacksRemaining--;
+              if(!callbacksRemaining){
+                self.toggleLoadingSpinner();
+                self.chartView.collection = self.exchangeCollection;
+                self.$el.find('section.main .container').append(self.chartView.render().el);
+
+                return;
+              }
+            })
+            .error(function(err) {
+              self.showErrorView(err);
+            });
+        });
+      })
+      .error(function(err) {
+        self.showErrorView(err);
+      });
 
     // Event Listeners
     this.chartView.on('fetchError', this.showErrorView, this);
@@ -55,11 +72,11 @@ App.Views.AppView = Backbone.View.extend({
     $(this.loadingSpinnerView.el).toggleClass('hidden');
   },
 
-  showErrorView: function() {
+  showErrorView: function(err) {
     $(this.sideBarView.el).hide();
     $(this.chartView.el).hide();
     $(this.loadingSpinnerView.el).hide();
 
-    this.$el.find('section.main .container').append(this.errorView.render().el);
+    this.$el.find('section.main .container').append(this.errorView.render({error: err}).el);
   }
 });

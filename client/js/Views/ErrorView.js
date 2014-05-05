@@ -10,7 +10,11 @@ App.Views.ErrorView = Backbone.View.extend({
   initialize: function(options) {
   },
 
-  render: function() {
+  render: function(options) {
+    if(options.error) {
+      console.log(options.error);
+    }
+
     this.$el.html(this.template());
 
     return this;

@@ -24,6 +24,7 @@ app.get('/tweets', tweet.getAll);
 app.get('/exchanges', exchanges.getAll);
 app.get('/buy-ticker', exchangePrices.getTicker);
 app.get('/prices', exchangePrices.getAll);
+app.get('/prices/:exchange', exchangePrices.getExchangePrices);
 
 // Handle 404
 app.use(function(req, res) {
