@@ -11,6 +11,7 @@ App.Views.AppView = Backbone.View.extend({
 
     // Initialize Collections
     this.exchangeCollection = new App.Collections.Exchanges();
+    this.tweetCollection = new App.Collections.Tweets();
 
     // Initialize SubViews
     this.navBarView = new App.Views.HeaderView();

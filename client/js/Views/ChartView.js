@@ -28,7 +28,7 @@ App.Views.ChartView = Backbone.View.extend({
 
         var thisSeries = {
           name : exchange.get('site') + ' ' + exchange.get('currency') + ' Bidding Price',
-          data : [],
+          data : exchange.get('prices').data,
           visible: true,
           color: self.chartColors[index % self.chartColors.length],
           type : 'spline',
@@ -45,9 +45,9 @@ App.Views.ChartView = Backbone.View.extend({
           yAxis: 0
         };
 
-        exchange.get('prices').each(function(exchangePrice) {
-          thisSeries.data.push([exchangePrice.get('timestamp'), exchangePrice.get('value')]);
-        });
+        // exchange.get('prices').each(function(exchangePrice) {
+        //   thisSeries.data.push([exchangePrice.get('timestamp'), exchangePrice.get('value')]);
+        // });
 
         self.chartOptions.series.push(thisSeries);
       });
