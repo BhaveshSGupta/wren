@@ -54,7 +54,7 @@ gulp.task('lint', function() {
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
-  gulp.watch(paths.scripts, ['lint']);
+  gulp.watch(paths.scripts, ['lint', 'testServer']);
   gulp.watch(paths.css, ['sass']);
   gulp.watch(paths.templates, ['templates', 'JST']);
 });
@@ -63,10 +63,12 @@ gulp.task('watch', function() {
 gulp.task('default', function(callback) {
   runSequence(['templates', 'sass'],
                'JST',
+               'lint',
+               'testServer',
                'watch');
 });
 
-gulp.task('test', function () {
+gulp.task('testServer', function () {
   gulp.src('test/serverSpec.js')
     .pipe(mocha({reporter: 'nyan'}));
 });

@@ -19,5 +19,5 @@
   "trailing": true,
   "smarttabs": true,
   "jquery": true,
-  "predef": ["Backbone", "$", "_", "google", "JST", "alert"]
+  "predef": ["Backbone", "$", "google", "JST", "alert"]
 }

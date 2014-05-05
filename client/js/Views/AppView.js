@@ -1,5 +1,3 @@
-/*global Backbone */
-
 'use strict';
 
 var App = App || {};
@@ -14,11 +12,23 @@ App.Views.AppView = Backbone.View.extend({
     // Initialize Collections
     this.exchangeCollection = new App.Collections.Exchanges();
 
+    this.exchangeCollection.fetch()
+      .done(function() {
+        self.exchangeCollection.each(function(exchange) {
+          console.log(exchange.toJSON());
+        });
+        self.toggleLoadingSpinner();
+        self.$el.find('section.main .container').append(self.chartView.render().el);
+      })
+      .error(function(err) {
+        self.showErrorView(err);
+      });
+
     // Initialize SubViews
     this.navBarView = new App.Views.NavBarView();
     this.sideBarView = new App.Views.SideBarView();
     this.footerView = new App.Views.FooterView();
-    this.chartView = new App.Views.ChartView();
+    this.chartView = new App.Views.ChartView({exchangeCollection: this.exchangeCollection});
     this.loadingSpinnerView = new App.Views.LoadingSpinnerView();
     this.errorView = new App.Views.ErrorView();
 

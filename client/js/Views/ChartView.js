@@ -12,30 +12,14 @@ App.Views.ChartView = Backbone.View.extend({
   initialize: function(options) {
     var self = this;
 
-    // Initialize Collections
-    this.exchangeCollection = new App.Collections.Exchanges();
-    this.exchangePriceCollection = new App.Collections.ExchangePrices();
-    this.tweetCollection = new App.Collections.Tweets();
-
-    this.exchangeCollection.fetch()
-      .done(function() {
-        console.log('Exchanges fetch succeeded!');
-      })
-      .error(function(err) {
-        self.fetchErrorHandler(err);
-      });
-
     // Initalize SubViews
     this.infoModalView = new App.Views.InfoModalView();
   },
 
   render: function() {
-    this.createChart();
+    // this.createChart();
+    console.log('Rendering HighStocks');
     return this;
-  },
-
-  fetchErrorHandler: function() {
-    this.trigger('fetchError');
   },
 
   groupingUnits: [
@@ -57,7 +41,7 @@ App.Views.ChartView = Backbone.View.extend({
     // $('.chart').highcharts('StockChart', {
       series : [{
         name : 'MtGox (BTC) Bid Price',
-        data : chartData.mtgox.btc,
+        data : this.chartData.mtgox.btc,
         visible: false,
         color: '#555',
         type : 'spline',
