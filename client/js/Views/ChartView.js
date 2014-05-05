@@ -53,8 +53,8 @@ App.Views.ChartView = Backbone.View.extend({
       });
     }
 
-    console.log('series', this.chartOptions.series);
     this.$el.highcharts('StockChart', this.chartOptions);
+    this.trigger('showSideBar');
   },
 
   groupingUnits: [

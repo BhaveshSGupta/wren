@@ -13,7 +13,7 @@ App.Views.AppView = Backbone.View.extend({
     this.exchangeCollection = new App.Collections.Exchanges();
 
     // Initialize SubViews
-    this.navBarView = new App.Views.NavBarView();
+    this.navBarView = new App.Views.HeaderView();
     this.sideBarView = new App.Views.SideBarView();
     this.footerView = new App.Views.FooterView();
     this.chartView = new App.Views.ChartView({exchangeCollection: this.exchangeCollection});
@@ -52,13 +52,14 @@ App.Views.AppView = Backbone.View.extend({
 
     // Event Listeners
     this.chartView.on('fetchError', this.showErrorView, this);
+    this.chartView.on('showSideBar', this.showSideBar, this);
   },
 
   render: function() {
     this.$el.find('section.main').prepend(this.navBarView.render().el);
-    this.$el.find('section.main').append(this.sideBarView.render().el);
     this.$el.find('section.main').append(this.footerView.render().el);
     this.$el.find('section.main .container').append(this.loadingSpinnerView.render().el);
+    this.$el.find('section.main .container').append(this.sideBarView.render().el);
 
     // Move header up (out of window)
     $('.topbar').css({top: '-1000px'});
@@ -69,6 +70,10 @@ App.Views.AppView = Backbone.View.extend({
 
   toggleLoadingSpinner: function() {
     $(this.loadingSpinnerView.el).toggleClass('hidden');
+  },
+
+  showSideBar: function() {
+    $(this.sideBarView.el).removeClass('hidden');
   },
 
   showErrorView: function(err) {

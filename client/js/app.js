@@ -6,7 +6,4 @@ App.Views = App.Views || {};
 
 $(document).ready(function () {
   app = new App.Views.AppView();
-
-  // Apply the Chart theme
-  // Highcharts.setOptions(Highcharts.theme);
 });

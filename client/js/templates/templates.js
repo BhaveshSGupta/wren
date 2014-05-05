@@ -2,7 +2,7 @@ this.JST = {"buyTicker": function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<aside class="live_data_value"></aside><aside class="live_data_currency"><aside class="currency">USD</aside><aside class="per_unit"><span class="per">per</span>BTC</aside></aside>';
+__p += '<aside class="live_data_value"></aside><aside class="live_data_currency"><aside class="currency">USD</aside><aside class="per_unit"><span class="per">per</span> BTC</aside></aside>';
 
 }
 return __p
@@ -25,6 +25,15 @@ __p += '<section class="icons"><a href="mailto:collenjones@gmail.com" target="_t
 }
 return __p
 },
+"header": function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<span class="logo">WREN</span>';
+
+}
+return __p
+},
 "hoverModal": function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -39,15 +48,6 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<img src="img/intersection.gif" class="loading"/>';
-
-}
-return __p
-},
-"navbar": function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<span class="logo">WREN</span>';
 
 }
 return __p

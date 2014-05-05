@@ -3,11 +3,11 @@
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.NavBarView = Backbone.View.extend({
+App.Views.HeaderView = Backbone.View.extend({
   tagName: 'header',
   className: 'topbar',
 
-  template: this.JST.navbar,
+  template: this.JST.header,
 
   initialize: function(options) {
     this.buyTickerView = new App.Views.BuyTickerView();

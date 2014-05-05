@@ -47,7 +47,7 @@ table, td {
   margin: 0 auto;
   padding: 0 3%;
   position: relative;
-  width: 90%;
+  width: 94%;
 }
 
 .container h2 {
@@ -209,33 +209,34 @@ table, td {
   color: #333;
   height: 100%;
   letter-spacing: 0.1em;
-  position: fixed;
+  position: absolute;
   right: 0;
+  top: 0;
   text-align: right;
   text-transform: uppercase;
   width: 40px;
   z-index: 1;
-}
 
-.sidebar a {
-  text-decoration: none;
-}
+  a {
+    text-decoration: none;
+  }
 
-.sidebar section {
-  font-size: 0.8em;
-}
+  section {
+    font-size: 0.8em;
+  }
 
-.sidebar .exchanges header h5, .sidebar .sentiments header h5 {
-  background-color: #ccc;
-  border-top: 1px solid #aaa;
-  border-bottom: 1px solid #aaa;
-  color: #555;
-  cursor: default;
-  font-size: 1.2em;
-  letter-spacing: 0.1em;
-  margin: 5px 0;
-  padding: 5px 0;
-  width: 100%;
+  .exchanges header h5, .sentiments header h5 {
+    background-color: #ccc;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    color: #555;
+    cursor: default;
+    font-size: 1.2em;
+    letter-spacing: 0.1em;
+    margin: 5px 0;
+    padding: 5px 0;
+    width: 100%;
+  }
 }
 
 .toggleData {
@@ -243,17 +244,19 @@ table, td {
   position: relative;
   right: -100%;
   width: 145px;
-}
 
-.toggleData input {
-  margin-right: 3%;
-}
+  input {
+    margin-right: 3%;
+  }
 
-.toggleData header h4 {
-  font-size: 1.3em;
-  font-weight: bold;
-  margin-bottom: 5%;
-  letter-spacing: 0.1em;
+  header {
+    h4 {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 5%;
+      letter-spacing: 0.1em;
+    }
+  }
 }
 
 .toggleButton {
@@ -264,20 +267,20 @@ table, td {
   top: 10px;
   position: absolute;
   width: 20px;
-}
 
-.toggleButton img {
-  position: absolute;
-  right: 3px;
-  top: 2px;
-}
+  img {
+    position: absolute;
+    right: 3px;
+    top: 2px;
+  }
 
-.toggleButton .button_text {
-  font-weight: bold;
-  font-size: 1.3em;
-  position: absolute;
-  right: 3px;
-  top: 1px;
+  .button_text {
+    font-weight: bold;
+    font-size: 1.3em;
+    position: absolute;
+    right: 3px;
+    top: 1px;
+  }
 }
 
 .transparent_layer {

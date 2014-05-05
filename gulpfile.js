@@ -64,7 +64,6 @@ gulp.task('default', function(callback) {
   runSequence(['templates', 'sass'],
                'JST',
                'lint',
-               'testServer',
                'watch');
 });
 
