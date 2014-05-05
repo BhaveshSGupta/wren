@@ -7,9 +7,6 @@ App.Views = App.Views || {};
 $(document).ready(function () {
   app = new App.Views.AppView();
 
-  // loadData();
-  // loadSidebarOptions();
-
   // Apply the Chart theme
   // Highcharts.setOptions(Highcharts.theme);
 });

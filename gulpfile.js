@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 
+var concat = require('gulp-concat');
 var jstConcat   = require('gulp-jst-concat');
 var jshint      = require('gulp-jshint');
 var stylish     = require('jshint-stylish');
@@ -18,12 +19,6 @@ var paths = {
   templates: 'client/views/templates/**/*.jade'
 };
 
-gulp.task('templates', function() {
-  gulp.src(paths.templates)
-    .pipe(jade())
-    .pipe(gulp.dest('client/views/templates/compiled/'));
-});
-
 // Compile SASS
 gulp.task('sass', function () {
   gulp.src(paths.css)
@@ -31,11 +26,21 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('client/style/css'));
 });
 
+gulp.task('templates', function() {
+  gulp.src(paths.templates)
+    .pipe(jade({
+      locals: {
+        model: {}
+      }
+    }))
+    .pipe(gulp.dest('client/views/templates/compiled'));
+});
+
 // Compile client-side views into single JST file
 gulp.task('JST', function () {
-  gulp.src('client/views/templates/compiled/**/*.html')
-    .pipe(jstConcat('jst.js', {
-      renameKeys: ['^.*templates/compiled/(.*).html$', '$1']
+  gulp.src('client/views/templates/compiled**/*html')
+    .pipe(jstConcat('templates.js', {
+      renameKeys: ['^.*views/templates/compiled/(.*).html$', '$1']
     }))
     .pipe(gulp.dest('client/js/templates'));
 });
