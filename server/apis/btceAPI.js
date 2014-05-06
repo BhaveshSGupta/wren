@@ -27,6 +27,7 @@ exports.getExchangePrices = function () {
 
       var thisExchangePrice = {
         site: 4, // do not hardcode this
+        /*jshint camelcase: false */
         timestamp: data.server_time,
         volume: data.vol,
         value: data.buy,

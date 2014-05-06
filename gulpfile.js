@@ -2,15 +2,21 @@
 
 var gulp = require('gulp');
 
-var concat      = require('gulp-concat');
-var jstConcat   = require('gulp-jst-concat');
-var jshint      = require('gulp-jshint');
-var stylish     = require('jshint-stylish');
-var runSequence = require('run-sequence');
-var jade        = require('gulp-jade');
-var sass        = require('gulp-sass');
-var mocha       = require('gulp-mocha');
-var clean       = require('gulp-clean');
+var concat      = require('gulp-concat'),
+    uglify      = require('gulp-uglify'),
+    jstConcat   = require('gulp-jst-concat'),
+    jshint      = require('gulp-jshint'),
+    stylish     = require('jshint-stylish'),
+    runSequence = require('run-sequence'),
+    jade        = require('gulp-jade'),
+    sass        = require('gulp-sass'),
+    rev         = require('gulp-rev'),
+    minifyHTML  = require('gulp-minify-html'),
+    minifyCSS   = require('gulp-minify-css'),
+    imagemin    = require('gulp-imagemin'),
+    usemin      = require('gulp-usemin'),
+    mocha       = require('gulp-mocha'),
+    clean       = require('gulp-clean');
 
 var paths = {
   css: 'client/style/scss/**/*.scss',
@@ -52,12 +58,32 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter(stylish));
 });
 
+// Minify CSS, HTML and JS
+gulp.task('usemin', function() {
+  gulp.src('client/*.html')
+    .pipe(usemin({
+      css: [minifyCSS(), 'concat'],
+      html: [minifyHTML({empty: true})],
+      js: [uglify(), rev()]
+    }))
+    .pipe(gulp.dest('dist/'));
+});
+
+// Copy all static images
+gulp.task('images', function() {
+  return gulp.src(paths.images)
+    // Pass in options to the task
+    .pipe(imagemin({optimizationLevel: 5}))
+    .pipe(gulp.dest('dist/images'));
+});
+
 // Rerun the task when a file changes
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['lint', 'testServer']);
   gulp.watch(paths.css, ['sass']);
   gulp.watch(paths.templates, ['templates', 'JST']);
 });
+
 
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', function(callback) {
@@ -66,6 +92,32 @@ gulp.task('default', function(callback) {
                'lint',
                'watch');
 });
+
+gulp.task('build', function(callback) {
+  runSequence('build-clean',
+              ['build-scripts', 'build-styles'],
+              'build-html',
+              callback);
+});
+
+gulp.task('build-clean', function() {
+    return gulp.src('dist').pipe(clean());
+//  ^^^^^^
+//   This is the key here, to make sure tasks run asynchronously!
+});
+
+gulp.task('build-scripts', function(callback) {
+    runSequence('JST', callback);
+});
+
+gulp.task('build-styles', function(callback) {
+    runSequence('sass', callback);
+});
+
+gulp.task('build-html', function(callback) {
+    runSequence(['usemin', 'images'], callback);
+});
+
 
 gulp.task('testServer', function () {
   gulp.src('test/serverSpec.js')

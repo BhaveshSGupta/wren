@@ -1,0 +1,46 @@
+.facebook, .gmail, .google-plus, .twitter, .hack_reactor, .tumblBeast, .left-tri16px{
+	background: url('../../img/sprites/sprites.png') no-repeat;
+}
+
+.facebook{
+	background-position: 0 0;
+	width: 32px;
+	height: 32px;
+}
+
+.gmail{
+	background-position: -40px 0;
+	width: 32px;
+	height: 32px;
+}
+
+.google-plus{
+	background-position: 0 -40px ;
+	width: 32px;
+	height: 32px;
+}
+
+.twitter{
+	background-position: -40px -40px ;
+	width: 32px;
+	height: 32px;
+}
+
+.hack_reactor{
+	background-position: 0 -80px ;
+	width: 100px;
+	height: 30px;
+}
+
+.tumblBeast{
+	background-position: 0 -114px ;
+	width: 600px;
+	height: 277px;
+}
+
+.left-tri16px{
+	background-position: -80px 0;
+	width: 16px;
+	height: 16px;
+}
+

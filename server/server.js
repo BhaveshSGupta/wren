@@ -13,8 +13,8 @@ var http           = require('http'),
     app            = express();
 
 app.set('port', process.env.PORT || 5000);
-app.set('views', path.join(__dirname, '../client/views'));
-app.engine('jade', require('jade').__express);
+app.set('views', path.join(__dirname, '../client'));
+app.engine('html', require('ejs').__express);
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(bodyParser());
 
