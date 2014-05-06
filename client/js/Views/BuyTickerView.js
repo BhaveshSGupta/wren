@@ -27,7 +27,7 @@ App.Views.BuyTickerView = Backbone.View.extend({
     this.$el.html(this.template({model: this.model.toJSON()}));
 
     // This is a hack. gulp-jade is not rendering client-side HTML partials correctly.
-    $('aside.live_data_value').html(this.model.get('value'));
+    $('aside.live_data_value').html('$' + this.model.get('value').toFixed(2));
     $('.live_data').show();
 
     return this;
