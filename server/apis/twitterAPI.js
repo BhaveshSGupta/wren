@@ -27,7 +27,7 @@ exports.getTweets = function () {
 
   twit.search('bitcoin OR bitcoins OR #mtgox OR #bitstamp OR #btce OR #btcchina', searchOptions, function (data) {
 
-    maxTweetIdSeen = data.search_metadata.max_id;
+    maxTweetIdSeen = data.search_metadata.max_id; // Reassign max tweet id seen
 
     if(data.statuses) {
       _(data.statuses).each(function(tweet, i) {

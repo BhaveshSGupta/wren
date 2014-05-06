@@ -9,8 +9,9 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-// Using setInterval() for scraping since cronJob cannot schedule by the second
+// Retrieve data from 3rd Party APIs
 twitterAPI.getTweets();
+
 setInterval(function() {
   twitterAPI.getTweets();
 }, 60000);
