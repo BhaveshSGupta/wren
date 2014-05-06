@@ -15,10 +15,14 @@ App.Views.SideBarView = Backbone.View.extend({
   template: this.JST.sidebar,
 
   initialize: function(options) {
+    _(this).extend(options);
+
+    this.exchangeCollectionView = new App.Views.ExchangeCollectionView({exchangeCollection: this.exchangeCollection});
   },
 
   render: function() {
     this.$el.html(this.template());
+    this.$el.find('.exchangeData').append(this.exchangeCollectionView.render().el);
 
     return this;
   },

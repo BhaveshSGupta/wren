@@ -7,6 +7,15 @@ __p += '<aside class="live_data_value"></aside><aside class="live_data_currency"
 }
 return __p
 },
+"exchangeCollectionView": function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<section class="exchanges"><section class="btcExchanges"><header><h5>BTC Exchanges</h5></header><section><a href="https://vip.btcchina.com/" target="blank_"><span class="btcchina">BTC China (¥CNY<super>*</super>)</span><input name="btcchina_buy" value="buy" type="checkbox" checked="checked"/><br/></a></section><section><a href="https://www.bitstamp.net/" target="_blank"><span class="bitstamp">BitStamp ($USD)</span><input name="bitstamp_buy" value="buy" type="checkbox"/><br/></a></section><section><a href="https://www.mtgox.com/" target="_blank"><span class="mtgox">MtGox ($USD)</span><input name="mtgox_buy" value="buy" type="checkbox"/><br/></a></section></section><section class="ltcExchanges"><header><h5>LTC Exchanges</h5></header><section><a href="https://btc-e.com/" target="_blank"><span class="btcchina">BTC-e ($USD)</span><input name="btce_ltc_buy" value="buy" type="checkbox"/><br/></a></section></section><section class="sentiments"><header><h5>Twitter</h5></header><section><span class="twitter">Sentiment (BTC)</span><input name="twitter_btc_sentiment" value="sentiment" type="checkbox" checked="checked"/><br/></section></section></section>';
+
+}
+return __p
+},
 "fetchError": function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -56,7 +65,7 @@ return __p
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<section class="toggleButton"><div class="left-tri16pxSprite"></div><span class="button_text hidden">X</span></section><header class="vertical_text">Options</header><section class="toggleData"><section><header><h4>Data</h4></header><section class="exchanges"><header><h5>BTC Exchanges</h5></header><section><a href="https://vip.btcchina.com/" target="blank_"><span class="btcchina">BTC China (¥CNY<super>*</super>)</span><input name="btcchina_buy" value="buy" type="checkbox" checked="checked"/><br/></a></section><section><a href="https://www.bitstamp.net/" target="_blank"><span class="bitstamp">BitStamp ($USD)</span><input name="bitstamp_buy" value="buy" type="checkbox"/><br/></a></section><section><a href="https://www.mtgox.com/" target="_blank"><span class="mtgox">MtGox ($USD)</span><input name="mtgox_buy" value="buy" type="checkbox"/><br/></a></section><header><h5>LTC Exchanges</h5></header><section><a href="https://btc-e.com/" target="_blank"><span class="btcchina">BTC-e ($USD)</span><input name="btce_ltc_buy" value="buy" type="checkbox"/><br/></a></section></section><section class="sentiments"><header><h5>Twitter</h5></header><section><span class="twitter">Sentiment (BTC)</span><input name="twitter_btc_sentiment" value="sentiment" type="checkbox" checked="checked"/><br/></section></section></section></section>';
+__p += '<section class="toggleButton"><div class="left-tri16pxSprite"></div><span class="button_text hidden">X</span></section><header class="vertical_text">Options</header><section class="toggleData"><section class="exchangeData"><header><h4>Data</h4></header></section></section>';
 
 }
 return __p
