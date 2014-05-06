@@ -23,7 +23,5 @@ App.Collections.Tweets = Backbone.Collection.extend({
     this.each(function(tweet) {
       self.data.push([tweet.get('timestamp'), tweet.get('sentiment')]);
     });
-
-    console.log('tweetData', this.data);
   }
 });
