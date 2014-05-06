@@ -21,8 +21,6 @@ App.Views.ChartView = Backbone.View.extend({
   render: function() {
     var self = this;
 
-    console.log('Rendering HighStocks Chart...');
-
     if(this.chartOptions.series.length === 0) {
       this.exchangeCollection.each(function(exchange, index) {
 
