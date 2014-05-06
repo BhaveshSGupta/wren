@@ -106,5 +106,3 @@ Highcharts.theme = {
 
 // Apply the theme
 Highcharts.setOptions(Highcharts.theme);
-
-console.log('booyah!');
