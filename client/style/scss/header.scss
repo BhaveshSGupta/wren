@@ -11,6 +11,11 @@ header {
     padding: 0 7%;
     text-transform: uppercase;
     z-index: 20;
+
+    .logo {
+      color: MediumAquaMarine;
+      cursor: default;
+    }
   }
   .live_data {
     cursor: default;

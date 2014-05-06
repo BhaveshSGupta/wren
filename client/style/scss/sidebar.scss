@@ -1,0 +1,112 @@
+// .mtgox {
+//   color: #d35400;
+//   text-shadow: 1px 1px 1px #eee;
+// }
+
+// .twitter {
+//   color: #2980b9;
+//   text-shadow: 1px 1px 1px #eee;
+// }
+
+// .btcchina {
+//   color: #555;
+//   text-shadow: 1px 1px 1px #eee;
+// }
+
+.sidebar {
+  border-left: 1px solid #ccc;
+  background-color: #ddd;
+  color: #333;
+  height: 100%;
+  letter-spacing: 0.1em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: right;
+  text-transform: uppercase;
+  width: 40px;
+  z-index: 1;
+
+  a {
+    text-decoration: none;
+    color: #16a085;
+    text-shadow: 1px 1px 1px #eee;
+  }
+
+  section {
+    font-size: 0.8em;
+  }
+
+  .toggleButton {
+    border: 3px solid #333;
+    border-radius: 20px;
+    height: 20px;
+    right: 8px;
+    top: 10px;
+    position: absolute;
+    width: 20px;
+
+    div.left-tri16pxSprite {
+      position: absolute;
+      right: 3px;
+      top: 2px;
+    }
+
+    .button_text {
+      font-weight: bold;
+      font-size: 1.3em;
+      position: absolute;
+      right: 3px;
+      top: -1px;
+    }
+  }
+
+  .toggleData {
+    margin: 35% 0 0 0;
+    position: relative;
+    right: -100%;
+    width: 145px;
+
+    input {
+      margin-right: 3%;
+    }
+
+    header {
+      h4 {
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-bottom: 5%;
+        letter-spacing: 0.1em;
+      }
+    }
+
+    .exchanges header h5, .sentiments header h5 {
+      background-color: #ccc;
+      border-top: 1px solid #aaa;
+      border-bottom: 1px solid #aaa;
+      color: #555;
+      cursor: default;
+      font-size: 1.2em;
+      letter-spacing: 0.1em;
+      margin: 5px 0;
+      padding: 5px 0;
+      width: 100%;
+    }
+  }
+
+  .vertical_text {
+    color: #222;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    position: absolute;
+    right: -63px;
+    top: 5%;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -webkit-transform-origin: bottom left;
+    -moz-transform-origin: bottom left;
+    -o-transform-origin: bottom left;
+  }
+}

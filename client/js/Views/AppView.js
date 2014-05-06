@@ -77,7 +77,7 @@ App.Views.AppView = Backbone.View.extend({
           exchangePriceCollection.fetch()
             .done(function(data) {
               callbacksRemaining--;
-              console.log(data);
+
               if(callbacksRemaining === 0){
                 callback && callback();
               }
