@@ -2,7 +2,7 @@ var server_url;
 
 if(window.location.hostname !== 'localhost'){
   // AWS Elastic Beanstalk Production
-  server_url = 'http://default-environment-qnmrx6f75m.elasticbeanstalk.com';
+  server_url = 'http://wren.elasticbeanstalk.com';
 } else {
   // Development
   server_url = 'http://localhost:5000';
