@@ -17,7 +17,10 @@ App.Views.AppView = Backbone.View.extend({
     this.navBarView = new App.Views.HeaderView();
     this.sideBarView = new App.Views.SideBarView();
     this.footerView = new App.Views.FooterView();
-    this.chartView = new App.Views.ChartView({exchangeCollection: this.exchangeCollection});
+    this.chartView = new App.Views.ChartView({
+      exchangeCollection: this.exchangeCollection,
+      tweetCollection: this.tweetCollection
+    });
     this.loadingSpinnerView = new App.Views.LoadingSpinnerView();
     this.errorView = new App.Views.ErrorView();
 
@@ -26,7 +29,15 @@ App.Views.AppView = Backbone.View.extend({
     // Fetch Collection Data
     this.exchangeCollection.fetch()
       .done(function() {
-        var callbacksRemaining = self.exchangeCollection.length;
+        var callbacksRemaining = self.exchangeCollection.length + 1; // +1 accounts for tweets
+
+        self.tweetCollection.fetch()
+          .done(function() {
+            callbacksRemaining--;
+          })
+          .error(function(err) {
+            self.showErrorView(err);
+          });
 
         self.exchangeCollection.each(function(exchange, index) {
           exchange.set('prices', new App.Collections.ExchangePrices({id: exchange.get('id')}));

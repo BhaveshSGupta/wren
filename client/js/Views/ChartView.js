@@ -45,12 +45,25 @@ App.Views.ChartView = Backbone.View.extend({
           yAxis: 0
         };
 
-        // exchange.get('prices').each(function(exchangePrice) {
-        //   thisSeries.data.push([exchangePrice.get('timestamp'), exchangePrice.get('value')]);
-        // });
-
         self.chartOptions.series.push(thisSeries);
       });
+
+      var tweetSeries = {
+        name : 'Twitter Sentiment',
+        color: '#2980b9',
+        data : this.tweetCollection.data,
+        dataGrouping: {
+          units: this.groupingUnits
+        },
+        cursor: 'pointer',
+        type : 'spline',
+        visible: true,
+        tooltip: {
+          valuePrefix: null,
+          valueSuffix: null
+        }
+      };
+      self.chartOptions.series.push(tweetSeries);
     }
 
     this.$el.highcharts('StockChart', this.chartOptions);

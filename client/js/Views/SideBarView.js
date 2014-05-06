@@ -44,7 +44,6 @@ App.Views.SideBarView = Backbone.View.extend({
   },
 
   hideFullSideBar: function(e) {
-
     // Slide the data series back to the right
     $('.toggleData').animate({right: '-100%'}, 'fast');
     // Return the OPTIONS text to the top of the sidebar

@@ -1,14 +1,20 @@
 'use strict';
 
-var http = require('http'),
-    app  = require('./server/server'),
-    db   = require('./server/models');
+var http       = require('http'),
+    app        = require('./server/server'),
+    db         = require('./server/models'),
+    twitterAPI = require('./server/apis/twitterAPI.js');
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
 // Using setInterval() for scraping since cronJob cannot schedule by the second
+twitterAPI.getTweets();
+setInterval(function() {
+  twitterAPI.getTweets();
+}, 60000);
+
 // setInterval(function() {
 //   apis.Tweets();      // Twitter API Rate Limit is 180 requests per 15 min
 //   // BITCOINS

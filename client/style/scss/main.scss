@@ -279,7 +279,7 @@ table, td {
     font-size: 1.3em;
     position: absolute;
     right: 3px;
-    top: 1px;
+    top: -1px;
   }
 }
 
@@ -299,7 +299,6 @@ table, td {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 0.2em;
-  /*margin-left: 25%;*/
   position: absolute;
   right: -63px;
   top: 5%;

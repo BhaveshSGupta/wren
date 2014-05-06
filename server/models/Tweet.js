@@ -10,6 +10,8 @@ module.exports = function(sequelize, DataTypes) {
     sentiment: DataTypes.INTEGER,
     /*jshint camelcase: false */
     tweet_id:  DataTypes.BIGINT(11).UNSIGNED
+  }, {
+    timestamps: false
   });
 
   return Tweet;

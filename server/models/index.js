@@ -10,7 +10,7 @@ var fs        = require('fs'),
 var sequelize = new Sequelize(
   process.env.AMAZON_RDS_DBNAME || 'wren',
   process.env.AMAZON_RDS_USER || 'root',
-  process.env.AMAZON_RDS_USER || null,
+  process.env.AMAZON_RDS_PWD || null,
   {
     host: process.env.AMAZON_RDS_HOST || 'localhost',
     port: process.env.AMAZON_RDS_PORT || 3306,

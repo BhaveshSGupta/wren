@@ -8,6 +8,8 @@ module.exports = function(sequelize, DataTypes) {
     value:     DataTypes.FLOAT(12,2).UNSIGNED,
     timestamp: DataTypes.BIGINT(11).UNSIGNED,
     currency:  DataTypes.INTEGER.UNSIGNED
+  }, {
+    timestamps: false
   });
 
   return ExchangePrice;
