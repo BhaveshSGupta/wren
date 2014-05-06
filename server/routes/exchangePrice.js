@@ -40,7 +40,6 @@ exports.getTicker = function(req, res) {
     order: 'timestamp DESC',
     limit: 1})
   .success(function(tickerPrice) {
-    tickerPrice.value = '$' + (tickerPrice.value / 6.2).toFixed(2); // Convert value to USD
     res.send(200, tickerPrice);
   });
 };
