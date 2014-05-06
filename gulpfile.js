@@ -79,7 +79,7 @@ gulp.task('images', function() {
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
-  gulp.watch(paths.scripts, ['lint', 'testServer']);
+  gulp.watch(paths.scripts, ['lint']);
   gulp.watch(paths.css, ['sass']);
   gulp.watch(paths.templates, ['templates', 'JST']);
 });

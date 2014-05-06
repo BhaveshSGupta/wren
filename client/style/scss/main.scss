@@ -42,6 +42,10 @@ table, td {
   text-shadow: 1px 1px 1px #eee;
 }
 
+.center {
+  margin: auto;
+}
+
 .container {
   height: 94%;
   margin: 0 auto;
@@ -268,7 +272,7 @@ table, td {
   position: absolute;
   width: 20px;
 
-  img {
+  div.left-tri16pxSprite {
     position: absolute;
     right: 3px;
     top: 2px;

@@ -62,6 +62,9 @@ App.Views.AppView = Backbone.View.extend({
         self.tweetCollection.fetch()
           .done(function() {
             callbacksRemaining--;
+            if(callbacksRemaining === 0){
+              callback && callback();
+            }
           })
           .error(function(err) {
             self.showErrorView(err);
@@ -74,8 +77,9 @@ App.Views.AppView = Backbone.View.extend({
           exchangePriceCollection.fetch()
             .done(function(data) {
               callbacksRemaining--;
-              if(!callbacksRemaining && callback){
-                callback();
+              console.log(data);
+              if(callbacksRemaining === 0){
+                callback && callback();
               }
             })
             .error(function(err) {

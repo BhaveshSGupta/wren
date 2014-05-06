@@ -1,46 +1,45 @@
-.facebook, .gmail, .google-plus, .twitter, .hack_reactor, .tumblBeast, .left-tri16px{
-	background: url('../../img/sprites/sprites.png') no-repeat;
+.facebookSprite, .gmailSprite, .google-plusSprite, .twitterSprite, .hack_reactorSprite, .tumblBeastSprite, .left-tri16pxSprite{
+	background: url('../../img/sprites.png') no-repeat;
 }
 
-.facebook{
+.facebookSprite{
 	background-position: 0 0;
 	width: 32px;
 	height: 32px;
 }
 
-.gmail{
+.gmailSprite{
 	background-position: -40px 0;
 	width: 32px;
 	height: 32px;
 }
 
-.google-plus{
+.google-plusSprite{
 	background-position: 0 -40px ;
 	width: 32px;
 	height: 32px;
 }
 
-.twitter{
+.twitterSprite{
 	background-position: -40px -40px ;
 	width: 32px;
 	height: 32px;
 }
 
-.hack_reactor{
+.hack_reactorSprite{
 	background-position: 0 -80px ;
 	width: 100px;
 	height: 30px;
 }
 
-.tumblBeast{
+.tumblBeastSprite{
 	background-position: 0 -114px ;
 	width: 600px;
 	height: 277px;
 }
 
-.left-tri16px{
+.left-tri16pxSprite{
 	background-position: -80px 0;
 	width: 16px;
 	height: 16px;
 }
-

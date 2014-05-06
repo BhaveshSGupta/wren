@@ -24,7 +24,6 @@ App.Views.SideBarView = Backbone.View.extend({
   },
 
   showFullSideBar: function(e) {
-
     $(this.$el).animate(
       {'width': '150px'},
       'fast');
@@ -39,7 +38,7 @@ App.Views.SideBarView = Backbone.View.extend({
       {right: '0%'},
       'fast');
     // Remove the LEFT ARROW < to be replaced by an X while the sidebar is showing
-    $('.toggleButton img').fadeOut();
+    $('.toggleButton div.left-tri16pxSprite').fadeOut();
     $('.button_text').fadeIn();
   },
 
@@ -58,6 +57,6 @@ App.Views.SideBarView = Backbone.View.extend({
     $(this.$el).css({'box-shadow': ''});
     // Fade out the X and fade in the LEFT ARROW <
     $('.button_text').fadeOut();
-    $('.toggleButton img').fadeIn();
+    $('.toggleButton div.left-tri16pxSprite').fadeIn();
   }
 });

@@ -14,7 +14,13 @@ footer {
     margin: 0.3% auto;
     width: 315px;
 
+    li {
+      display: inline-block;
+      margin-right: 2%;
+    }
+
     .icon {
+      display: block;
       margin-right: 4%;
       opacity: 0.8;
       &:hover {
