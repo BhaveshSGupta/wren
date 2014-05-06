@@ -103,3 +103,8 @@ Highcharts.theme = {
   },
   width: '70%'
 };
+
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);
+
+console.log('booyah!');
