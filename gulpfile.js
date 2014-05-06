@@ -2,7 +2,7 @@
 
 var gulp = require('gulp');
 
-var concat = require('gulp-concat');
+var concat      = require('gulp-concat');
 var jstConcat   = require('gulp-jst-concat');
 var jshint      = require('gulp-jshint');
 var stylish     = require('jshint-stylish');
@@ -14,7 +14,7 @@ var clean       = require('gulp-clean');
 
 var paths = {
   css: 'client/style/scss/**/*.scss',
-  scripts: ['*.js', 'server/**/*.js', 'client/js/*.js', 'test/**/*.js'],
+  scripts: ['*.js', 'server/**/*.js', 'client/js/**/*.js', 'client/style/*.js', 'test/**/*.js'],
   images: 'client/img/**/*',
   templates: 'client/views/templates/**/*.jade'
 };
