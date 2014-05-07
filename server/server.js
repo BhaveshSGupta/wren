@@ -33,7 +33,8 @@ app.get('/prices/:exchange', exchangePrices.getExchangePrices);
 
 // Handle 404
 app.use(function(req, res) {
-  res.send(404, '404: Not Found');
+  res.status(404);
+  res.render('404.html');
 });
 
 // Handle 500
