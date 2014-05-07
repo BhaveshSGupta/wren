@@ -60,7 +60,8 @@ App.Views.ChartView = Backbone.View.extend({
         tooltip: {
           valuePrefix: null,
           valueSuffix: null
-        }
+        },
+        yAxis: 1
       };
       self.chartOptions.series.push(tweetSeries);
     }
@@ -111,7 +112,7 @@ App.Views.ChartView = Backbone.View.extend({
         'text-shadow': '0 1px 0 #fff'
       }
     },
-    yaxis: [{ // Primary Axis
+    yAxis: [{ // Primary Axis
       labels: {
         format: '${value}',
         style: {

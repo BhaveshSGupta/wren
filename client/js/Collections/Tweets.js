@@ -23,5 +23,18 @@ App.Collections.Tweets = Backbone.Collection.extend({
     this.each(function(tweet) {
       self.data.push([tweet.get('timestamp'), tweet.get('sentiment')]);
     });
+
+    // Data must be sorted for HighStocks
+    // Sorting on client to remove load from DB
+    this.data.sort(function(a,b) {
+      // 0-index element is the timestamp
+      if(a[0] < b[0]) {
+        return -1;
+      } else if(a[0] > b[0]) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
   }
 });

@@ -1,21 +1,26 @@
 'use strict';
 
-var http           = require('http'),
-    express        = require('express'),
-    path           = require('path'),
-    bodyParser     = require('body-parser'),
-    Sequelize      = require('sequelize'),
-    db             = require('./models'),
-    routes         = require('./routes'),
-    exchanges      = require('./routes/exchanges'),
-    exchangePrices = require('./routes/exchangePrice'),
-    tweet          = require('./routes/tweet'),
-    app            = express();
+var http            = require('http'),
+    express         = require('express'),
+    path            = require('path'),
+    bodyParser      = require('body-parser'),
+    Sequelize       = require('sequelize'),
+    db              = require('./models'),
+    routes          = require('./routes'),
+    exchanges       = require('./routes/exchanges'),
+    exchangePrices  = require('./routes/exchangePrice'),
+    tweet           = require('./routes/tweet'),
+    app             = express(),
+    staticAssetPath = '../client';
+
+if(process.env.NODE_ENV === 'production') {
+  staticAssetPath = '../dist';
+}
 
 app.set('port', process.env.PORT || 5000);
-app.set('views', path.join(__dirname, '../client'));
+app.set('views', path.join(__dirname, staticAssetPath));
 app.engine('html', require('ejs').__express);
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, staticAssetPath)));
 app.use(bodyParser());
 
 // Routes

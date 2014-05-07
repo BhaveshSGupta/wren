@@ -65,7 +65,7 @@ return __p
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<img src="img/intersection.gif" class="loading"/>';
+__p += '<img src="img/loadingSpinner.gif" class="loading"/>';
 
 }
 return __p
@@ -74,7 +74,7 @@ return __p
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<section class="toggleButton"><div class="left-arrow-sprite"></div><span class="button_text hidden">X</span></section><header class="vertical_text">Options</header><section class="toggleData"><section class="exchangeData"><header><h4>Data</h4></header><section class="sentiments"><header><h5>Twitter</h5></header><section><span class="twitter">Sentiment (BTC)</span><input name="twitter_btc_sentiment" value="sentiment" type="checkbox"/><br/></section></section></section></section>';
+__p += '<section class="toggleButton"><div class="left-arrow-sprite"></div><span class="button_text hidden">X</span></section><header class="vertical_text">Options</header><section class="toggleData"><section class="exchangeData"><header><h4>Data</h4></header><section class="sentiments"><header><h5>Sentiment</h5></header><section><span class="twitter">Twitter (BTC)</span><input name="twitter_btc_sentiment" value="sentiment" type="checkbox"/><br/></section></section></section></section>';
 
 }
 return __p

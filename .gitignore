@@ -5,6 +5,7 @@
 # Dev files       #
 ###################
 *.dev
+scripts/
 
 # Compiled files  #
 ###################

@@ -22,7 +22,6 @@ App.Views.ExchangeCollectionView = Backbone.View.extend({
 
     this.exchangeCollection.each(function(exchange) {
       var currency = exchange.get('currency');
-      console.log('length', exchange);
 
       if(exchange.collection.length !== 0) {
         if(currency === 'BTC') {

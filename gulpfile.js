@@ -74,14 +74,14 @@ gulp.task('images', function() {
   return gulp.src(paths.images)
     // Pass in options to the task
     .pipe(imagemin({optimizationLevel: 5}))
-    .pipe(gulp.dest('dist/images'));
+    .pipe(gulp.dest('dist/img'));
 });
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
   // gulp.watch(paths.scripts, ['lint']);
   gulp.watch(paths.css, ['sass']);
-  gulp.watch(paths.templates, ['templates', 'JST']);
+  gulp.watch(paths.templates, ['build-scripts']);
 });
 
 
@@ -107,7 +107,7 @@ gulp.task('build-clean', function() {
 });
 
 gulp.task('build-scripts', function(callback) {
-    runSequence('JST', callback);
+    runSequence('templates', 'JST', callback);
 });
 
 gulp.task('build-styles', function(callback) {
