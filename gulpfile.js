@@ -25,13 +25,15 @@ var paths = {
   templates: 'client/views/templates/**/*.jade'
 };
 
-// Compile SASS
-gulp.task('sass', function () {
-  gulp.src(paths.css)
-    .pipe(sass())
-    .pipe(gulp.dest('client/style/css'));
+gulp.task('default', function(callback) {
+  runSequence(['templates', 'sass'],
+               'JST',
+               // 'lint',
+               'watch');
 });
 
+
+// Convert JADE into HTML (problem with retaining variables for client-side templating)
 gulp.task('templates', function() {
   gulp.src(paths.templates)
     .pipe(jade({
@@ -41,6 +43,14 @@ gulp.task('templates', function() {
     }))
     .pipe(gulp.dest('client/views/templates/compiled'));
 });
+
+// Compile SASS
+gulp.task('sass', function () {
+  gulp.src(paths.css)
+    .pipe(sass())
+    .pipe(gulp.dest('client/style/css'));
+});
+
 
 // Compile client-side views into single JST file
 gulp.task('JST', function () {
@@ -84,18 +94,9 @@ gulp.task('watch', function() {
   gulp.watch(paths.templates, ['build-scripts']);
 });
 
-
-// The default task (called when you run `gulp` from cli)
-gulp.task('default', function(callback) {
-  runSequence(['templates', 'sass'],
-               'JST',
-               // 'lint',
-               'watch');
-});
-
 gulp.task('build', function(callback) {
   runSequence('build-clean',
-              ['build-scripts', 'build-styles'],
+              ['build-extras', 'build-scripts', 'build-styles'],
               'build-html',
               callback);
 });
@@ -118,6 +119,10 @@ gulp.task('build-html', function(callback) {
     runSequence(['usemin', 'images'], callback);
 });
 
+gulp.task('build-extras', function(){
+    gulp.src(['client/favicon.ico', 'client/*.txt'])
+      .pipe(gulp.dest('dist/'));
+});
 
 gulp.task('testServer', function () {
   gulp.src('test/serverSpec.js')

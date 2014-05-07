@@ -1,0 +1,111 @@
+.transparent_layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #222;
+  height: 100%;
+  opacity: 0.6;
+  width: 100%;
+  z-index: 90;
+}
+
+.modal {
+  background: #eeeeee;
+  border-radius: 10px;
+  border: 1px solid #777;
+  height: 90%;
+  left: 28%;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+  position: absolute;
+  top: 5%;
+  width: 45%;
+  z-index: 99;
+  -webkit-box-shadow: 0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);
+  box-shadow: 0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      display: inline-block;
+      height: 80px;
+      width: 100%;
+
+      &:first-child {
+        background-color: #ececec;
+        border-bottom: 1px solid #ddd;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        color: #555;
+        font-size: 14px;
+        font-weight: bold;
+        height: 30px;
+        line-height: 30px;
+        position: fixed;
+        text-align: center;
+        text-shadow: 0 1px 0 #fff;
+        width: 45%;
+      }
+
+      &:nth-child(2) {
+        margin-top: 30px;
+      }
+
+      .username {
+        float: left;
+        font-size: 0.95em;
+        font-weight: bold;
+      }
+
+      .timestamp {
+        color: #888;
+        float: right;
+        font-size: 0.85em;
+        font-style: italic;
+      }
+
+      .text {
+        font-size: 0.9em;
+      }
+
+      .tweet {
+        float: left;
+        margin-left: 1%;
+        margin-top: 1%;
+        width: 84%;
+      }
+
+      .sentiment {
+        float: left;
+        font-size: 2em;
+        font-weight: bold;
+        line-height: 250%;
+        text-align: center;
+        width: 15%;
+      }
+
+      .sentiment-header {
+        float: right;
+        position: relative;
+        right: 4.5%;
+      }
+    }
+  }
+
+  .tweet_loading {
+    color: #333;
+    display: none;
+    font-weight: bold;
+    letter-spacing: 1.01em;
+    position: absolute;
+    text-transform: uppercase;
+    left: 20%;
+    top: 20%;
+  }
+}

@@ -5,3 +5,27 @@
   position: relative;
   width: 95%;
 }
+
+.hoverModal {
+  background-color: LightCyan;
+  border: 2px solid #666;
+  border-radius: 5px;
+  display: none;
+  font-size: 0.9em;
+  height: 40px;
+  padding: 5px 0;
+  opacity: 0.95;
+  position: absolute;
+  right: 45%;
+  text-align: center;
+  text-shadow: 1px 1px 1px #eee;
+  top: 9%;
+  width: 130px;
+  -webkit-box-shadow: 0 2px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);
+  box-shadow: 0 2px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);
+
+  p {
+    margin-top: 5px;
+    padding: 0;
+  }
+}

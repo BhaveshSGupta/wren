@@ -61,6 +61,15 @@ App.Views.ChartView = Backbone.View.extend({
           valuePrefix: null,
           valueSuffix: null
         },
+        point: {
+          events: {
+            // Click on a Twitter Sentiment point to show the individual tweets
+            click: function() {
+              var pointClicked = this;
+              self.trigger('showSentimentModal', pointClicked);
+            }
+          }
+        },
         yAxis: 1
       };
       self.chartOptions.series.push(tweetSeries);
@@ -68,6 +77,62 @@ App.Views.ChartView = Backbone.View.extend({
 
     this.$el.highcharts('StockChart', this.chartOptions);
     this.trigger('showSideBar');
+  },
+
+  showSentimentModal: function(point) {
+    // get grouping
+    var begin = Math.floor(point.x / 1000); // convert to unix timestamp
+
+    var interval = point.series.currentDataGrouping.unitRange / 100;
+
+    console.log('clickedTweet', point);
+
+    // // show popup div
+    // $('.popup, .transparent_layer').removeClass('hidden');
+
+    // // fadeIn() fadeOut() loop for LOADING
+    // $('.popup .tweet_loading').fadeIn(1000);
+
+    // // Add ability to click to close window
+    // $(document).click(function() {
+    //   $('.popup').addClass('hidden');
+    //   $('.transparent_layer').addClass('hidden');
+    //   // Remove tweets
+    //   $('.popup ul li.temp_tweet').remove();
+    // });
+
+    // // Send query to server for twitter data
+    // $.get(server_url + '/tweets', JSON.stringify({begin: begin, end: begin+interval}), function(data) {
+    //   data = JSON.parse(data);
+    //   var sentiment_total = 0;
+
+    //   // Remove loading symbol
+    //   $('.popup .tweet_loading').css({display: 'none'});
+
+    //   // Add data to popup
+    //   for(var key in data){
+    //     var thisPoint = {
+    //       timestamp: data[key].timestamp*1000,
+    //       username: data[key].username,
+    //       text: data[key].text,
+    //       sentiment: data[key].sentiment
+    //     };
+
+    //     sentiment_total += sentiment;
+    //     $('.popup ul').append('<li class="temp_tweet"> \
+    //                              <section class="tweet">' +
+    //                              '<span class="username">' +
+    //                                 username +
+    //                              '</span> \
+    //                               <span class="timestamp">' + ' ' + moment(timestamp).format('h:mm:ss A') + '</span><br /> \
+    //                               <span class="text">' + text + '</span>' +
+    //                             '</section> \
+    //                              <aside class="sentiment">' +
+    //                                sentiment +
+    //                             '</aside> \
+    //                           </li>');
+    //   }
+    // });
   },
 
   groupingUnits: [

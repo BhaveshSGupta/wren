@@ -38,7 +38,7 @@ return __p
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<ul><li><a href="mailto:collenjones@gmail.com" target="_top" class="icon gmail-sprite"></a></li><li><a href="https://plus.google.com/share?url=http://www.bitwren.com/" target="_blank" class="icon google-plus-sprite"></a></li><li><a href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=http://www.bitwren.com/&amp;p[images][0]=http://winpoker.com/sites/default/files/bitcoin.png&amp;p[title]=wren!&amp;p[summary]=Check+out+this+great+BitCoin+Exchange+vs+Twitter+Sentiment Analysis!" target="_blank" class="icon facebook-sprite"></a><script src="//platform.twitter.com/widgets.js"></script></li><li><a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20BitCoin%20performance%20vs%20sentiment%20analysis!%20@collenjones%20@HackReactor&amp;url=http%3A%2F%2Fwww.bitwren.com" class="icon twitter-sprite"></a></li></ul>';
+__p += '<ul><li><a href="https://plus.google.com/share?url=http://www.bitwren.com/" target="_blank" class="icon google-plus-sprite"></a></li><li><a href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=http://www.bitwren.com/&amp;p[images][0]=http://winpoker.com/sites/default/files/bitcoin.png&amp;p[title]=wren!&amp;p[summary]=Check+out+this+great+BitCoin+Exchange+vs+Twitter+Sentiment Analysis!" target="_blank" class="icon facebook-sprite"></a><script src="//platform.twitter.com/widgets.js"></script></li><li><a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20BitCoin%20performance%20vs%20sentiment%20analysis!%20@collenjones%20@HackReactor&amp;url=http%3A%2F%2Fwww.bitwren.com" class="icon twitter-sprite"></a></li></ul>';
 
 }
 return __p
@@ -66,6 +66,15 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<img src="img/loadingSpinner.gif" class="loading"/>';
+
+}
+return __p
+},
+"sentimentFeed": function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<section class="modal"><ul><li>Sentiment<span class="sentiment-header">[ + / - ]</span></li></ul><section class="tweet_loading">... LOADING ...</section></section><section class="transparent_layer"></section>';
 
 }
 return __p

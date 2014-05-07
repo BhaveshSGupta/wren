@@ -3,15 +3,16 @@
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.TwitterFeedView = Backbone.View.extend({
+App.Views.SentimentModalView = Backbone.View.extend({
 
-  template: this.JST.twitterFeed,
+  template: this.JST.sentimentFeed,
 
   initialize: function(options) {
   },
 
   render: function() {
     this.$el.html(this.template());
+    this.$el.show();
 
     return this;
   }

@@ -20,8 +20,13 @@ App.Collections.Tweets = Backbone.Collection.extend({
       this.data = [];
     }
 
+    // Smooth Twitter data with Simple Moving Average
+    var sma2 = Stats.simpleMovingAverage(432); // 2 days
+
     this.each(function(tweet) {
-      self.data.push([tweet.get('timestamp'), tweet.get('sentiment')]);
+      var smoothedSentiment = sma2(tweet.get('sentiment'));
+
+      self.data.push([tweet.get('timestamp'), smoothedSentiment]);
     });
 
     // Data must be sorted for HighStocks

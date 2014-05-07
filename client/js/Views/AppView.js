@@ -10,19 +10,20 @@ App.Views.AppView = Backbone.View.extend({
     var self = this;
 
     // Initialize Collections
-    this.exchangeCollection = new App.Collections.Exchanges();
-    this.tweetCollection = new App.Collections.Tweets();
+    this.exchangeCollection    = new App.Collections.Exchanges();
+    this.tweetCollection       = new App.Collections.Tweets();
 
     // Initialize SubViews
-    this.navBarView = new App.Views.HeaderView();
+    this.navBarView  = new App.Views.HeaderView();
     this.sideBarView = new App.Views.SideBarView({exchangeCollection: this.exchangeCollection, tweetCollection: this.tweetCollection});
-    this.footerView = new App.Views.FooterView();
-    this.chartView = new App.Views.ChartView({
+    this.footerView  = new App.Views.FooterView();
+    this.chartView   = new App.Views.ChartView({
       exchangeCollection: this.exchangeCollection,
-      tweetCollection: this.tweetCollection
+      tweetCollection:    this.tweetCollection
     });
     this.loadingSpinnerView = new App.Views.LoadingSpinnerView();
-    this.errorView = new App.Views.ErrorView();
+    this.sentimentModalView     = new App.Views.SentimentModalView();
+    this.errorView          = new App.Views.ErrorView();
 
     // Fetch Collection Data
     this.fetchCollectionData(function() {
@@ -36,6 +37,7 @@ App.Views.AppView = Backbone.View.extend({
     // Event Listeners
     this.chartView.on('fetchError', this.showErrorView, this);
     this.chartView.on('showSideBar', this.showSideBar, this);
+    this.chartView.on('showSentimentModal', this.showSentimentModal, this);
   },
 
   render: function() {
@@ -93,18 +95,30 @@ App.Views.AppView = Backbone.View.extend({
   },
 
   toggleLoadingSpinner: function() {
-    $(this.loadingSpinnerView.el).toggleClass('hidden');
+    this.loadingSpinnerView.$el.toggleClass('hidden');
   },
 
   showSideBar: function() {
-    $(this.sideBarView.el).removeClass('hidden');
+    this.sideBarView.$el.removeClass('hidden');
   },
 
   showErrorView: function(err) {
-    $(this.sideBarView.el).hide();
-    $(this.chartView.el).hide();
-    $(this.loadingSpinnerView.el).hide();
+    this.sideBarView.$el.hide();
+    this.chartView.$el.hide();
+    this.loadingSpinnerView.$el.hide();
 
     this.$el.find('section.main .container').append(this.errorView.render({error: err}).el);
+  },
+
+  showSentimentModal: function(options) {
+    var self = this;
+
+    this.$el.prepend(this.sentimentModalView.render().el);
+
+    $('body').on('click', function(e) {
+      e.stopPropagation();
+      self.sentimentModalView.$el.hide();
+      $('body').off('click');
+    });
   }
 });
