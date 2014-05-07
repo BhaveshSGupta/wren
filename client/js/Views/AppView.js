@@ -22,7 +22,7 @@ App.Views.AppView = Backbone.View.extend({
       tweetCollection:    this.tweetCollection
     });
     this.loadingSpinnerView = new App.Views.LoadingSpinnerView();
-    this.sentimentModalView     = new App.Views.SentimentModalView();
+    this.sentimentModalView = new App.Views.SentimentModalView({sentimentCollection: this.tweetCollection});
     this.errorView          = new App.Views.ErrorView();
 
     // Fetch Collection Data
@@ -113,7 +113,7 @@ App.Views.AppView = Backbone.View.extend({
   showSentimentModal: function(options) {
     var self = this;
 
-    this.$el.prepend(this.sentimentModalView.render().el);
+    this.$el.prepend(this.sentimentModalView.render({point: options}).el);
 
     $('body').on('click', function(e) {
       e.stopPropagation();

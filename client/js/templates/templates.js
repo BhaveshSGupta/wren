@@ -74,7 +74,25 @@ return __p
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<section class="modal"><ul><li>Sentiment<span class="sentiment-header">[ + / - ]</span></li></ul><section class="tweet_loading">... LOADING ...</section></section><section class="transparent_layer"></section>';
+__p += '<section class="modal"><section class="tweet_loading">... LOADING ...</section></section><section class="transparent_layer"></section>';
+
+}
+return __p
+},
+"sentimentModalListItem": function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<section class="sentiment"><span class="username"></span><span class="timestamp"></span><br/><span class="text"></span></section><aside class="sentimentValue"></aside>';
+
+}
+return __p
+},
+"sentimentModalListView": function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<li>Sentiment<span class="sentiment-header">[ + / - ]</span></li>';
 
 }
 return __p
