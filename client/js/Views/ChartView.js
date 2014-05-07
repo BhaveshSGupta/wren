@@ -10,9 +10,9 @@ App.Views.ChartView = Backbone.View.extend({
   el: $('section.chart'),
 
   initialize: function(options) {
-    var self = this;
-
     _(this).extend(options);
+
+    this.dataSeriesIndexes = {}; // keys are the collection name, values is index
 
     // Initalize SubViews
     this.infoModalView = new App.Views.InfoModalView();
@@ -28,7 +28,7 @@ App.Views.ChartView = Backbone.View.extend({
         var thisSeries = {
           name : exchange.get('site') + ' ' + exchange.get('currency') + ' Bidding Price',
           data : exchange.get('prices').data,
-          visible: exchange.get('visible'),
+          visible: exchange.get('isVisible'),
           color: self.chartColors[index % self.chartColors.length],
           type : 'areaspline',
           threshold : null,
@@ -45,6 +45,7 @@ App.Views.ChartView = Backbone.View.extend({
         };
 
         self.chartOptions.series.push(thisSeries);
+        self.dataSeriesIndexes[exchange.get('site')] = self.chartOptions.series.length - 1;
       });
 
       var tweetSeries = {
@@ -56,7 +57,7 @@ App.Views.ChartView = Backbone.View.extend({
         },
         cursor: 'pointer',
         type : 'spline',
-        visible: true,
+        visible: this.tweetCollection.isVisible,
         tooltip: {
           valuePrefix: null,
           valueSuffix: null
@@ -73,66 +74,23 @@ App.Views.ChartView = Backbone.View.extend({
         yAxis: 1
       };
       self.chartOptions.series.push(tweetSeries);
+      self.dataSeriesIndexes['Twitter'] = self.chartOptions.series.length - 1;
     }
 
     this.$el.highcharts('StockChart', this.chartOptions);
     this.trigger('showSideBar');
   },
 
-  showSentimentModal: function(point) {
-    // get grouping
-    var begin = Math.floor(point.x / 1000); // convert to unix timestamp
+  toggleSeriesVisibility: function(options) {
+    var chart = $('.chart').highcharts();
 
-    var interval = point.series.currentDataGrouping.unitRange / 100;
+    // locate the correct series
+    var seriesIndex = this.dataSeriesIndexes[options.name],
+        series = chart.series[seriesIndex],
+        isVisible = series.visible;
 
-    console.log('clickedTweet', point);
-
-    // // show popup div
-    // $('.popup, .transparent_layer').removeClass('hidden');
-
-    // // fadeIn() fadeOut() loop for LOADING
-    // $('.popup .tweet_loading').fadeIn(1000);
-
-    // // Add ability to click to close window
-    // $(document).click(function() {
-    //   $('.popup').addClass('hidden');
-    //   $('.transparent_layer').addClass('hidden');
-    //   // Remove tweets
-    //   $('.popup ul li.temp_tweet').remove();
-    // });
-
-    // // Send query to server for twitter data
-    // $.get(server_url + '/tweets', JSON.stringify({begin: begin, end: begin+interval}), function(data) {
-    //   data = JSON.parse(data);
-    //   var sentiment_total = 0;
-
-    //   // Remove loading symbol
-    //   $('.popup .tweet_loading').css({display: 'none'});
-
-    //   // Add data to popup
-    //   for(var key in data){
-    //     var thisPoint = {
-    //       timestamp: data[key].timestamp*1000,
-    //       username: data[key].username,
-    //       text: data[key].text,
-    //       sentiment: data[key].sentiment
-    //     };
-
-    //     sentiment_total += sentiment;
-    //     $('.popup ul').append('<li class="temp_tweet"> \
-    //                              <section class="tweet">' +
-    //                              '<span class="username">' +
-    //                                 username +
-    //                              '</span> \
-    //                               <span class="timestamp">' + ' ' + moment(timestamp).format('h:mm:ss A') + '</span><br /> \
-    //                               <span class="text">' + text + '</span>' +
-    //                             '</section> \
-    //                              <aside class="sentiment">' +
-    //                                sentiment +
-    //                             '</aside> \
-    //                           </li>');
-    //   }
-    // });
+    // console.log(seriesIndex, series, isVisible);
+    series.setVisible(!isVisible, true); // true indicates that chart *should* be redrawn by invoking this function
   },
 
   groupingUnits: [

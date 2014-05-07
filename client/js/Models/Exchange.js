@@ -7,14 +7,20 @@ App.Models.Exchange = Backbone.Model.extend({
   initialize: function(options) {
     _.extend(this, options);
 
-    this.on('change', this.setInitialVisible, this);
+    this.on('add', this.setInitialVisibility, this);
   },
 
-  setInitialVisible: function() {
+  setInitialVisibility: function() {
     if(this.get('site') === 'BTCChina') {
-      this.set('visible', true);
+      this.set('isVisible', true);
     } else {
-      this.set('visible', false);
+      this.set('isVisible', false);
     }
+  },
+
+  toggleVisiblity: function() {
+    var visibility = this.get('isVisible');
+
+    this.set('isVisible', !visibility);
   }
 });

@@ -10,6 +10,7 @@ App.Collections.Tweets = Backbone.Collection.extend({
   initialize: function() {
     this.on('sync', this.createHighStocksData, this);
     this.data = [];
+    this.isVisible = true;
   },
 
   createHighStocksData: function() {

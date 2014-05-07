@@ -9,7 +9,8 @@ App.Views.SideBarView = Backbone.View.extend({
 
   events: {
     'mouseenter': 'showFullSideBar',
-    'mouseleave': 'hideFullSideBar'
+    'mouseleave': 'hideFullSideBar',
+    'click input': 'toggleVisibility'
   },
 
   template: this.JST.sidebar,
@@ -17,7 +18,7 @@ App.Views.SideBarView = Backbone.View.extend({
   initialize: function(options) {
     _(this).extend(options);
 
-    this.exchangeCollectionView = new App.Views.ExchangeCollectionView({exchangeCollection: this.exchangeCollection});
+    this.exchangeCollectionView = new App.Views.ExchangeCollectionView({exchangeCollection: this.exchangeCollection, tweetCollection: this.tweetCollection});
   },
 
   render: function() {
@@ -25,7 +26,19 @@ App.Views.SideBarView = Backbone.View.extend({
     this.$el.find('section.sentiments section input').attr('checked', this.tweetCollection.get('visible'));
     this.$el.find('.exchangeData').append(this.exchangeCollectionView.render().el);
 
+    if(this.tweetCollection.isVisible === true) {
+      this.$el.find('input').attr('checked', true);
+    }
+
     return this;
+  },
+
+  toggleVisibility: function(e) {
+    e.stopPropagation();
+    var visibility = this.tweetCollection.isVisible;
+
+    this.tweetCollection.isVisible = !visibility;
+    this.trigger('rerenderChart', {name: 'Twitter'});
   },
 
   showFullSideBar: function(e) {

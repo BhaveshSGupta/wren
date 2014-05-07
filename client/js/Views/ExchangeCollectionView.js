@@ -24,11 +24,14 @@ App.Views.ExchangeCollectionView = Backbone.View.extend({
       var currency = exchange.get('currency');
 
       if(exchange.collection.length !== 0) {
+        var exchangeClassName;
         if(currency === 'BTC') {
-          self.$el.find('.btcExchanges').append(new App.Views.ExchangeCollectionItemView({model: exchange}).render().el);
+          exchangeClassName = 'btcExchanges';
         } else if(currency === 'LTC') {
-          self.$el.find('.ltcExchanges').append(new App.Views.ExchangeCollectionItemView({model: exchange}).render().el);
+          exchangeClassName = 'ltcExchanges';
         }
+
+        self.$el.find('.' + exchangeClassName).append(new App.Views.ExchangeCollectionItemView({model: exchange}).render().el);
       }
     });
 
