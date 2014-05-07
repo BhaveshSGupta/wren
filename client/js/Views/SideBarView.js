@@ -22,6 +22,7 @@ App.Views.SideBarView = Backbone.View.extend({
 
   render: function() {
     this.$el.html(this.template());
+    this.$el.find('section.sentiments section input').attr('checked', this.tweetCollection.get('visible'));
     this.$el.find('.exchangeData').append(this.exchangeCollectionView.render().el);
 
     return this;
@@ -42,7 +43,7 @@ App.Views.SideBarView = Backbone.View.extend({
       {right: '0%'},
       'fast');
     // Remove the LEFT ARROW < to be replaced by an X while the sidebar is showing
-    $('.toggleButton div.left-tri16pxSprite').fadeOut();
+    $('.toggleButton div.left-arrow-sprite').fadeOut();
     $('.button_text').fadeIn();
   },
 
@@ -61,6 +62,6 @@ App.Views.SideBarView = Backbone.View.extend({
     $(this.$el).css({'box-shadow': ''});
     // Fade out the X and fade in the LEFT ARROW <
     $('.button_text').fadeOut();
-    $('.toggleButton div.left-tri16pxSprite').fadeIn();
+    $('.toggleButton div.left-arrow-sprite').fadeIn();
   }
 });

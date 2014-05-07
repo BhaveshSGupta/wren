@@ -1,45 +1,46 @@
-.facebookSprite, .gmailSprite, .google-plusSprite, .twitterSprite, .hack_reactorSprite, .tumblBeastSprite, .left-tri16pxSprite{
-	background: url('../../img/sprites.png') no-repeat;
+.facebook-sprite, .gmail-sprite, .google-plus-sprite, .hackreactor-sprite, .left-arrow-sprite, .tumblBeast-sprite, .twitter-sprite{
+	background: url(../../img/sprites.png) no-repeat;
 }
 
-.facebookSprite{
-	background-position: 0 0;
-	width: 32px;
-	height: 32px;
+.facebook-sprite{
+	background-position: -47px 0;
+	width: 35px;
+	height: 35px;
 }
 
-.gmailSprite{
-	background-position: -40px 0;
-	width: 32px;
-	height: 32px;
+.gmail-sprite{
+	background-position: -92px 0;
+	width: 35px;
+	height: 35px;
 }
 
-.google-plusSprite{
-	background-position: 0 -40px ;
-	width: 32px;
-	height: 32px;
+.google-plus-sprite{
+	background-position: -139px 0;
+	width: 35px;
+	height: 35px;
 }
 
-.twitterSprite{
-	background-position: -40px -40px ;
-	width: 32px;
-	height: 32px;
+.hackreactor-sprite{
+	background-position: -209px 0;
+	width: 288px;
+	height: 80px;
 }
 
-.hack_reactorSprite{
-	background-position: 0 -80px ;
-	width: 100px;
-	height: 30px;
+.left-arrow-sprite{
+	background-position: -184px 0;
+	width: 16px;
+	height: 16px;
 }
 
-.tumblBeastSprite{
-	background-position: 0 -114px ;
+.tumblBeast-sprite{
+	background-position: 0 -94px ;
 	width: 600px;
 	height: 277px;
 }
 
-.left-tri16pxSprite{
-	background-position: -80px 0;
-	width: 16px;
-	height: 16px;
+.twitter-sprite{
+	background-position: 0 0;
+	width: 35px;
+	height: 35px;
 }
+

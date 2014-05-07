@@ -15,7 +15,7 @@ App.Views.AppView = Backbone.View.extend({
 
     // Initialize SubViews
     this.navBarView = new App.Views.HeaderView();
-    this.sideBarView = new App.Views.SideBarView({exchangeCollection: this.exchangeCollection});
+    this.sideBarView = new App.Views.SideBarView({exchangeCollection: this.exchangeCollection, tweetCollection: this.tweetCollection});
     this.footerView = new App.Views.FooterView();
     this.chartView = new App.Views.ChartView({
       exchangeCollection: this.exchangeCollection,

@@ -22,11 +22,14 @@ App.Views.ExchangeCollectionView = Backbone.View.extend({
 
     this.exchangeCollection.each(function(exchange) {
       var currency = exchange.get('currency');
+      console.log('length', exchange);
 
-      if(currency === 'BTC') {
-        self.$el.find('.btcExchanges').append(new App.Views.ExchangeCollectionItemView({model: exchange}).render().el);
-      } else if(currency === 'LTC') {
-        self.$el.find('.ltcExchanges').append(new App.Views.ExchangeCollectionItemView({model: exchange}).render().el);
+      if(exchange.collection.length !== 0) {
+        if(currency === 'BTC') {
+          self.$el.find('.btcExchanges').append(new App.Views.ExchangeCollectionItemView({model: exchange}).render().el);
+        } else if(currency === 'LTC') {
+          self.$el.find('.ltcExchanges').append(new App.Views.ExchangeCollectionItemView({model: exchange}).render().el);
+        }
       }
     });
 

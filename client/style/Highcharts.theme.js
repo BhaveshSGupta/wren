@@ -75,7 +75,7 @@ Highcharts.theme = {
       type: 'day'
     }],
     inputEnabled: false,
-    selected: 4
+    selected: 2
   },
   tooltip : {
     valueDecimals : 2,

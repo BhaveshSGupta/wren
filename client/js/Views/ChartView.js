@@ -28,9 +28,9 @@ App.Views.ChartView = Backbone.View.extend({
         var thisSeries = {
           name : exchange.get('site') + ' ' + exchange.get('currency') + ' Bidding Price',
           data : exchange.get('prices').data,
-          visible: true,
+          visible: exchange.get('visible'),
           color: self.chartColors[index % self.chartColors.length],
-          type : 'spline',
+          type : 'areaspline',
           threshold : null,
           fillColor : {
             linearGradient : {
