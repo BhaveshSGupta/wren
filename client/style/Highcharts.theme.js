@@ -69,11 +69,13 @@ Highcharts.theme = {
       count: 7,
       text: '7d',
       type: 'day'
-    }, {
+    }
+    /* Removed 30 day data since not enough time to optimize
+    , {
       count: 30,
       text: '30d',
       type: 'day'
-    }],
+    }*/],
     inputEnabled: false,
     selected: 2
   },
