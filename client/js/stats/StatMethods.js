@@ -16,6 +16,7 @@ var Stats = Stats || {};
           nums.shift(); // remove the first element of the array
         }
 
+        // sum all the elements in the time period
         var sum = _.reduce(nums, function(memo, num){ return memo + num; }, 0);
 
         if(nums.length < period){

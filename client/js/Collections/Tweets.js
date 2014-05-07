@@ -23,11 +23,13 @@ App.Collections = App.Collections || {};
       }
 
       // Smooth Twitter data with Simple Moving Average
-      var sma2 = Stats.simpleMovingAverage(432); // 2 days
+      // var sma2 = Stats.simpleMovingAverage(60 * 6 * 4); // 60 mins/hr * 6 hours
 
       this.each(function(tweet) {
-        var smoothedSentiment = sma2(tweet.get('sentiment'));
+        // Implement smoothing once tweets group in time intervals
 
+        // var smoothedSentiment = sma2(tweet.get('sentiment'));
+        var smoothedSentiment = tweet.get('sentiment');
         self.data.push([tweet.get('timestamp'), smoothedSentiment]);
       });
 
