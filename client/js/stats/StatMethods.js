@@ -1,24 +1,29 @@
-var Stats = {
-  simpleMovingAverage: function(period) {
-    var nums = [];
+var Stats = Stats || {};
 
-    return function(num) {
-      var sum = 0,
-          n   = period;
+(function() {
+  'use strict';
 
-      nums.push(num);
-      if(nums.length > period){
-        nums.shift(); // remove the first element of the array
-      }
+  Stats = {
+    simpleMovingAverage: function(period) {
+      var nums = [];
 
-      var sum = _.reduce(nums, function(memo, num){ return memo + num; }, 0);
+      return function(num) {
+        var sum = 0,
+            n   = period;
 
-      if(nums.length < period){
-        n = nums.length;
-      }
+        nums.push(num);
+        if(nums.length > period){
+          nums.shift(); // remove the first element of the array
+        }
 
-      return sum/n;
-    };
-  }
-};
+        var sum = _.reduce(nums, function(memo, num){ return memo + num; }, 0);
 
+        if(nums.length < period){
+          n = nums.length;
+        }
+
+        return sum/n;
+      };
+    }
+  };
+})();

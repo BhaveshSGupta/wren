@@ -13,7 +13,6 @@ var concat      = require('gulp-concat'),
     rev         = require('gulp-rev'),
     minifyHTML  = require('gulp-minify-html'),
     minifyCSS   = require('gulp-minify-css'),
-    imagemin    = require('gulp-imagemin'),
     usemin      = require('gulp-usemin'),
     mocha       = require('gulp-mocha'),
     clean       = require('gulp-clean');
@@ -79,14 +78,6 @@ gulp.task('usemin', function() {
     .pipe(gulp.dest('dist/'));
 });
 
-// Copy all static images
-gulp.task('images', function() {
-  return gulp.src(paths.images)
-    // Pass in options to the task
-    .pipe(imagemin({optimizationLevel: 5}))
-    .pipe(gulp.dest('dist/img'));
-});
-
 // Rerun the task when a file changes
 gulp.task('watch', function() {
   // gulp.watch(paths.scripts, ['lint']);
@@ -116,12 +107,17 @@ gulp.task('build-styles', function(callback) {
 });
 
 gulp.task('build-html', function(callback) {
-    runSequence(['usemin', 'images'], callback);
+    runSequence(['usemin', 'build-images'], callback);
 });
 
 gulp.task('build-extras', function(){
     gulp.src(['client/favicon.ico', 'client/*.txt'])
       .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('build-images', function(){
+    gulp.src(['client/img/*'])
+      .pipe(gulp.dest('dist/img'));
 });
 
 gulp.task('testServer', function () {

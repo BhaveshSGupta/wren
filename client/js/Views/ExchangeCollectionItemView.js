@@ -1,45 +1,47 @@
-'use strict';
-
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.ExchangeCollectionItemView = Backbone.View.extend({
-  tagName: 'section',
+(function() {
+  'use strict';
 
-  events: {
-    'click input[type="checkbox"]': 'toggleVisibility'
-  },
+  App.Views.ExchangeCollectionItemView = Backbone.View.extend({
+    tagName: 'section',
 
-  template: this.JST.exchangeCollectionItemView,
+    events: {
+      'click input[type="checkbox"]': 'toggleVisibility'
+    },
 
-  initialize: function(options) {
-    _(this).extend(options);
+    template: window.JST.exchangeCollectionItemView,
 
-    this.model.on('change', this.render, this);
-  },
+    initialize: function(options) {
+      _(this).extend(options);
 
-  render: function() {
-    var site      = this.model.get('site'),
-        url       = this.model.get('url'),
-        isVisible = this.model.get('isVisible');
+      this.model.on('change', this.render, this);
+    },
 
-    // This is a hack. Jade is not rendering client-side HTML with variables correctly.
-    this.$el.html(this.template());
-    this.$el.find('a').attr('href', url);
-    this.$el.find('span').html(site);
-    this.$el.find('input').attr('name', site + '_buy');
+    render: function() {
+      var site      = this.model.get('site'),
+          url       = this.model.get('url'),
+          isVisible = this.model.get('isVisible');
 
-    if(isVisible === true) {
-      this.$el.find('input').attr('checked', true);
+      // This is a hack. Jade is not rendering client-side HTML with variables correctly.
+      this.$el.html(this.template());
+      this.$el.find('a').attr('href', url);
+      this.$el.find('span').html(site);
+      this.$el.find('input').attr('name', site + '_buy');
+
+      if(isVisible === true) {
+        this.$el.find('input').attr('checked', true);
+      }
+
+      return this;
+    },
+
+    toggleVisibility: function(e) {
+      e.stopPropagation();
+
+      this.model.toggleVisibility();
+      this.trigger('rerenderChart', {name: this.model.get('site')});
     }
-
-    return this;
-  },
-
-  toggleVisibility: function(e) {
-    e.stopPropagation();
-
-    this.model.toggleVisibility();
-    this.trigger('rerenderChart', {name: this.model.get('site')});
-  }
-});
+  });
+})();

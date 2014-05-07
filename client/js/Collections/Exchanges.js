@@ -1,21 +1,23 @@
-'use strict';
-
 var App = App || {};
 App.Collections = App.Collections || {};
 
-App.Collections.Exchanges = Backbone.Collection.extend({
-  model: App.Models.Exchange,
-  url: '/exchanges/',
+(function() {
+  'use strict';
 
-  countVisible: function() {
-    var numVisible = 0;
+  App.Collections.Exchanges = Backbone.Collection.extend({
+    model: App.Models.Exchange,
+    url: '/exchanges/',
 
-    this.each(function(exchange) {
-      if(exchange.get('isVisible') === true) {
-        numVisible++;
-      }
-    });
+    countVisible: function() {
+      var numVisible = 0;
 
-    return numVisible;
-  }
-});
+      this.each(function(exchange) {
+        if(exchange.get('isVisible') === true) {
+          numVisible++;
+        }
+      });
+
+      return numVisible;
+    }
+  });
+})();

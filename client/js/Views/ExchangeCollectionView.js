@@ -1,49 +1,51 @@
-'use strict';
-
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.ExchangeCollectionView = Backbone.View.extend({
-  tagName: 'section',
-  className: 'exchanges',
+(function() {
+  'use strict';
 
-  template: this.JST.exchangeCollectionView,
+  App.Views.ExchangeCollectionView = Backbone.View.extend({
+    tagName: 'section',
+    className: 'exchanges',
 
-  initialize: function(options) {
-    _(this).extend(options);
+    template: window.JST.exchangeCollectionView,
 
-    this.exchangeListItemViews = [];
+    initialize: function(options) {
+      _(this).extend(options);
 
-    this.exchangeCollection.on('sync', this.render, this);
-  },
+      this.exchangeListItemViews = [];
 
-  render: function() {
-    var self = this;
+      this.exchangeCollection.on('sync', this.render, this);
+    },
 
-    this.$el.html(this.template());
+    render: function() {
+      var self = this;
 
-    this.exchangeCollection.each(function(exchange) {
-      var currency = exchange.get('currency');
+      this.$el.html(this.template());
 
-      if(exchange.collection.length !== 0) {
-        var exchangeClassName;
-        if(currency === 'BTC') {
-          exchangeClassName = 'btcExchanges';
-        } else if(currency === 'LTC') {
-          exchangeClassName = 'ltcExchanges';
+      this.exchangeCollection.each(function(exchange) {
+        var currency = exchange.get('currency');
+
+        if(exchange.collection.length !== 0) {
+          var exchangeClassName;
+          if(currency === 'BTC') {
+            exchangeClassName = 'btcExchanges';
+          } else if(currency === 'LTC') {
+            exchangeClassName = 'ltcExchanges';
+          }
+
+          var newExchange = new App.Views.ExchangeCollectionItemView({model: exchange});
+          self.exchangeListItemViews.push(newExchange);
+
+          newExchange.on('rerenderChart', function(options) {
+            this.trigger('rerenderChart', options);
+          }, self);
+
+          self.$el.find('.' + exchangeClassName).append(newExchange.render().el);
         }
+      });
 
-        var newExchange = new App.Views.ExchangeCollectionItemView({model: exchange});
-        self.exchangeListItemViews.push(newExchange);
-
-        newExchange.on('rerenderChart', function(options) {
-          this.trigger('rerenderChart', options);
-        }, self);
-
-        self.$el.find('.' + exchangeClassName).append(newExchange.render().el);
-      }
-    });
-
-    return this;
-  }
-});
+      return this;
+    }
+  });
+})();

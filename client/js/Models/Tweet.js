@@ -1,21 +1,23 @@
-'use strict';
-
 var App = App || {};
 App.Models = App.Models || {};
 
-App.Models.Tweet = Backbone.Model.extend({
-  initialize: function(options) {
-    _.extend(this, options);
+(function() {
+  'use strict';
 
-    this.set('timestamp', this.get('timestamp') * 1000); // convert to ms for HighStocks
-  },
+  App.Models.Tweet = Backbone.Model.extend({
+    initialize: function(options) {
+      _.extend(this, options);
 
-  defaults: {
-    id: null,
-    username: null,
-    text: null,
-    sentiment: null,
-    /*jshint camelcase: false */
-    tweet_id: null
-  }
-});
+      this.set('timestamp', this.get('timestamp') * 1000); // convert to ms for HighStocks
+    },
+
+    defaults: {
+      id: null,
+      username: null,
+      text: null,
+      sentiment: null,
+      /*jshint camelcase: false */
+      tweet_id: null
+    }
+  });
+})();

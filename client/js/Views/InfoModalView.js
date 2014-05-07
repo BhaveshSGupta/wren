@@ -1,20 +1,22 @@
-'use strict';
-
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.InfoModalView = Backbone.View.extend({
-  tagName: 'aside',
-  className: 'hoverModal hidden',
+(function() {
+  'use strict';
 
-  template: this.JST.hoverModal,
+  App.Views.InfoModalView = Backbone.View.extend({
+    tagName: 'aside',
+    className: 'hoverModal hidden',
 
-  initialize: function(options) {
-  },
+    template: window.JST.hoverModal,
 
-  render: function() {
-    this.$el.html(this.template());
+    initialize: function(options) {
+    },
 
-    return this;
-  }
-});
+    render: function() {
+      this.$el.html(this.template());
+
+      return this;
+    }
+  });
+})();

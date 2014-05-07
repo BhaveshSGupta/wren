@@ -1,22 +1,24 @@
-'use strict';
-
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.HeaderView = Backbone.View.extend({
-  tagName: 'header',
-  className: 'topbar',
+(function() {
+  'use strict';
 
-  template: this.JST.header,
+  App.Views.HeaderView = Backbone.View.extend({
+    tagName: 'header',
+    className: 'topbar',
 
-  initialize: function(options) {
-    this.buyTickerView = new App.Views.BuyTickerView();
-  },
+    template: window.JST.header,
 
-  render: function() {
-    this.$el.html(this.template());
-    this.$el.append(this.buyTickerView.render().el);
+    initialize: function(options) {
+      this.buyTickerView = new App.Views.BuyTickerView();
+    },
 
-    return this;
-  }
-});
+    render: function() {
+      this.$el.html(this.template());
+      this.$el.append(this.buyTickerView.render().el);
+
+      return this;
+    }
+  });
+})();

@@ -1,26 +1,28 @@
-'use strict';
-
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.SentimentModalView = Backbone.View.extend({
+(function() {
+  'use strict';
 
-  template: this.JST.sentimentFeed,
+  App.Views.SentimentModalView = Backbone.View.extend({
 
-  initialize: function(options) {
-    _(this).extend(options);
-    this.sentimentCollection = this.sentimentCollection || {};
+    template: window.JST.sentimentFeed,
 
-    this.sentimentModalListView = new App.Views.SentimentModalListView({sentimentCollection: this.sentimentCollection});
-  },
+    initialize: function(options) {
+      _(this).extend(options);
+      this.sentimentCollection = this.sentimentCollection || {};
 
-  render: function(options) {
-    var pointClicked = options.point || {};
+      this.sentimentModalListView = new App.Views.SentimentModalListView({sentimentCollection: this.sentimentCollection});
+    },
 
-    this.$el.html(this.template());
-    this.$el.find('.modal').append(this.sentimentModalListView.render({point: pointClicked}).el);
-    this.$el.show();
+    render: function(options) {
+      var pointClicked = options.point || {};
 
-    return this;
-  }
-});
+      this.$el.html(this.template());
+      this.$el.find('.modal').append(this.sentimentModalListView.render({point: pointClicked}).el);
+      this.$el.show();
+
+      return this;
+    }
+  });
+})();

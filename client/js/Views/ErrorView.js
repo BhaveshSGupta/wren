@@ -1,22 +1,24 @@
-'use strict';
-
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.ErrorView = Backbone.View.extend({
+(function() {
+  'use strict';
 
-  template: this.JST.fetchError,
+  App.Views.ErrorView = Backbone.View.extend({
 
-  initialize: function(options) {
-  },
+    template: window.JST.fetchError,
 
-  render: function(options) {
-    if(options.error) {
-      console.log(options.error);
+    initialize: function(options) {
+    },
+
+    render: function(options) {
+      if(options.error) {
+        console.log(options.error);
+      }
+
+      this.$el.html(this.template());
+
+      return this;
     }
-
-    this.$el.html(this.template());
-
-    return this;
-  }
-});
+  });
+})();

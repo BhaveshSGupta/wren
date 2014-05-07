@@ -1,21 +1,23 @@
-'use strict';
-
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.FooterView = Backbone.View.extend({
-  tagName: 'footer',
+(function() {
+  'use strict';
 
-  className: 'pageFooter',
+  App.Views.FooterView = Backbone.View.extend({
+    tagName: 'footer',
 
-  template: this.JST.footer,
+    className: 'pageFooter',
 
-  initialize: function(options) {
-  },
+    template: window.JST.footer,
 
-  render: function() {
-    this.$el.html(this.template());
+    initialize: function(options) {
+    },
 
-    return this;
-  }
-});
+    render: function() {
+      this.$el.html(this.template());
+
+      return this;
+    }
+  });
+})();

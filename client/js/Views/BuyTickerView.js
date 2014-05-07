@@ -1,35 +1,37 @@
-'use strict';
-
 var App = App || {};
 App.Views = App.Views || {};
 
-App.Views.BuyTickerView = Backbone.View.extend({
-  tagName: 'aside',
-  className: 'live_data hidden',
+(function() {
+  'use strict';
 
-  template: this.JST.buyTicker,
+  App.Views.BuyTickerView = Backbone.View.extend({
+    tagName: 'aside',
+    className: 'live_data hidden',
 
-  initialize: function(options) {
-    var self = this;
+    template: window.JST.buyTicker,
 
-    this.model = new App.Models.ExchangePrice({url: '/buy-ticker'});
-    this.model.fetch();
+    initialize: function(options) {
+      var self = this;
 
-    // Refresh ticker every minute
-    setInterval(function() {
-      self.model.fetch();
-    }, 60000);
+      this.model = new App.Models.ExchangePrice({url: '/buy-ticker'});
+      this.model.fetch();
 
-    this.model.on('change', this.render, this);
-  },
+      // Refresh ticker every minute
+      setInterval(function() {
+        self.model.fetch();
+      }, 60000);
 
-  render: function() {
-    this.$el.html(this.template({model: this.model.toJSON()}));
+      this.model.on('change', this.render, this);
+    },
 
-    // This is a hack. gulp-jade is not rendering client-side HTML partials correctly.
-    $('aside.live_data_value').html('$' + parseFloat(this.model.get('value')).toFixed(2));
-    $('.live_data').show();
+    render: function() {
+      this.$el.html(this.template({model: this.model.toJSON()}));
 
-    return this;
-  }
-});
+      // This is a hack. gulp-jade is not rendering client-side HTML partials correctly.
+      $('aside.live_data_value').html('$' + parseFloat(this.model.get('value')).toFixed(2));
+      $('.live_data').show();
+
+      return this;
+    }
+  });
+})();
