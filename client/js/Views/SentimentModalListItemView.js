@@ -19,7 +19,7 @@ App.Views = App.Views || {};
 
       // This is a hack because gulp-jade currently not compiling into client-side HTML correctly
       this.$el.find('.username').html(this.model.get('username'));
-      this.$el.find('.timestamp').html(moment(this.model.get('timestamp')).format('h:mm:ss A'));
+      this.$el.find('.timestamp').html(moment(this.model.get('timestamp')).format('MMM Do @ h:mm:ss A'));
       this.$el.find('.text').html(this.model.get('text'));
       this.$el.find('.sentimentValue').html(this.model.get('sentiment'));
       return this;

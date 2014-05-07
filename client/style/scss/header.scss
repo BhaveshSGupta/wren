@@ -22,7 +22,6 @@ header {
     float: right;
     height: 100%;
     letter-spacing: 0;
-    margin-top: 0.25%;
     width: 230px;
 
     .live_data_value {
@@ -39,8 +38,10 @@ header {
       font-size: 0.5em;
       font-weight: normal;
       height: 100%;
-      margin-left: 0.5%;
+      margin-left: 3px;
       width: 60px;
+      top: 3px;
+      position: relative;
 
       .currency {
         float: left;

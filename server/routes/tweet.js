@@ -14,6 +14,7 @@ exports.getAll = function(req, res) {
   } else {
     db.Tweet.findAll({
         where: ['timestamp > ?', Math.floor((Date.now() - 1000 * 60 * 60 * 24 * 7)/1000)] // within one week
+        // group: 'round(timestamp / 900)' // 60 seconds * 15 mins = 900 seconds
       })
       .success(function(tweets) {
         cachedTweetData = tweets;

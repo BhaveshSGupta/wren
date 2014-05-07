@@ -111,7 +111,7 @@ gulp.task('build-html', function(callback) {
 });
 
 gulp.task('build-extras', function(){
-    gulp.src(['client/favicon.ico', 'client/*.txt'])
+    gulp.src(['client/favicon.ico', 'client/*.txt', 'client/.htaccess'])
       .pipe(gulp.dest('dist/'));
 });
 
