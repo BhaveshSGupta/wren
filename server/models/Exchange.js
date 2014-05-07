@@ -1,7 +1,5 @@
 'use strict';
 
-// var ExchangePrice = require('./ExchangePrice');
-
 module.exports = function(sequelize, DataTypes) {
   var Exchange = sequelize.define('Exchange', {
     id:        { type: DataTypes.BIGINT(11).UNSIGNED, primaryKey: true, autoIncrement: true },
@@ -11,8 +9,6 @@ module.exports = function(sequelize, DataTypes) {
   },{
     timestamps: false
   });
-
-  // Exchange.hasMany(ExchangePrice, {as: 'ExchangePrices'});
 
   return Exchange;
 };
