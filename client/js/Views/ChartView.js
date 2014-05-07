@@ -22,27 +22,36 @@ App.Views.ChartView = Backbone.View.extend({
     var self = this;
     console.log('Rendering the Chart View...');
 
+    var numVisible = this.exchangeCollection.countVisible();
+
     if(this.chartOptions.series.length === 0) {
       this.exchangeCollection.each(function(exchange, index) {
+
+        var chartColor = self.chartColors[index % self.chartColors.length];
 
         var thisSeries = {
           name : exchange.get('site') + ' ' + exchange.get('currency') + ' Bidding Price',
           data : exchange.get('prices').data,
           visible: exchange.get('isVisible'),
-          color: self.chartColors[index % self.chartColors.length],
-          type : 'areaspline',
+          color: chartColor,
+          type : 'spline',
           threshold : null,
-          fillColor : {
+          yAxis: 0
+        };
+
+        // Only set color gradient for BTCChina
+        if(exchange.get('site') === 'BTCChina') {
+          thisSeries.fillColor = {
             linearGradient : {
               x1: 0,
               y1: 0,
               x2: 0,
               y2: 1
             },
-            stops : [[0, '#e67e22'], [1, 'rgba(0,0,0,0)']]
-          },
-          yAxis: 0
-        };
+            stops : [[0, chartColor], [1, 'rgba(0,0,0,0)']]
+          };
+          thisSeries.type = 'areaspline';
+        }
 
         self.chartOptions.series.push(thisSeries);
         self.dataSeriesIndexes[exchange.get('site')] = self.chartOptions.series.length - 1;
