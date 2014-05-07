@@ -7,7 +7,7 @@ App.Views.ExchangeCollectionItemView = Backbone.View.extend({
   tagName: 'section',
 
   events: {
-    'click input[type="checkbox"]': 'toggleVisiblity'
+    'click input[type="checkbox"]': 'toggleVisibility'
   },
 
   template: this.JST.exchangeCollectionItemView,
@@ -36,10 +36,10 @@ App.Views.ExchangeCollectionItemView = Backbone.View.extend({
     return this;
   },
 
-  toggleVisiblity: function(e) {
+  toggleVisibility: function(e) {
     e.stopPropagation();
 
-    this.model.toggleVisiblity();
-    this.trigger('rerenderChart');
+    this.model.toggleVisibility();
+    this.trigger('rerenderChart', {name: this.model.get('site')});
   }
 });

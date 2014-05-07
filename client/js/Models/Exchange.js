@@ -18,7 +18,7 @@ App.Models.Exchange = Backbone.Model.extend({
     }
   },
 
-  toggleVisiblity: function() {
+  toggleVisibility: function() {
     var visibility = this.get('isVisible');
 
     this.set('isVisible', !visibility);

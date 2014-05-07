@@ -19,6 +19,10 @@ App.Views.SideBarView = Backbone.View.extend({
     _(this).extend(options);
 
     this.exchangeCollectionView = new App.Views.ExchangeCollectionView({exchangeCollection: this.exchangeCollection, tweetCollection: this.tweetCollection});
+
+    this.exchangeCollectionView.on('rerenderChart', function(options) {
+      this.trigger('rerenderChart', options);
+    }, this);
   },
 
   render: function() {

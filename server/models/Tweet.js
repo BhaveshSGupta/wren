@@ -5,8 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     id:        { type: DataTypes.BIGINT(11).UNSIGNED, primaryKey: true, autoIncrement: true },
     username:  DataTypes.STRING(45),
     text:      DataTypes.STRING(255),
-    timestamp: DataTypes.BIGINT(11).UNSIGNED,
-    hastag:    DataTypes.STRING,
+    timestamp: DataTypes.BIGINT(10).UNSIGNED,
     sentiment: DataTypes.INTEGER,
     /*jshint camelcase: false */
     tweet_id:  DataTypes.BIGINT(11).UNSIGNED

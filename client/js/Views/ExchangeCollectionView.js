@@ -12,6 +12,8 @@ App.Views.ExchangeCollectionView = Backbone.View.extend({
   initialize: function(options) {
     _(this).extend(options);
 
+    this.exchangeListItemViews = [];
+
     this.exchangeCollection.on('sync', this.render, this);
   },
 
@@ -31,7 +33,14 @@ App.Views.ExchangeCollectionView = Backbone.View.extend({
           exchangeClassName = 'ltcExchanges';
         }
 
-        self.$el.find('.' + exchangeClassName).append(new App.Views.ExchangeCollectionItemView({model: exchange}).render().el);
+        var newExchange = new App.Views.ExchangeCollectionItemView({model: exchange});
+        self.exchangeListItemViews.push(newExchange);
+
+        newExchange.on('rerenderChart', function(options) {
+          this.trigger('rerenderChart', options);
+        }, self);
+
+        self.$el.find('.' + exchangeClassName).append(newExchange.render().el);
       }
     });
 

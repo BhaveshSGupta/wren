@@ -89,7 +89,6 @@ App.Views.ChartView = Backbone.View.extend({
         series = chart.series[seriesIndex],
         isVisible = series.visible;
 
-    // console.log(seriesIndex, series, isVisible);
     series.setVisible(!isVisible, true); // true indicates that chart *should* be redrawn by invoking this function
   },
 
