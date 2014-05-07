@@ -99,6 +99,44 @@ App.Views.ChartView = Backbone.View.extend({
         isVisible = series.visible;
 
     series.setVisible(!isVisible, true); // true indicates that chart *should* be redrawn by invoking this function
+    this.setChartTitle();
+  },
+
+  setChartTitle: function() {
+    var self = this,
+        chart = $('.chart').highcharts(),
+        visibleExchangesArray = [],
+        title = '',
+        subTitle = '';
+
+    this.exchangeCollection.each(function(exchange) {
+      if(exchange.get('isVisible') === true) {
+        // locate the correct series
+        var seriesIndex = self.dataSeriesIndexes[exchange.get('site')],
+            series = chart.series[seriesIndex],
+            seriesColor = series.color;
+
+        var html = '<span style="color:' + seriesColor +'">' + exchange.get('site') + ' (' + exchange.get('currency') + ')</span>';
+
+        visibleExchangesArray.push(html);
+      }
+    });
+
+    if(this.tweetCollection.isVisible === true) {
+      subTitle = '<span style="color: #2980b9;">Twitter Sentiment(BTC)</span>';
+    }
+
+    if(visibleExchangesArray.length) {
+      title = visibleExchangesArray.join(', ') + ' Buy Price';
+      if(subTitle.length){
+        subTitle = '<span style="text-transform: lowercase">vs</span> ' + subTitle;
+      }
+    } else if(subTitle.length){
+      title = subTitle;
+      subTitle = '';
+    }
+
+    $('.chart').highcharts().setTitle({text: title}, {text: subTitle});
   },
 
   groupingUnits: [
